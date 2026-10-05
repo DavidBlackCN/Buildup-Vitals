@@ -1,0 +1,1 @@
+- 🎉 chore(bootstrap): 建立 Minecraft 26.3 / Fabric 可构建基线，清理示例残留并验证客户端世界与独立服务端启动，保持原版玩法不变。

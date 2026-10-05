@@ -8,6 +8,7 @@
     "David_Black_ / 这不是黑姐姐"
   ],
   "license": "MIT",
+  "icon": "assets/buildup_vitals/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
