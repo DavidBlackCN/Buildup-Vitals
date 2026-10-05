@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "selector": { "item": "minecraft:cooked_beef" },
+  "quality": "basic",
+  "diet": { "categories": ["protein"] }
+}

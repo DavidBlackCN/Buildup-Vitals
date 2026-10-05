@@ -5,7 +5,7 @@
   "name": "Buildup Vitals Mechanism Tests",
   "environment": "*",
   "entrypoints": {
-    "fabric-gametest": ["com.davidblackcn.buildupvitals.RecoveryGameTests", "com.davidblackcn.buildupvitals.MealBenefitGameTests"],
+    "fabric-gametest": ["com.davidblackcn.buildupvitals.RecoveryGameTests", "com.davidblackcn.buildupvitals.MealBenefitGameTests", "com.davidblackcn.buildupvitals.DietGameTests"],
     "fabric-client-gametest": ["com.davidblackcn.buildupvitals.RecoveryClientGameTest"]
   }
 }

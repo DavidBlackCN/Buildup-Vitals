@@ -1,6 +1,7 @@
 package com.davidblackcn.buildupvitals.food.benefit;
 
 import com.davidblackcn.buildupvitals.food.profile.FoodQuality;
+import com.davidblackcn.buildupvitals.diet.VarietyBalance;
 import java.util.Optional;
 import net.minecraft.resources.Identifier;
 
@@ -16,10 +17,17 @@ public record MealBenefitState(Optional<Identifier> type, int remainingTicks) {
     }
 
     public MealBenefitState grant(Optional<Identifier> incoming, FoodQuality quality) {
+        return grant(incoming, quality, 1);
+    }
+
+    public MealBenefitState grant(Optional<Identifier> incoming, FoodQuality quality, double durationMultiplier) {
+        if (!Double.isFinite(durationMultiplier) || durationMultiplier < 1 || durationMultiplier > 1 + VarietyBalance.MAX_BENEFIT_BONUS) {
+            throw new IllegalArgumentException("Invalid benefit duration multiplier");
+        }
         if (incoming.isEmpty() || !MealBenefitRegistry.available(incoming.get())) {
             return this;
         }
-        int duration = MealBenefitBalance.duration(quality);
+        int duration = Math.min(MealBenefitBalance.MAX_DURATION, (int) Math.floor(MealBenefitBalance.duration(quality) * durationMultiplier));
         return new MealBenefitState(incoming, incoming.equals(type) ? Math.max(remainingTicks, duration) : duration);
     }
 

@@ -1,6 +1,7 @@
 package com.davidblackcn.buildupvitals;
 
 import com.davidblackcn.buildupvitals.food.benefit.MealBenefitState;
+import com.davidblackcn.buildupvitals.diet.PlayerDiet;
 import com.davidblackcn.buildupvitals.food.benefit.MealBenefitType;
 import com.davidblackcn.buildupvitals.food.benefit.PlayerMealBenefits;
 import com.davidblackcn.buildupvitals.food.recovery.PlayerRecovery;
@@ -28,7 +29,8 @@ public class MealBenefitGameTests {
         grant(player, MealBenefitType.RESTORATIVE, 200);
         new ItemStack(Items.CARROT).finishUsingItem(helper.getLevel(), player);
         new ItemStack(Items.BEETROOT).finishUsingItem(helper.getLevel(), player);
-        helper.assertTrue(PlayerRecovery.state(player).reserve() == 3, "Unavailable benefits do not discard recovery fields");
+        helper.assertTrue(Math.abs(PlayerRecovery.state(player).reserve() - (2 + PlayerDiet.state(player).variety().foodMultiplier())) < 1e-10,
+                "Unavailable benefits do not discard recovery fields or variety bonus");
         helper.assertTrue(player.getFoodData().getFoodLevel() == 14, "Unavailable benefits do not break eating");
         helper.assertTrue(PlayerMealBenefits.state(player).is(MealBenefitType.RESTORATIVE)
                 && PlayerMealBenefits.state(player).remainingTicks() == 200, "Unknown and experimental IDs do not replace or refresh active benefit");
@@ -60,7 +62,8 @@ public class MealBenefitGameTests {
         helper.assertTrue(PlayerMealBenefits.state(player).remainingTicks() == 2400, "Same type refreshes, never adds");
         new ItemStack(Items.PUMPKIN_PIE).finishUsingItem(helper.getLevel(), player);
         helper.assertTrue(PlayerMealBenefits.state(player).is(MealBenefitType.INVIGORATED)
-                && PlayerMealBenefits.state(player).remainingTicks() == 1200, "Prepared benefit replaces the main slot");
+                && PlayerMealBenefits.state(player).remainingTicks() == (int) Math.floor(1200 * PlayerDiet.state(player).variety().benefitMultiplier()),
+                "Prepared benefit replaces the main slot including the variety duration bonus");
         new ItemStack(Items.APPLE).finishUsingItem(helper.getLevel(), player);
         helper.assertTrue(PlayerMealBenefits.state(player).is(MealBenefitType.INVIGORATED), "Basic apple does not remove benefits");
         helper.assertTrue(player.getActiveEffects().isEmpty(), "Buildup does not create vanilla potion effects");

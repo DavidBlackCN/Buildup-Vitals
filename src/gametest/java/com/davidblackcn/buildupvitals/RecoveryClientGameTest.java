@@ -8,6 +8,8 @@ import com.davidblackcn.buildupvitals.food.benefit.MealBenefitState;
 import com.davidblackcn.buildupvitals.food.benefit.MealBenefitType;
 import com.davidblackcn.buildupvitals.food.benefit.PlayerMealBenefits;
 import com.davidblackcn.buildupvitals.player.MealBenefitAttachments;
+import com.davidblackcn.buildupvitals.diet.DietMemory;
+import com.davidblackcn.buildupvitals.diet.PlayerDiet;
 import java.util.Optional;
 import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
 import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
@@ -43,7 +45,7 @@ public class RecoveryClientGameTest implements FabricClientGameTest {
                 assertPersistence(dedicated, reconnected);
             }
         }
-        BuildupVitals.LOGGER.info("Stage 3 connected-player tests passed: recovery + benefits, integrated + dedicated, dimensions, death, save/reopen, reconnect");
+        BuildupVitals.LOGGER.info("Stage 4 connected-player tests passed: recovery + benefits + diet, integrated + dedicated, dimensions, death, save/reopen, reconnect");
     }
 
     private static void exercise(ClientGameTestContext context, TestServerContext server, TestServerConnection connection) {
@@ -59,6 +61,7 @@ public class RecoveryClientGameTest implements FabricClientGameTest {
             new ItemStack(Items.MUSHROOM_STEW).finishUsingItem(player.level(), player);
             check(player.getHealth() == 10 && PlayerRecovery.state(player).reserve() == 3, "Food must be delayed");
             check(PlayerMealBenefits.state(player).is(MealBenefitType.RESTORATIVE), "Connected food grants benefit");
+            check(PlayerDiet.state(player).entries().size() == 1, "Connected food records exactly one meal");
         });
         server.waitFor(instance -> PlayerRecovery.state(connection.getServerPlayer()).progress() >= 20);
         server.runOnServer(instance -> {
@@ -109,19 +112,23 @@ public class RecoveryClientGameTest implements FabricClientGameTest {
         context.waitFor(client -> client.player != null && client.player.isDeadOrDying());
         server.runOnServer(instance -> check(PlayerRecovery.state(connection.getServerPlayer()).reserve() == 0, "Death clears reserve immediately"));
         server.runOnServer(instance -> check(PlayerMealBenefits.state(connection.getServerPlayer()).equals(MealBenefitState.EMPTY), "Death clears benefit immediately"));
+        server.runOnServer(instance -> check(PlayerDiet.state(connection.getServerPlayer()).equals(DietMemory.EMPTY), "Death clears diet immediately"));
         context.runOnClient(client -> client.player.respawn());
         server.waitFor(instance -> connection.getServerPlayer().isAlive());
         server.runOnServer(instance -> check(PlayerRecovery.state(connection.getServerPlayer()).reserve() == 0, "Respawn does not copy reserve"));
         server.runOnServer(instance -> check(PlayerMealBenefits.state(connection.getServerPlayer()).equals(MealBenefitState.EMPTY), "Respawn does not copy benefit"));
+        server.runOnServer(instance -> check(PlayerDiet.state(connection.getServerPlayer()).equals(DietMemory.EMPTY), "Respawn does not copy diet"));
         server.runOnServer(instance -> {
             try {
                 check(instance.getCommands().getDispatcher().execute("buildupvitals recovery @a[limit=1]",
                         instance.createCommandSourceStack()) == 1, "Recovery query succeeds");
+                check(instance.getCommands().getDispatcher().execute("buildupvitals diet @a[limit=1]",
+                        instance.createCommandSourceStack()) == 1, "Diet query succeeds");
             } catch (CommandSyntaxException exception) {
                 throw new AssertionError("Recovery query failed", exception);
             }
         });
-        BuildupVitals.LOGGER.info("Stage 3 connected recovery and benefit scenario passed");
+        BuildupVitals.LOGGER.info("Stage 4 connected recovery, benefit and diet scenario passed");
     }
 
     private static void preparePersistence(TestServerContext server, TestServerConnection connection) {
@@ -130,6 +137,7 @@ public class RecoveryClientGameTest implements FabricClientGameTest {
             player.setHealth(player.getMaxHealth());
             player.setPermanentlyInvulnerable(true);
             player.setNoGravity(true);
+            DietGameTests.mixedMeals(player);
             player.setAttached(RecoveryAttachments.RECOVERY, new RecoveryState(2.5, 0, RecoveryState.Mode.NONE));
             player.setAttached(MealBenefitAttachments.MEAL_BENEFIT, new MealBenefitState(Optional.of(MealBenefitType.INVIGORATED.id()), 3600));
         });
@@ -142,6 +150,15 @@ public class RecoveryClientGameTest implements FabricClientGameTest {
             var benefit = PlayerMealBenefits.state(connection.getServerPlayer());
             check(benefit.is(MealBenefitType.INVIGORATED) && benefit.remainingTicks() > 0 && benefit.remainingTicks() <= 3600,
                     "Benefit must survive save, reconnect and dimension transfer");
+            var memory = PlayerDiet.state(connection.getServerPlayer());
+            check(memory.entries().size() == 10 && memory.variety().foodMultiplier() > 1,
+                    "Diet history and derived bonus must survive save, reconnect and dimension transfer");
+            try {
+                check(instance.getCommands().getDispatcher().execute("buildupvitals diet @a[limit=1]",
+                        instance.createCommandSourceStack()) == 1, "Populated diet history query succeeds");
+            } catch (CommandSyntaxException exception) {
+                throw new AssertionError("Diet history query failed", exception);
+            }
         });
     }
 

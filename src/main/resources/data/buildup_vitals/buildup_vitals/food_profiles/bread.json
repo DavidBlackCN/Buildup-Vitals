@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "selector": { "item": "minecraft:bread" },
+  "quality": "basic",
+  "diet": { "categories": ["grain"] }
+}

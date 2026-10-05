@@ -29,8 +29,15 @@ public final class RecoveryController {
     }
 
     public static Step tick(RecoveryState state, Conditions conditions, int foodInterval) {
+        return tick(state, conditions, foodInterval, RecoveryBalance.WELL_FED_TICKS);
+    }
+
+    public static Step tick(RecoveryState state, Conditions conditions, int foodInterval, int wellFedInterval) {
         if (foodInterval < 1 || foodInterval > RecoveryBalance.FOOD_TICKS) {
             throw new IllegalArgumentException("Food interval outside the saved progress range");
+        }
+        if (wellFedInterval < 1 || wellFedInterval > RecoveryBalance.WELL_FED_TICKS) {
+            throw new IllegalArgumentException("Well-fed interval outside the saved progress range");
         }
         if (!conditions.alive()) {
             return new Step(RecoveryState.EMPTY, 0);
@@ -44,7 +51,11 @@ public final class RecoveryController {
             return new Step(state.idle(), 0);
         }
         int progress = (mode == state.mode() ? state.progress() : 0) + 1;
-        int interval = mode == Mode.FOOD ? foodInterval : mode.interval();
+        int interval = switch (mode) {
+            case FOOD -> foodInterval;
+            case WELL_FED -> wellFedInterval;
+            default -> mode.interval();
+        };
         if (progress < interval) {
             return new Step(new RecoveryState(state.reserve(), progress, mode), 0);
         }

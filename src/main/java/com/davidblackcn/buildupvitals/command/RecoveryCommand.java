@@ -1,8 +1,8 @@
 package com.davidblackcn.buildupvitals.command;
 
 import com.davidblackcn.buildupvitals.food.recovery.PlayerRecovery;
-import com.davidblackcn.buildupvitals.food.recovery.RecoveryState;
 import com.davidblackcn.buildupvitals.food.benefit.PlayerMealBenefits;
+import com.davidblackcn.buildupvitals.diet.PlayerDiet;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -26,7 +26,11 @@ public final class RecoveryCommand {
     private static int show(CommandSourceStack source, ServerPlayer player) {
         var state = PlayerRecovery.state(player);
         var benefit = PlayerMealBenefits.state(player);
-        int interval = state.mode() == RecoveryState.Mode.FOOD ? PlayerMealBenefits.foodInterval(player) : state.mode().interval();
+        int interval = switch (state.mode()) {
+            case FOOD -> PlayerMealBenefits.foodInterval(player);
+            case WELL_FED -> PlayerDiet.state(player).variety().wellFedInterval();
+            default -> state.mode().interval();
+        };
         source.sendSuccess(() -> Component.literal("Recovery: " + player.getScoreboardName()
                 + ", reserve=" + state.reserve() + " HP, mode=" + state.mode()
                 + ", progress=" + state.progress() + "/" + interval

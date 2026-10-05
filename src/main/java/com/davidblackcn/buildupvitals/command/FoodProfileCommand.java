@@ -45,7 +45,7 @@ public final class FoodProfileCommand {
                 + ", overrides.hunger=" + (profile.overrides().hunger().isPresent() ? profile.overrides().hunger().getAsInt() : "<vanilla>")
                 + ", overrides.saturation=" + (profile.overrides().saturation().isPresent() ? profile.overrides().saturation().getAsDouble() : "<vanilla>")
                 + "\nsnapshot=" + snapshot.profileCount() + " profiles / " + snapshot.itemCount()
-                + " indexed items; recovery.health supplies reserve; quality sets explicit benefit duration";
+                + " indexed items; recovery.health supplies base reserve; quality/categories/group contribute to diet memory";
         source.sendSuccess(() -> Component.literal(text), false);
         return 1;
     }

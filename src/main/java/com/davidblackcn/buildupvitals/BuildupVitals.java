@@ -5,6 +5,8 @@ import com.davidblackcn.buildupvitals.command.RecoveryCommand;
 import com.davidblackcn.buildupvitals.data.loader.FoodProfileLoader;
 import com.davidblackcn.buildupvitals.food.recovery.PlayerRecovery;
 import com.davidblackcn.buildupvitals.food.benefit.PlayerMealBenefits;
+import com.davidblackcn.buildupvitals.diet.PlayerDiet;
+import com.davidblackcn.buildupvitals.command.DietCommand;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +21,9 @@ public final class BuildupVitals implements ModInitializer {
         FoodProfileCommand.register();
         PlayerRecovery.register();
         PlayerMealBenefits.register();
+        PlayerDiet.register();
+        DietCommand.register();
         RecoveryCommand.register();
-        LOGGER.info("Buildup Vitals recovery and meal benefits initialized.");
+        LOGGER.info("Buildup Vitals recovery, meal benefits and diet memory initialized.");
     }
 }

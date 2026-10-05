@@ -6,7 +6,7 @@ import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import net.minecraft.resources.Identifier;
 
-/** Food metadata. Recovery, quality and explicit meal benefits have gameplay meaning since Stage 3. */
+/** Food metadata. Stage 4 also snapshots quality, categories and variety group into diet memory. */
 public record FoodProfile(
         FoodQuality quality,
         double recoveryHealth,

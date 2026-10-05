@@ -21,7 +21,11 @@ public final class PlayerMealBenefits {
     }
 
     public static void foodConsumed(ServerPlayer player, FoodProfile profile) {
-        if (activePlayer(player)) store(player, state(player).grant(profile.mealBenefit(), profile.quality()));
+        foodConsumed(player, profile, 1);
+    }
+
+    public static void foodConsumed(ServerPlayer player, FoodProfile profile, double durationMultiplier) {
+        if (activePlayer(player)) store(player, state(player).grant(profile.mealBenefit(), profile.quality(), durationMultiplier));
     }
 
     public static void tick(ServerPlayer player) {

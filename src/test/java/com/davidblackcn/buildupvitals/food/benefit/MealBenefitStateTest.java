@@ -9,6 +9,17 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MealBenefitStateTest {
+    @Test
+    void varietyExtendsDurationWithoutBreakingRefreshOrExistingSaveCap() {
+        var state = MealBenefitState.EMPTY.grant(Optional.of(MealBenefitType.RESTORATIVE.id()), FoodQuality.MEAL, 1.1);
+        assertEquals(2640, state.remainingTicks());
+        assertEquals(2640, state.grant(state.type(), FoodQuality.MEAL, 1).remainingTicks());
+        assertEquals(3600, state.grant(state.type(), FoodQuality.FEAST, 1.1).remainingTicks());
+        assertEquals(1320, state.grant(Optional.of(MealBenefitType.INVIGORATED.id()), FoodQuality.PREPARED, 1.1).remainingTicks());
+        assertThrows(IllegalArgumentException.class, () -> MealBenefitState.EMPTY.grant(state.type(), FoodQuality.MEAL, 0.9));
+        assertThrows(IllegalArgumentException.class, () -> MealBenefitState.EMPTY.grant(state.type(), FoodQuality.MEAL, Double.NaN));
+    }
+
     @ParameterizedTest
     @CsvSource({"BASIC,600", "PREPARED,1200", "MEAL,2400", "FEAST,3600"})
     void qualitySetsDurationOnlyWithExplicitBenefit(FoodQuality quality, int ticks) {

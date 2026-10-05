@@ -1,4 +1,4 @@
-# Food Quality 与 Meal Benefit（Stage 3）
+# Food Quality 与 Meal Benefit（Stage 4）
 
 这是 Buildup 独立维护的料理状态，不注册原版 MobEffect，也不添加右上角药水图标或新 HUD。所有实际效果由服务端决定；原版和第三方药水效果不占用这个槽位。
 
@@ -6,7 +6,7 @@
 
 生存/冒险玩家完成食物消费时，服务端查找当时的 Food Profile。只有显式指定已实现的 `meal_benefit` 才授予增益；Quality 不自动赋予增益、不重写 Hunger/Saturation，也不乘算 Recovery 总量。
 
-| Quality | 增益原型时长（20 TPS） |
+| Quality | 增益基础时长（20 TPS） |
 |---|---|
 | Basic | 600 tick / 30 秒 |
 | Prepared | 1200 tick / 60 秒 |
@@ -15,11 +15,13 @@
 
 Quality 为数据包明确指定的等级，不按材料数量推断。示例苹果 Basic 没有增益，蘑菇煲 Meal 提供 Restorative，南瓜派 Prepared 提供 Invigorated。数据包可为其他等级配置显式增益；未适配食物仍可靠地使用原始营养。
 
+Stage 4 在本次进食写入 [Diet Memory](DIET_MEMORY.md) 后，用新的 Variety 为时长增加最多 10%，向下取整到 tick。最终仍受 Stage 3 的 **3600 tick 总上限**约束，因此 Feast 已到上限时不会再延长。仅奖励超出基础的部分，不因重复饮食缩短基础时长，不回溯重算已有增益。
+
 这些参数只用于建立可验证机制，不代表完成平衡。按用户 2026-10-05 的要求，战斗节奏、增益收益感和数值微调留到主要功能和机制基本完成后统一进行。
 
 ## 单槽位与生命周期
 
-- 同时最多一个主要增益，不叠等级。再次吃同类取 `max(当前剩余时间, 新食物时长)`：可以刷新或延长，不缩短，不无限累加。
+- 同时最多一个主要增益，不叠等级。再次吃同类取 `max(当前剩余时间, 新食物含 Variety 奖励的时长)`：可以刷新或延长，不缩短，不无限累加。
 - 不同已实现类型立即替换，采用新食物的完整时长。无增益、未知 ID、实验 Steady 均不清除或刷新已有增益。
 - 每服务端食物 tick 倒计时，到零移除。满血仍倒计时；离线、暂停且不 tick 时不经过时间。
 - 创造/旁观不获得增益，已有增益不产生实际效果，但在线 tick 仍倒计时。
@@ -60,4 +62,4 @@ Profile 格式见 [FOOD_PROFILES.md](FOOD_PROFILES.md)。未知/实验引用保�
 /buildupvitals recovery <player>
 ```
 
-后两项显示 `meal_benefit`、`remaining_ticks` 与恢复周期。没有增益时显示 `none` / `0`。Tooltip、HUD 和饮食多样性属于后续阶段。
+后两项显示 `meal_benefit`、`remaining_ticks` 与恢复周期。没有增益时显示 `none` / `0`。用 `/buildupvitals diet [player]` 查询饮食倍率；Tooltip 与 HUD 属于后续阶段。

@@ -1,6 +1,7 @@
 package com.davidblackcn.buildupvitals.food.recovery;
 
 import com.davidblackcn.buildupvitals.data.loader.FoodProfileLoader;
+import com.davidblackcn.buildupvitals.diet.PlayerDiet;
 import com.davidblackcn.buildupvitals.food.benefit.PlayerMealBenefits;
 import com.davidblackcn.buildupvitals.player.RecoveryAttachments;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
@@ -29,11 +30,14 @@ public final class PlayerRecovery {
         if (!player.isAlive() || player.isCreative() || player.isSpectator()) {
             return;
         }
-        var profile = FoodProfileLoader.snapshot(player.level().getServer())
-                .resolve(BuiltInRegistries.ITEM.getKey(stack.getItem())).profile();
+        var item = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        var profile = FoodProfileLoader.snapshot(player.level().getServer()).resolve(item).profile();
+        var variety = PlayerDiet.foodConsumed(player, item, profile);
         RecoveryState before = state(player);
-        store(player, before, before.addFood(profile.recoveryHealth()));
-        PlayerMealBenefits.foodConsumed(player, profile);
+        // Clamp before multiplication so even a finite Double.MAX_VALUE profile cannot overflow.
+        double recovery = Math.min(RecoveryBalance.MAX_RESERVE, profile.recoveryHealth()) * variety.foodMultiplier();
+        store(player, before, before.addFood(recovery));
+        PlayerMealBenefits.foodConsumed(player, profile, variety.benefitMultiplier());
     }
 
     public static void tick(ServerPlayer player) {
@@ -42,7 +46,8 @@ public final class PlayerRecovery {
         var step = RecoveryController.tick(before, new RecoveryController.Conditions(player.isAlive(),
                 !player.isCreative() && !player.isSpectator(), player.getHealth(), player.getMaxHealth(),
                 food.getFoodLevel(), food.getSaturationLevel(),
-                player.level().getGameRules().get(GameRules.NATURAL_HEALTH_REGENERATION)), PlayerMealBenefits.foodInterval(player));
+                player.level().getGameRules().get(GameRules.NATURAL_HEALTH_REGENERATION)), PlayerMealBenefits.foodInterval(player),
+                PlayerDiet.state(player).variety().wellFedInterval());
         float health = player.getHealth();
         if (step.healing() > 0) {
             player.heal(step.healing());

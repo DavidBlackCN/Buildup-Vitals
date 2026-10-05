@@ -7,6 +7,22 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RecoveryControllerTest {
+    @Test
+    void varietySpeedsOnlyWellFedAndPreservesPerHpCostAndProgress() {
+        var step = RecoveryController.tick(new RecoveryState(0, 74, Mode.WELL_FED), conditions(10, 20, 10, true), 50, 75);
+        assertEquals(1, step.healing());
+        assertEquals(6, step.exhaustion(1));
+        step = RecoveryController.tick(new RecoveryState(0, 74, Mode.STABLE), conditions(10, 18, 2, true), 50, 75);
+        assertEquals(0, step.healing());
+        assertEquals(75, step.state().progress());
+        step = RecoveryController.tick(new RecoveryState(0, 78, Mode.WELL_FED), conditions(10, 20, 10, true), 50, 75);
+        assertEquals(1, step.healing());
+        assertEquals(0, step.state().progress());
+        step = RecoveryController.tick(new RecoveryState(0, 74, Mode.WELL_FED), conditions(10, 20, 10, true), 50, 80);
+        assertEquals(0, step.healing());
+        assertEquals(75, step.state().progress());
+    }
+
     @ParameterizedTest
     @CsvSource({"40", "50"})
     void speedChangesDoNotIncreaseTotalHealing(int interval) {

@@ -137,8 +137,8 @@ public class RecoveryGameTests {
         helper.assertTrue(PlayerRecovery.state(player).progress() == 0, "Full health cannot precharge healing");
         player.removeAttached(RecoveryAttachments.RECOVERY);
         player.getFoodData().setFoodLevel(10);
-        new ItemStack(Items.BREAD).finishUsingItem(helper.getLevel(), player);
-        helper.assertTrue(player.getFoodData().getFoodLevel() == 15, "Fallback bread still feeds player");
+        new ItemStack(Items.BAKED_POTATO).finishUsingItem(helper.getLevel(), player);
+        helper.assertTrue(player.getFoodData().getFoodLevel() == 15, "Fallback potato still feeds player");
         helper.assertTrue(PlayerRecovery.state(player).reserve() == 0, "Fallback adds no reserve");
         helper.succeed();
     }
