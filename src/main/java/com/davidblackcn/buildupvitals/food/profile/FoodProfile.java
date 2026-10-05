@@ -6,7 +6,7 @@ import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import net.minecraft.resources.Identifier;
 
-/** Descriptive data only. Stage 1 never applies these values to an item or player. */
+/** Food metadata. Stage 2 consumes recoveryHealth; other fields remain descriptive. */
 public record FoodProfile(
         FoodQuality quality,
         double recoveryHealth,
@@ -33,7 +33,7 @@ public record FoodProfile(
 
     public record Hydration(int thirst, int quenched) { }
 
-    /** Optional absolute food points, not vanilla's saturation modifier. Not applied in Stage 1. */
+    /** Optional absolute food points, not vanilla's saturation modifier. Reserved for future balancing. */
     public record Overrides(OptionalInt hunger, OptionalDouble saturation) {
         public static final Overrides NONE = new Overrides(OptionalInt.empty(), OptionalDouble.empty());
     }

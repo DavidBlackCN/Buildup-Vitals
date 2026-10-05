@@ -28,3 +28,12 @@ jobs:
         with:
           name: Artifacts
           path: build/libs/
+      - name: capture test reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: Test reports
+          path: |
+            build/reports/tests/
+            build/test-results/
+            build/run/gameTest/logs/

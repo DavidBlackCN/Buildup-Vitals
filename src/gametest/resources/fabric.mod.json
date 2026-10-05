@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "buildup_vitals_test",
+  "version": "1.0.0",
+  "name": "Buildup Vitals Recovery Tests",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-gametest": ["com.davidblackcn.buildupvitals.RecoveryGameTests"],
+    "fabric-client-gametest": ["com.davidblackcn.buildupvitals.RecoveryClientGameTest"]
+  }
+}

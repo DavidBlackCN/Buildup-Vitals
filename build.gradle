@@ -39,6 +39,17 @@ test {
     useJUnitPlatform()
 }
 
+fabricApi {
+    configureTests {
+        createSourceSet = true
+        modId = 'buildup_vitals_test'
+        enableGameTests = true
+        enableClientGameTests = true
+        // Local EULA acceptance is supplied by -PacceptMinecraftEula=true.
+        eula = providers.gradleProperty('acceptMinecraftEula').map { it.toBoolean() }.getOrElse(false)
+    }
+}
+
 processResources {
     def modVersion = project.version
     inputs.property "version", modVersion

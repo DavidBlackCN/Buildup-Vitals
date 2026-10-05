@@ -43,7 +43,7 @@ public final class FoodProfileCommand {
                 + ", overrides.hunger=" + (profile.overrides().hunger().isPresent() ? profile.overrides().hunger().getAsInt() : "<vanilla>")
                 + ", overrides.saturation=" + (profile.overrides().saturation().isPresent() ? profile.overrides().saturation().getAsDouble() : "<vanilla>")
                 + "\nsnapshot=" + snapshot.profileCount() + " profiles / " + snapshot.itemCount()
-                + " indexed items; data only, no gameplay changes";
+                + " indexed items; recovery.health supplies food recovery reserve";
         source.sendSuccess(() -> Component.literal(text), false);
         return 1;
     }

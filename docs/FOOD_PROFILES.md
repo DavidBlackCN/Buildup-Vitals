@@ -1,6 +1,6 @@
 # Food Profile v1
 
-Stage 1 只加载和查询数据。下列数值尚不改变食用、Hunger、Saturation、回血、口渴或饮食增益；示例值不是已定稿的平衡数据。
+Stage 2 起，`recovery.health` 在服务端玩家完成进食后加入恢复储备，按 [恢复规则](RECOVERY.md) 逐渐回血。其余字段仍只加载和查询，不改变食物 Hunger/Saturation、口渴或饮食增益；示例值不是已定稿的平衡数据。
 
 ## 文件位置
 
@@ -56,7 +56,7 @@ Tag 选择器使用 `"selector": { "tag": "my_pack:meals" }`，不带 `#`。Tag 
 | `selector` | 必填，仅有 `item` 或 `tag` 其中之一；必须显式写 `namespace:path` |
 | `priority` | 32 位有符号整数；默认 0，较大者优先 |
 | `quality` | `basic`、`prepared`、`meal`、`feast`；默认 `basic` |
-| `recovery.health` | 有限非负数，单位 HP；默认 0 |
+| `recovery.health` | 有限非负数，单位 HP；默认 0；进食后加入最多 20 HP 的储备 |
 | `hydration.thirst` / `quenched` | 非负 32 位整数；默认 0 |
 | `diet.categories` | `protein`、`grain`、`vegetable`、`fruit`、`dairy`、`sweet` 的不重复数组；默认空 |
 | `diet.variety_group` | 可选 namespaced ID；缺省时使用被查询物品自己的 ID，Tag 内物品不会自动被归为同组 |
