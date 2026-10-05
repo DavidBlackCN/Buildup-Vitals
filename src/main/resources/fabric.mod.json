@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "buildup_vitals",
+  "version": "${version}",
+  "name": "Buildup Vitals",
+  "description": "Vanilla+ player vitals and food-system overhaul focused on reliable basics and rewarding better preparation.",
+  "authors": [
+    "David_Black_ / 这不是黑姐姐"
+  ],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.davidblackcn.buildupvitals.BuildupVitals"
+    ],
+    "client": [
+      "com.davidblackcn.buildupvitals.client.BuildupVitalsClient"
+    ]
+  },
+  "mixins": [
+    "buildup_vitals.mixins.json",
+    {
+      "config": "buildup_vitals.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}
