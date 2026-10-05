@@ -27,8 +27,8 @@ public class MealBenefitGameTests {
     public void unavailableReferencesRetainOtherProfileFields(GameTestHelper helper) {
         var player = player(helper);
         grant(player, MealBenefitType.RESTORATIVE, 200);
-        new ItemStack(Items.CARROT).finishUsingItem(helper.getLevel(), player);
-        new ItemStack(Items.BEETROOT).finishUsingItem(helper.getLevel(), player);
+        new ItemStack(TestFoods.UNKNOWN).finishUsingItem(helper.getLevel(), player);
+        new ItemStack(TestFoods.EXPERIMENTAL).finishUsingItem(helper.getLevel(), player);
         helper.assertTrue(Math.abs(PlayerRecovery.state(player).reserve() - (2 + PlayerDiet.state(player).variety().foodMultiplier())) < 1e-10,
                 "Unavailable benefits do not discard recovery fields or variety bonus");
         helper.assertTrue(player.getFoodData().getFoodLevel() == 14, "Unavailable benefits do not break eating");

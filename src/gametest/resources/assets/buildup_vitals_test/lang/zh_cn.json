@@ -1,0 +1,5 @@
+{
+  "item.buildup_vitals_test.fallback_food": "未适配测试食物",
+  "item.buildup_vitals_test.experimental_food": "实验增益测试食物",
+  "item.buildup_vitals_test.unknown_benefit_food": "未知增益测试食物"
+}

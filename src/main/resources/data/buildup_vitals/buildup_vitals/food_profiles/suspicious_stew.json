@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "minecraft:suspicious_stew"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 1
+  },
+  "hydration": {
+    "thirst": 4,
+    "quenched": 2
+  },
+  "diet": {
+    "categories": [
+      "vegetable"
+    ],
+    "variety_group": "minecraft:mushroom_stew"
+  },
+  "traits": [
+    "soup"
+  ]
+}

@@ -101,7 +101,7 @@ public class RecoveryGameTests {
         new ItemStack(Items.GOLDEN_APPLE).finishUsingItem(helper.getLevel(), player);
         helper.assertTrue(player.hasEffect(MobEffects.REGENERATION) && player.hasEffect(MobEffects.ABSORPTION),
                 "Golden apple keeps its effects");
-        helper.assertTrue(PlayerRecovery.state(player).reserve() == 0, "Fallback apple/potion invent no reserve");
+        helper.assertTrue(PlayerRecovery.state(player).reserve() == 0, "Golden apple and potion invent no food reserve");
         helper.succeed();
     }
 
@@ -137,8 +137,8 @@ public class RecoveryGameTests {
         helper.assertTrue(PlayerRecovery.state(player).progress() == 0, "Full health cannot precharge healing");
         player.removeAttached(RecoveryAttachments.RECOVERY);
         player.getFoodData().setFoodLevel(10);
-        new ItemStack(Items.BAKED_POTATO).finishUsingItem(helper.getLevel(), player);
-        helper.assertTrue(player.getFoodData().getFoodLevel() == 15, "Fallback potato still feeds player");
+        new ItemStack(TestFoods.FALLBACK).finishUsingItem(helper.getLevel(), player);
+        helper.assertTrue(player.getFoodData().getFoodLevel() == 15, "Unknown mod food still feeds player");
         helper.assertTrue(PlayerRecovery.state(player).reserve() == 0, "Fallback adds no reserve");
         helper.succeed();
     }

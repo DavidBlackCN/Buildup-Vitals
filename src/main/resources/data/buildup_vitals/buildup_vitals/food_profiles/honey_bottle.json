@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "minecraft:honey_bottle"
+  },
+  "quality": "basic",
+  "diet": {
+    "categories": [
+      "sweet"
+    ],
+    "variety_group": "minecraft:honey_bottle"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "minecraft:chicken"
+  },
+  "quality": "basic",
+  "diet": {
+    "categories": [
+      "protein"
+    ],
+    "variety_group": "minecraft:cooked_chicken"
+  }
+}

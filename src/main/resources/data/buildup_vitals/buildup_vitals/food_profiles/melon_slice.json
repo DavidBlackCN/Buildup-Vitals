@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "minecraft:melon_slice"
+  },
+  "quality": "basic",
+  "hydration": {
+    "thirst": 3,
+    "quenched": 1
+  },
+  "diet": {
+    "categories": [
+      "fruit"
+    ],
+    "variety_group": "minecraft:melon_slice"
+  }
+}

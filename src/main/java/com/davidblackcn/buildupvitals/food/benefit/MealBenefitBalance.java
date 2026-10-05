@@ -1,20 +1,21 @@
 package com.davidblackcn.buildupvitals.food.benefit;
 
+import com.davidblackcn.buildupvitals.config.CoreBalance;
 import com.davidblackcn.buildupvitals.food.profile.FoodQuality;
 
-/** Functional prototype values. Balance evaluation is deferred until the core mechanisms are complete. */
+/** Stable entry point; numerical defaults live in CoreBalance. */
 public final class MealBenefitBalance {
-    public static final int MAX_DURATION = 3600;
-    public static final int RESTORATIVE_FOOD_TICKS = 40;
-    public static final float INVIGORATED_EXHAUSTION_MULTIPLIER = 0.9F;
+    public static final int MAX_DURATION = CoreBalance.Benefits.MAX_DURATION;
+    public static final int RESTORATIVE_FOOD_TICKS = CoreBalance.Benefits.RESTORATIVE_FOOD_TICKS;
+    public static final float INVIGORATED_EXHAUSTION_MULTIPLIER = CoreBalance.Benefits.INVIGORATED_EXHAUSTION_MULTIPLIER;
 
     private MealBenefitBalance() { }
 
     public static int duration(FoodQuality quality) {
         return switch (quality) {
-            case BASIC -> 600;
-            case PREPARED -> 1200;
-            case MEAL -> 2400;
+            case BASIC -> CoreBalance.Benefits.BASIC_DURATION;
+            case PREPARED -> CoreBalance.Benefits.PREPARED_DURATION;
+            case MEAL -> CoreBalance.Benefits.MEAL_DURATION;
             case FEAST -> MAX_DURATION;
         };
     }

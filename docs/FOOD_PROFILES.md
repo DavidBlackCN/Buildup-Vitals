@@ -112,4 +112,4 @@ Stage 5 的 [食物 Tooltip](CLIENT_FEEDBACK.md) 使用服务端的最终匹配�
 
 命令显示最终 Profile ID、文件路径、数据包、selector、优先级、fallback 状态、全部数据值和快照规模。参数使用原版 Item 参数解析和补全；数据组件参数不会改变按 Item ID 查询的语义。
 
-内置六份示例：苹果、蘑菇煲、南瓜派、牛排、面包具体 Item 和示例水果 Tag。水果 Tag 包括苹果、西瓜片和甜浆果；苹果应命中具体规则，西瓜片应命中 Tag，烤马铃薯应走 fallback。蘑菇煲为 Meal / 基础 Recovery 3 / Restorative，南瓜派为 Prepared / 基础 Recovery 1 / Invigorated；牛排为 Basic / protein，面包为 Basic / grain，不额外添加 Recovery 或 Benefit。
+Stage 7 内置 40 份原版 Item Profile 和保留的示例水果 Tag Profile，详见 [原版平衡包](VANILLA_BALANCE.md)。苹果、西瓜片和烤马铃薯现均命中具体 Item 规则；Tag 仍可通过扩展成员适配其它物品，但不会覆盖具体 Item。未知 Mod 食物保持 fallback。蘑菇煲为 Meal / 基础 Recovery 3 / Restorative，南瓜派为 Prepared / 基础 Recovery 1 / Invigorated；牛排、面包、烤马铃薯保持 Basic，不额外添加 Recovery 或 Benefit。

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "minecraft:enchanted_golden_apple"
+  },
+  "quality": "basic",
+  "diet": {
+    "categories": [
+      "fruit"
+    ],
+    "variety_group": "minecraft:apple"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "minecraft:rotten_flesh"
+  },
+  "quality": "basic",
+  "diet": {
+    "categories": [],
+    "variety_group": "minecraft:rotten_flesh"
+  }
+}

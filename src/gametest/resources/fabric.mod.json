@@ -5,8 +5,21 @@
   "name": "Buildup Vitals Mechanism Tests",
   "environment": "*",
   "entrypoints": {
-    "main": ["com.davidblackcn.buildupvitals.TooltipReloadFailure"],
-    "fabric-gametest": ["com.davidblackcn.buildupvitals.RecoveryGameTests", "com.davidblackcn.buildupvitals.MealBenefitGameTests", "com.davidblackcn.buildupvitals.DietGameTests", "com.davidblackcn.buildupvitals.HydrationGameTests"],
-    "fabric-client-gametest": ["com.davidblackcn.buildupvitals.RecoveryClientGameTest", "com.davidblackcn.buildupvitals.TooltipClientGameTest", "com.davidblackcn.buildupvitals.HydrationClientGameTest"]
+    "main": [
+      "com.davidblackcn.buildupvitals.TestFoods",
+      "com.davidblackcn.buildupvitals.TooltipReloadFailure"
+    ],
+    "fabric-gametest": [
+      "com.davidblackcn.buildupvitals.RecoveryGameTests",
+      "com.davidblackcn.buildupvitals.MealBenefitGameTests",
+      "com.davidblackcn.buildupvitals.DietGameTests",
+      "com.davidblackcn.buildupvitals.HydrationGameTests",
+      "com.davidblackcn.buildupvitals.VanillaPackGameTests"
+    ],
+    "fabric-client-gametest": [
+      "com.davidblackcn.buildupvitals.RecoveryClientGameTest",
+      "com.davidblackcn.buildupvitals.TooltipClientGameTest",
+      "com.davidblackcn.buildupvitals.HydrationClientGameTest"
+    ]
   }
 }

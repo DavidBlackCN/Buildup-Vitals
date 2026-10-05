@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "minecraft:golden_carrot"
+  },
+  "quality": "basic",
+  "diet": {
+    "categories": [
+      "vegetable"
+    ],
+    "variety_group": "minecraft:carrot"
+  }
+}

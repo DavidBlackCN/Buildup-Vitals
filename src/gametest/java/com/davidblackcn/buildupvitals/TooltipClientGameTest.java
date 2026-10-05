@@ -29,7 +29,7 @@ import net.minecraft.world.level.storage.LevelResource;
 
 public class TooltipClientGameTest implements FabricClientGameTest {
     private static final Identifier STEW = Identifier.parse("minecraft:mushroom_stew");
-    private static final Identifier POTATO = Identifier.parse("minecraft:baked_potato");
+    private static final Identifier FALLBACK_ID = Identifier.parse("buildup_vitals_test:fallback_food");
 
     @Override
     public void runTest(ClientGameTestContext context) {
@@ -55,7 +55,7 @@ public class TooltipClientGameTest implements FabricClientGameTest {
         context.waitFor(client -> ClientFoodProfiles.available());
         context.runOnClient(client -> {
             check(ClientFoodProfiles.find(STEW).orElseThrow().recovery() == 3, "Server default profile received");
-            check(ClientFoodProfiles.find(POTATO).orElseThrow().profileId().isEmpty(), "Fallback is distinct from unavailable sync");
+            check(ClientFoodProfiles.find(FALLBACK_ID).orElseThrow().profileId().isEmpty(), "Fallback is distinct from unavailable sync");
             assertTooltips(client);
         });
         Path pack = server.computeOnServer(instance -> instance.getWorldPath(LevelResource.DATAPACK_DIR).resolve("buildup_tooltip_test"));
@@ -63,11 +63,11 @@ public class TooltipClientGameTest implements FabricClientGameTest {
         Path potato = pack.resolve("data/buildup_vitals_test/buildup_vitals/food_profiles/potato.json");
         write(pack.resolve("pack.mcmeta"), "{\"pack\":{\"description\":\"Tooltip sync test\",\"min_format\":121,\"max_format\":121}}");
         write(stew, profile("minecraft:mushroom_stew", 7));
-        write(potato, profile("minecraft:baked_potato", 2));
+        write(potato, profile("buildup_vitals_test:fallback_food", 2));
         reload(context, server, false);
         context.waitFor(client -> ClientFoodProfiles.find(STEW).map(p -> p.recovery() == 7).orElse(false));
         context.runOnClient(client -> {
-            check(ClientFoodProfiles.find(POTATO).orElseThrow().recovery() == 2, "Reload adds previously fallback food");
+            check(ClientFoodProfiles.find(FALLBACK_ID).orElseThrow().recovery() == 2, "Reload adds previously fallback food");
             var lines = tooltip(client, Items.MUSHROOM_STEW, false);
             check(keyCount(lines, "quality.feast") == 1, "Server override changes tooltip quality");
             check(lines.stream().anyMatch(line -> line.getString().contains("7")), "Server recovery override appears in tooltip");
@@ -79,7 +79,7 @@ public class TooltipClientGameTest implements FabricClientGameTest {
         try { Files.delete(stew); Files.delete(potato); } catch (IOException exception) { throw new AssertionError(exception); }
         reload(context, server, false);
         context.waitFor(client -> ClientFoodProfiles.find(STEW).map(p -> p.recovery() == 3).orElse(false));
-        context.runOnClient(client -> check(ClientFoodProfiles.find(POTATO).orElseThrow().profileId().isEmpty(), "Complete replacement removes stale item entries"));
+        context.runOnClient(client -> check(ClientFoodProfiles.find(FALLBACK_ID).orElseThrow().profileId().isEmpty(), "Complete replacement removes stale item entries"));
         server.runOnServer(instance -> ServerPlayNetworking.send(connection.getServerPlayer(), new FoodProfilesPayload(false, Map.of())));
         context.waitFor(client -> !ClientFoodProfiles.available());
         context.runOnClient(client -> check(keyCount(tooltip(client, Items.MUSHROOM_STEW, false), "quality.meal") == 0, "Unavailable sync shows no invented local gameplay"));
@@ -125,9 +125,12 @@ public class TooltipClientGameTest implements FabricClientGameTest {
         check(keyCount(normal, "debug.profile") == 0, "Normal tooltip hides debug data");
         var advanced = tooltip(client, Items.MUSHROOM_STEW, true);
         check(keyCount(advanced, "debug.profile") == 1 && keyCount(advanced, "debug.group") == 1, "F3+H includes detailed server data");
-        check(keyCount(tooltip(client, Items.BAKED_POTATO, false), "quality.basic") == 1, "Fallback food remains basic");
+        check(keyCount(tooltip(client, TestFoods.FALLBACK, false), "quality.basic") == 1, "Fallback food remains basic");
         check(keyCount(tooltip(client, Items.STICK, false), "quality.basic") == 0, "Non-food receives no food tooltip");
-        check(keyCount(tooltip(client, Items.BEETROOT, false), "benefit") == 0, "Experimental Steady is not advertised as active");
+        check(keyCount(tooltip(client, TestFoods.EXPERIMENTAL, false), "benefit") == 0, "Experimental Steady is not advertised as active");
+        check(keyCount(tooltip(client, Items.BAKED_POTATO, false), "quality.basic") == 1, "Official staple remains Basic");
+        check(keyCount(tooltip(client, Items.RABBIT_STEW, false), "quality.meal") == 1
+                && keyCount(tooltip(client, Items.RABBIT_STEW, false), "benefit") == 1, "New official meal is synchronized and displayed");
         check(normal.stream().noneMatch(line -> line.getString().contains("tooltip.buildup_vitals")), "Translation keys are resolved");
         if (FabricLoader.getInstance().isModLoaded("appleskin")) {
             check(normal.stream().filter(line -> line.getClass().getName().equals("squeek.appleskin.client.TooltipOverlayHandler$FoodOverlayTextComponent")).count() == 1,

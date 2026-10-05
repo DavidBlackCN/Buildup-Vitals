@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "minecraft:cookie"
+  },
+  "quality": "prepared",
+  "diet": {
+    "categories": [
+      "grain",
+      "sweet"
+    ],
+    "variety_group": "minecraft:cookie"
+  }
+}

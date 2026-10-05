@@ -47,6 +47,15 @@ final class ThirstTestSupport {
             consume(player, new ItemStack(Items.APPLE), 5, 0, 7, 0);
             consume(player, new ItemStack(Items.MUSHROOM_STEW), 19, 0, 20, 5);
             consume(player, new ItemStack(Items.MUSHROOM_STEW), 2, 0, 6, 2);
+            // Stage 7 official fruits and meals, with upstream config overrides explicitly absent.
+            for (var item : new net.minecraft.world.item.Item[]{Items.MELON_SLICE, Items.BEETROOT_SOUP, Items.RABBIT_STEW}) {
+                String id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(item).toString();
+                config.foods.remove(id);
+                config.drinks.remove(id);
+                ThirstApi.clearCache();
+                boolean melon = item == Items.MELON_SLICE;
+                consume(player, new ItemStack(item), 5, 0, melon ? 8 : 9, melon ? 1 : 2);
+            }
             cancelDrink = true;
             consume(player, new ItemStack(Items.MUSHROOM_STEW), 5, 0, 5, 0);
             cancelDrink = false;

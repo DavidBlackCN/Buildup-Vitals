@@ -2,7 +2,7 @@
 
 Buildup 系列的 Vanilla+ 玩家状态机制模组。第一目标平台为 Fabric / Minecraft 26.3。
 
-当前处于 Stage 6（Thirst Was Taken 2 Optional Integration）：可将 Food Profile Hydration 接入 TWT2 的既有口渴结算，保留配置/原生数据包优先级，避免重复补水。不安装 TWT2 时仍可独立运行；食物提示继续支持中英文和 F3+H。设计总纲见 [DESIGN_PRINCIPLES.md](DESIGN_PRINCIPLES.md)，分阶段实施计划见 [PLAN.md](PLAN.md)。每个 Stage 验收通过后才能进入下一阶段；战斗节奏与数值平衡按用户要求留到主要功能和机制基本完成后评估。
+当前处于 Stage 7（Vanilla Balance Pack & First Integrated Prototype）：内置覆盖 40 种原版可食用物品的 Alpha 数据，打通基础口粮、正式料理、恢复、多样性和可选口渴。设计总纲见 [DESIGN_PRINCIPLES.md](DESIGN_PRINCIPLES.md)，分阶段实施计划见 [PLAN.md](PLAN.md)。每个 Stage 验收后才能继续；当前数值是原型起点，战斗节奏与长期体验留待人工实玩后统一微调。
 
 ## 当前工程基线
 
@@ -34,7 +34,7 @@ $env:PATH = "$env:JAVA_HOME/bin;$env:PATH"
 
 构建产物：`build/libs/buildup_vitals-0.1.0-dev.jar`。`run/` 中的测试世界、日志、协议选择和配置均不提交到 Git。
 
-开发客户端使用 Fabric 开发账号，Realms 认证失败不代表本地单人世界无法启动。历史验证见 [Stage 0 报告](docs/STAGE_0_REPORT.md)、[Stage 1 报告](docs/STAGE_1_REPORT.md)、[Stage 2 报告](docs/STAGE_2_REPORT.md)、[Stage 3 报告](docs/STAGE_3_REPORT.md)、[Stage 4 报告](docs/STAGE_4_REPORT.md)、[Stage 5 报告](docs/STAGE_5_REPORT.md)；当前验证和人工验收见 [Stage 6 报告](docs/STAGE_6_REPORT.md)。
+开发客户端使用 Fabric 开发账号，Realms 认证失败不代表本地单人世界无法启动。历史验证见 [Stage 0 报告](docs/STAGE_0_REPORT.md)、[Stage 1 报告](docs/STAGE_1_REPORT.md)、[Stage 2 报告](docs/STAGE_2_REPORT.md)、[Stage 3 报告](docs/STAGE_3_REPORT.md)、[Stage 4 报告](docs/STAGE_4_REPORT.md)、[Stage 5 报告](docs/STAGE_5_REPORT.md)、[Stage 6 报告](docs/STAGE_6_REPORT.md)；当前验证和人工验收见 [Stage 7 报告](docs/STAGE_7_REPORT.md)。
 
 ## Food Profile 数据与查询
 
@@ -46,7 +46,7 @@ $env:PATH = "$env:JAVA_HOME/bin;$env:PATH"
 /buildupvitals food profile minecraft:baked_potato
 ```
 
-命令需要 Game Masters 权限（通常 OP 2 / 开启作弊）。当前内置六份示例 Profile，展示 Item、Tag、料理增益和饮食类别；未匹配时使用 fallback。蘑菇煲基础提供 3 HP 储备与 Restorative，南瓜派基础提供 1 HP 储备与 Invigorated。牛排、面包、苹果和水果 Tag 提供类别信息，原版食物营养保持不变。Hydration 按可选适配生效；Traits 和 overrides 仍是预留数据。
+命令需要 Game Masters 权限（通常 OP 2 / 开启作弊）。当前内置 40 份 Item Profile，并保留旧示例水果 Tag Profile。完整分组、原型数值和调整入口见 [原版平衡包](docs/VANILLA_BALANCE.md)。牛排、面包、烤马铃薯等保持 Basic 和原版营养；蘑菇煲/甜菜汤、兔肉煲、南瓜派提供不同的恢复或料理增益。Hydration 按可选适配生效；Traits 和 overrides 仍是预留数据。
 
 ## 可选口渴适配
 
@@ -64,7 +64,7 @@ $env:PATH = "$env:JAVA_HOME/bin;$env:PATH"
 
 `.\gradlew.bat build` 运行 JVM 测试和服务端 GameTest。前者报告位于 `build/reports/tests/test/index.html`，后者位于 `build/run/gameTest/`。测试 Mod 与测试类不会打包进发布 JAR。
 
-真实连接玩家的单人/独立服务端测试单独运行：
+真实连接玩家的单人/同 JVM DedicatedServer TCP 测试单独运行：
 
 ```powershell
 # 已阅读并同意 Minecraft EULA 后使用该参数；仅供自动测试环境。

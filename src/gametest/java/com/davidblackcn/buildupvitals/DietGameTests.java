@@ -46,13 +46,13 @@ public class DietGameTests {
         helper.assertTrue(pie.quality() == FoodQuality.PREPARED && pie.categories().contains(DietCategory.GRAIN)
                 && pie.categories().contains(DietCategory.SWEET), "Quality and all categories are snapshotted");
         helper.assertTrue(pie.timestamp() == helper.getLevel().getServer().overworld().getGameTime(), "Timestamp uses shared overworld game ticks");
-        new ItemStack(Items.BAKED_POTATO).finishUsingItem(helper.getLevel(), player);
+        new ItemStack(TestFoods.FALLBACK).finishUsingItem(helper.getLevel(), player);
         memory = PlayerDiet.state(player);
         helper.assertTrue(memory.entries().size() == 10 && memory.entries().getFirst().foodId().equals(Identifier.parse("minecraft:bread")),
                 "Eleventh meal immediately evicts the oldest without a time delay");
         var fallback = memory.entries().getLast();
         helper.assertTrue(fallback.quality() == FoodQuality.BASIC && fallback.categories().isEmpty()
-                && fallback.varietyGroup().equals(Identifier.parse("minecraft:baked_potato")), "Fallback food records honest metadata");
+                && fallback.varietyGroup().equals(Identifier.parse("buildup_vitals_test:fallback_food")), "Fallback food records honest metadata");
         helper.succeed();
     }
 

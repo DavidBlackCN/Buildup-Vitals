@@ -1,7 +1,11 @@
 {
   "schema_version": 1,
-  "selector": { "item": "minecraft:carrot" },
+  "selector": {
+    "item": "buildup_vitals_test:unknown_benefit_food"
+  },
   "quality": "feast",
-  "recovery": { "health": 2 },
+  "recovery": {
+    "health": 2
+  },
   "meal_benefit": "buildup_vitals_test:missing"
 }

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "minecraft:dried_kelp"
+  },
+  "quality": "basic",
+  "diet": {
+    "categories": [
+      "vegetable"
+    ],
+    "variety_group": "minecraft:dried_kelp"
+  }
+}

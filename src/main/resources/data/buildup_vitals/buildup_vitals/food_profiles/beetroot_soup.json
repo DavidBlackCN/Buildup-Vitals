@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "minecraft:beetroot_soup"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 3
+  },
+  "hydration": {
+    "thirst": 4,
+    "quenched": 2
+  },
+  "diet": {
+    "categories": [
+      "vegetable"
+    ],
+    "variety_group": "minecraft:beetroot_soup"
+  },
+  "traits": [
+    "soup",
+    "warm"
+  ],
+  "meal_benefit": "buildup_vitals:restorative"
+}

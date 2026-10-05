@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "minecraft:chorus_fruit"
+  },
+  "quality": "basic",
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
+  },
+  "diet": {
+    "categories": [
+      "fruit"
+    ],
+    "variety_group": "minecraft:chorus_fruit"
+  }
+}

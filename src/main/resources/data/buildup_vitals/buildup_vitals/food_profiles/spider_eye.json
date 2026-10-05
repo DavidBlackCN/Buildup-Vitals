@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "minecraft:spider_eye"
+  },
+  "quality": "basic",
+  "diet": {
+    "categories": [],
+    "variety_group": "minecraft:spider_eye"
+  }
+}

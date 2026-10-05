@@ -18,38 +18,37 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.LevelResource;
 
 final class ThirstClientScenario {
-    private static final Identifier POTATO = Identifier.parse("minecraft:baked_potato");
+    private static final Identifier FALLBACK_ID = Identifier.parse("buildup_vitals_test:fallback_food");
 
     static void run(ClientGameTestContext context) {
         context.runOnClient(client -> {
             var profile = new com.davidblackcn.buildupvitals.network.TooltipProfile(
                     com.davidblackcn.buildupvitals.food.profile.FoodQuality.BASIC, 0, java.util.List.of(),
-                    java.util.Optional.empty(), POTATO, java.util.Optional.of(POTATO),
+                    java.util.Optional.empty(), FALLBACK_ID, java.util.Optional.of(FALLBACK_ID),
                     new com.davidblackcn.buildupvitals.food.profile.FoodProfile.Hydration(6, 8));
-            HydrationAdapter.receive(true, Map.of(POTATO, profile));
+            HydrationAdapter.receive(true, Map.of(FALLBACK_ID, profile));
             check(values(6, 8), "Pure remote-client cache accepts server values without a local server");
-            HydrationAdapter.receive(false, Map.of(POTATO, profile));
-            check(ThirstApi.thirstValues(Items.BAKED_POTATO) == null, "Server-disabled capability removes prior values");
-            HydrationAdapter.receive(true, Map.of(POTATO, profile));
+            HydrationAdapter.receive(false, Map.of(FALLBACK_ID, profile));
+            check(ThirstApi.thirstValues(TestFoods.FALLBACK) == null, "Server-disabled capability removes prior values");
+            HydrationAdapter.receive(true, Map.of(FALLBACK_ID, profile));
             HydrationAdapter.disconnect();
-            check(ThirstApi.thirstValues(Items.BAKED_POTATO) == null, "Remote disconnect invalidates TWT2 cache");
+            check(ThirstApi.thirstValues(TestFoods.FALLBACK) == null, "Remote disconnect invalidates TWT2 cache");
         });
         try (var world = context.worldBuilder().create()) {
             exercise(context, world.getServer(), world.getConnection(), true);
         }
-        check(HydrationAdapter.find(POTATO) == null, "Stopped world discards hydration overlay");
+        check(HydrationAdapter.find(FALLBACK_ID) == null, "Stopped world discards hydration overlay");
         try (var server = context.worldBuilder().createServer()) {
             try (var connection = server.connect()) { exercise(context, server, connection, false); }
             try (var connection = server.connect()) {
                 context.waitFor(client -> ClientFoodProfiles.available());
-                context.runOnClient(client -> check(ThirstApi.thirstValues(Items.BAKED_POTATO) == null, "Reconnect has no stale profile"));
+                context.runOnClient(client -> check(ThirstApi.thirstValues(TestFoods.FALLBACK) == null, "Reconnect has no stale profile"));
             }
         }
-        check(HydrationAdapter.find(POTATO) == null, "Dedicated server shutdown clears hydration overlay");
+        check(HydrationAdapter.find(FALLBACK_ID) == null, "Dedicated server shutdown clears hydration overlay");
         BuildupVitals.LOGGER.info("Stage 6 connected hydration tests passed: integrated + dedicated, priority, single consumption, reload, rollback, removal, reconnect; AppleSkin={}",
                 FabricLoader.getInstance().isModLoaded("appleskin"));
     }
@@ -69,7 +68,7 @@ final class ThirstClientScenario {
             HydrationAdapter.receive(true, Map.of());
             check(values(6, 8), "Client display packets cannot replace a running server's gameplay overlay");
         });
-        server.runOnServer(instance -> ThirstTestSupport.consume(connection.getServerPlayer(), new ItemStack(Items.BAKED_POTATO), 5, 0, 11, 8));
+        server.runOnServer(instance -> ThirstTestSupport.consume(connection.getServerPlayer(), new ItemStack(TestFoods.FALLBACK), 5, 0, 11, 8));
         if (screenshot) {
             context.waitFor(client -> client.gui.overlay() == null);
             context.setScreen(PreviewScreen::new);
@@ -82,7 +81,7 @@ final class ThirstClientScenario {
         reload(context, server, false);
         awaitProfile(context, Integer.MAX_VALUE);
         context.runOnClient(client -> check(values(20, 20), "Extreme finite profile amounts are bounded before TWT2 addition"));
-        server.runOnServer(instance -> ThirstTestSupport.consume(connection.getServerPlayer(), new ItemStack(Items.BAKED_POTATO), 5, 0, 20, 20));
+        server.runOnServer(instance -> ThirstTestSupport.consume(connection.getServerPlayer(), new ItemStack(TestFoods.FALLBACK), 5, 0, 20, 20));
         write(profile, profile(2, 1));
         reload(context, server, false);
         awaitProfile(context, 2);
@@ -90,11 +89,11 @@ final class ThirstClientScenario {
         write(drink, drink(1, 4));
         reload(context, server, false);
         context.waitFor(client -> values(1, 4));
-        server.runOnServer(instance -> ThirstTestSupport.consume(connection.getServerPlayer(), new ItemStack(Items.BAKED_POTATO), 5, 0, 6, 4));
+        server.runOnServer(instance -> ThirstTestSupport.consume(connection.getServerPlayer(), new ItemStack(TestFoods.FALLBACK), 5, 0, 6, 4));
         write(drink, drink(0, 0));
         reload(context, server, false);
-        context.waitFor(client -> ThirstApi.thirstValues(Items.BAKED_POTATO) == null);
-        server.runOnServer(instance -> ThirstTestSupport.consume(connection.getServerPlayer(), new ItemStack(Items.BAKED_POTATO), 5, 0, 5, 0));
+        context.waitFor(client -> ThirstApi.thirstValues(TestFoods.FALLBACK) == null);
+        server.runOnServer(instance -> ThirstTestSupport.consume(connection.getServerPlayer(), new ItemStack(TestFoods.FALLBACK), 5, 0, 5, 0));
         delete(drink);
         reload(context, server, false);
         context.waitFor(client -> values(2, 1));
@@ -103,28 +102,28 @@ final class ThirstClientScenario {
         TooltipReloadFailure.FAIL_NEXT.set(true);
         reload(context, server, true);
         context.runOnClient(client -> check(values(2, 1), "Failed reload retains successful hydration snapshot"));
-        server.runOnServer(instance -> ThirstTestSupport.consume(connection.getServerPlayer(), new ItemStack(Items.BAKED_POTATO), 5, 0, 7, 1));
+        server.runOnServer(instance -> ThirstTestSupport.consume(connection.getServerPlayer(), new ItemStack(TestFoods.FALLBACK), 5, 0, 7, 1));
         delete(profile);
         reload(context, server, false);
-        context.waitFor(client -> ClientFoodProfiles.find(POTATO).map(p -> p.profileId().isEmpty()).orElse(false));
-        context.runOnClient(client -> check(ThirstApi.thirstValues(Items.BAKED_POTATO) == null, "Removed profile does not leak hydration"));
+        context.waitFor(client -> ClientFoodProfiles.find(FALLBACK_ID).map(p -> p.profileId().isEmpty()).orElse(false));
+        context.runOnClient(client -> check(ThirstApi.thirstValues(TestFoods.FALLBACK) == null, "Removed profile does not leak hydration"));
     }
 
     private static void awaitProfile(ClientGameTestContext context, int thirst) {
-        context.waitFor(client -> ClientFoodProfiles.find(POTATO).map(p -> p.hydration().thirst() == thirst).orElse(false));
+        context.waitFor(client -> ClientFoodProfiles.find(FALLBACK_ID).map(p -> p.hydration().thirst() == thirst).orElse(false));
     }
 
     private static boolean values(int thirst, int quenched) {
-        var value = ThirstApi.thirstValues(Items.BAKED_POTATO);
+        var value = ThirstApi.thirstValues(TestFoods.FALLBACK);
         return value != null && value[0] == thirst && value[1] == quenched;
     }
 
     private static String profile(int thirst, int quenched) {
-        return "{\"schema_version\":1,\"selector\":{\"item\":\"minecraft:baked_potato\"},\"hydration\":{\"thirst\":" + thirst + ",\"quenched\":" + quenched + "}}";
+        return "{\"schema_version\":1,\"selector\":{\"item\":\"buildup_vitals_test:fallback_food\"},\"hydration\":{\"thirst\":" + thirst + ",\"quenched\":" + quenched + "}}";
     }
 
     private static String drink(int thirst, int quenched) {
-        return "{\"values\":{\"minecraft:baked_potato\":{\"thirst\":" + thirst + ",\"quenched\":" + quenched + "}}}";
+        return "{\"values\":{\"buildup_vitals_test:fallback_food\":{\"thirst\":" + thirst + ",\"quenched\":" + quenched + "}}}";
     }
 
     private static void reload(ClientGameTestContext context, TestServerContext server, boolean failure) {
@@ -160,7 +159,7 @@ final class ThirstClientScenario {
         private PreviewScreen() { super(Component.literal("Hydration verification")); }
         @Override public void extractRenderState(GuiGraphicsExtractor graphics, int x, int y, float delta) {
             extractTransparentBackground(graphics);
-            graphics.setTooltipForNextFrame(font, new ItemStack(Items.BAKED_POTATO), width / 2 - 50, height / 2 - 45);
+            graphics.setTooltipForNextFrame(font, new ItemStack(TestFoods.FALLBACK), width / 2 - 50, height / 2 - 45);
         }
     }
 }
