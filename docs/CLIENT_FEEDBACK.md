@@ -1,4 +1,4 @@
-# 客户端反馈（Stage 5）
+# 客户端反馈（Stage 6）
 
 食物 Tooltip 展示服务端 Food Profile 的品质、基础恢复、已实现料理增益和饮食类别，不需要其他 HUD Mod。提供简体中文与英文翻译；没有新增常驻状态条。
 
@@ -21,7 +21,9 @@
 - 类别合并为一行，以 ` · ` 分隔；无类别时不虚构类别。零 Recovery、无 Benefit 均省略对应行。
 - 未匹配 Profile 的食物显示“基础食物”，继续保留原版营养。物品栈必须同时具有 Food 和 Consumable 组件才添加食物提示；为非食物配置 Profile 不会把它变成食物。
 
-提示按物品 ID 查询，与服务端消费查询一致，不依据单个物品栈组件重新推断 Profile。Hunger / Saturation 仍由原版组件及其他显示 Mod 负责；Hydration 在 Thirst Adapter 实现前不显示。
+提示按物品 ID 查询，与服务端消费查询一致，不依据单个物品栈组件重新推断 Profile。Hunger / Saturation 仍由原版组件及其他显示 Mod 负责；Stage 6 的 Hydration 图标复用 TWT2 + AppleSkin 自带的提示，具体开关、优先级和不安装 AppleSkin 时的显示边界见 [HYDRATION.md](HYDRATION.md)。
+
+用户通过 Stage 5 验收后确定了后续优化方向：普通 Tooltip 优先使用 icon + 短文字，Recovery 探索爱心数量/半格表达；料理增益待专用图标准备后再统一调整。本阶段保留既有恢复和增益文本。
 
 ## 高级提示
 
@@ -37,7 +39,7 @@
 
 ## 服务端同步与边界
 
-`buildup_vitals:food_tooltips_v1` 是仅服务端到客户端的完整显示快照。服务端在玩家加入和整轮数据包成功重载后发送已解析的 Item/Tag 最终匹配结果；客户端无需复制服务器数据包。
+`buildup_vitals:food_tooltips_v2` 是仅服务端到客户端的完整食物元数据快照，Stage 6 新增 Hydration 及服务端适配启用标记。服务端在玩家加入和整轮数据包成功重载后发送已解析的 Item/Tag 最终匹配结果；客户端无需复制服务器数据包。两端应同时更新，旧 v1 通道不混用。
 
 客户端一次性替换不可变 Map。整体重载失败时双方继续使用上一次成功结果；成功删除定义会移除旧条目，必要时显示下层数据包或 fallback。与服务端本来的错误隔离语义一致：单个非法文件被跳过但整轮重载成功时，显示新的有效结果。
 

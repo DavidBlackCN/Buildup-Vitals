@@ -13,6 +13,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FoodProfilesPayloadTest {
     @Test
+    void hydrationAndServerCapabilityRoundTripWithoutOptionalMod() {
+        var id = Identifier.parse("test:drink");
+        var profile = new TooltipProfile(FoodQuality.BASIC, 0, List.of(), Optional.empty(), id, Optional.of(id),
+                new com.davidblackcn.buildupvitals.food.profile.FoodProfile.Hydration(6, Integer.MAX_VALUE));
+        var payload = new FoodProfilesPayload(true, true, Map.of(id, profile));
+        var buffer = new FriendlyByteBuf(Unpooled.buffer());
+        try {
+            FoodProfilesPayload.CODEC.encode(buffer, payload);
+            assertEquals(payload, FoodProfilesPayload.CODEC.decode(buffer));
+        } finally { buffer.release(); }
+        assertThrows(IllegalArgumentException.class, () -> new FoodProfilesPayload(false, true, Map.of()));
+        assertThrows(IllegalArgumentException.class, () -> new TooltipProfile(FoodQuality.BASIC, 0, List.of(), Optional.empty(), id, Optional.of(id),
+                new com.davidblackcn.buildupvitals.food.profile.FoodProfile.Hydration(-1, 0)));
+    }
+
+    @Test
     void completeSnapshotRoundTripsIncludingUnknownBenefitAndEmptyCategories() {
         var id = Identifier.parse("test:meal");
         var profile = new TooltipProfile(FoodQuality.FEAST, 3.25, List.of(DietCategory.PROTEIN, DietCategory.GRAIN),
@@ -35,6 +51,7 @@ class FoodProfilesPayloadTest {
             var buffer = new FriendlyByteBuf(Unpooled.buffer());
             try {
                 buffer.writeBoolean(true);
+                buffer.writeBoolean(false);
                 buffer.writeVarInt(count);
                 assertThrows(RuntimeException.class, () -> FoodProfilesPayload.CODEC.decode(buffer));
             } finally { buffer.release(); }
@@ -51,6 +68,7 @@ class FoodProfilesPayloadTest {
         var buffer = new FriendlyByteBuf(Unpooled.buffer());
         try {
             buffer.writeBoolean(true);
+            buffer.writeBoolean(false);
             buffer.writeVarInt(1);
             buffer.writeIdentifier(id);
             buffer.writeVarInt(100);

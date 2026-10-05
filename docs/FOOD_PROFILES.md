@@ -1,6 +1,6 @@
 # Food Profile v1
 
-`recovery.health` 在服务端玩家完成进食后加入恢复储备，按 [恢复规则](RECOVERY.md) 逐渐回血。显式 `meal_benefit` 引用授予已实现的主要增益，`quality` 决定基础持续时间，见 [料理增益规则](MEAL_BENEFITS.md)。Stage 4 将 Quality、Categories、Variety Group 记录到 [饮食记忆](DIET_MEMORY.md)，多样饮食可增加恢复和增益时长。Hydration、Traits 和 overrides 仍只加载和查询；不改写食物 Hunger/Saturation，示例值不是已定稿的平衡数据。
+`recovery.health` 在服务端玩家完成进食后加入恢复储备，按 [恢复规则](RECOVERY.md) 逐渐回血。显式 `meal_benefit` 引用授予已实现的主要增益，`quality` 决定基础持续时间，见 [料理增益规则](MEAL_BENEFITS.md)。Stage 4 将 Quality、Categories、Variety Group 记录到 [饮食记忆](DIET_MEMORY.md)，多样饮食可增加恢复和增益时长。Stage 6 在安装已验证 TWT2 时按 [Hydration 适配规则](HYDRATION.md) 提供补水值，优先级低于 TWT2 配置及 drinks 数据包。Traits 和 overrides 仍只加载和查询；不改写食物 Hunger/Saturation，示例值不是已定稿的平衡数据。
 
 ## 文件位置
 
@@ -57,7 +57,7 @@ Tag 选择器使用 `"selector": { "tag": "my_pack:meals" }`，不带 `#`。Tag 
 | `priority` | 32 位有符号整数；默认 0，较大者优先 |
 | `quality` | `basic`、`prepared`、`meal`、`feast`；默认 `basic`；增益基础持续 600 / 1200 / 2400 / 3600 tick，也提供轻量 Variety 权重 |
 | `recovery.health` | 有限非负数，单位 HP；默认 0；作为基础量接受最多 +15% Variety 奖励，储备总上限仍为 20 HP |
-| `hydration.thirst` / `quenched` | 非负 32 位整数；默认 0 |
+| `hydration.thirst` / `quenched` | 非负 32 位整数；默认 0；可选适配分别裁剪到 0–20 后交给 TWT2 结算，不乘 Variety |
 | `diet.categories` | `protein`、`grain`、`vegetable`、`fruit`、`dairy`、`sweet` 的不重复数组；默认空 |
 | `diet.variety_group` | 可选 namespaced ID；缺省时使用被查询物品自己的 ID，Tag 内物品不会自动被归为同组 |
 | `traits` | 不重复的字符串数组，各项匹配 `[a-z0-9_]+`；默认空。`soup`、`drink`、`warm` 属于 Trait |

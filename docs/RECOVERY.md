@@ -1,6 +1,8 @@
-# 恢复机制（Stage 5）
+# 恢复机制（Stage 6）
 
-普通食物继续使用自身 Food Component 提供 Hunger / Saturation。Food Profile 的 `recovery.health` 提供恢复储备；[Restorative](MEAL_BENEFITS.md) 可以加快其兑现，[饮食多样性](DIET_MEMORY.md) 提供少量额外储备及 Well-fed 速度奖励。[Tooltip](CLIENT_FEEDBACK.md) 显示食物基础恢复；口渴与新的心形预览尚未实现。战斗节奏和数值平衡待主要功能机制基本完成后统一评估。
+普通食物继续使用自身 Food Component 提供 Hunger / Saturation。Food Profile 的 `recovery.health` 提供恢复储备；[Restorative](MEAL_BENEFITS.md) 可以加快其兑现，[饮食多样性](DIET_MEMORY.md) 提供少量额外储备及 Well-fed 速度奖励。[Tooltip](CLIENT_FEEDBACK.md) 显示食物基础恢复；Stage 6 增加 [TWT2 可选口渴适配](HYDRATION.md)，新的心形预览尚未实现。战斗节奏和数值平衡待主要功能机制基本完成后统一评估。
+
+安装 TWT2 时，它默认还提供独立的 Quenched 治疗；针对原版 FoodData 的脱水回血限制也不会自动作用于本控制器。本阶段不改写这些外部行为，下面的周期仅描述 Buildup 自身的恢复，不代表所有 Mod 治疗来源的合计速度。后续统一评估这些恢复机制的协调。
 
 ## 恢复优先级与参数
 

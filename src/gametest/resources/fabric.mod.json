@@ -6,7 +6,7 @@
   "environment": "*",
   "entrypoints": {
     "main": ["com.davidblackcn.buildupvitals.TooltipReloadFailure"],
-    "fabric-gametest": ["com.davidblackcn.buildupvitals.RecoveryGameTests", "com.davidblackcn.buildupvitals.MealBenefitGameTests", "com.davidblackcn.buildupvitals.DietGameTests"],
-    "fabric-client-gametest": ["com.davidblackcn.buildupvitals.RecoveryClientGameTest", "com.davidblackcn.buildupvitals.TooltipClientGameTest"]
+    "fabric-gametest": ["com.davidblackcn.buildupvitals.RecoveryGameTests", "com.davidblackcn.buildupvitals.MealBenefitGameTests", "com.davidblackcn.buildupvitals.DietGameTests", "com.davidblackcn.buildupvitals.HydrationGameTests"],
+    "fabric-client-gametest": ["com.davidblackcn.buildupvitals.RecoveryClientGameTest", "com.davidblackcn.buildupvitals.TooltipClientGameTest", "com.davidblackcn.buildupvitals.HydrationClientGameTest"]
   }
 }

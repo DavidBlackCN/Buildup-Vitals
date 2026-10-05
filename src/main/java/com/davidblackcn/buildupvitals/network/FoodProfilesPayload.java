@@ -3,6 +3,7 @@ package com.davidblackcn.buildupvitals.network;
 import com.davidblackcn.buildupvitals.BuildupVitals;
 import com.davidblackcn.buildupvitals.food.profile.DietCategory;
 import com.davidblackcn.buildupvitals.food.profile.FoodQuality;
+import com.davidblackcn.buildupvitals.food.profile.FoodProfile.Hydration;
 import io.netty.handler.codec.DecoderException;
 import io.netty.handler.codec.EncoderException;
 import java.util.ArrayList;
@@ -15,20 +16,25 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 
 /** Complete replacement snapshot; Fabric's large payload API handles transport fragmentation. */
-public record FoodProfilesPayload(boolean available, Map<Identifier, TooltipProfile> profiles) implements CustomPacketPayload {
+public record FoodProfilesPayload(boolean available, boolean hydrationEnabled, Map<Identifier, TooltipProfile> profiles) implements CustomPacketPayload {
     public static final int MAX_ITEMS = 65536;
     public static final int MAX_BYTES = 16 * 1024 * 1024;
-    public static final Type<FoodProfilesPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath(BuildupVitals.MOD_ID, "food_tooltips_v1"));
+    public static final Type<FoodProfilesPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath(BuildupVitals.MOD_ID, "food_tooltips_v2"));
     public static final StreamCodec<FriendlyByteBuf, FoodProfilesPayload> CODEC = StreamCodec.of(FoodProfilesPayload::write, FoodProfilesPayload::read);
 
     public FoodProfilesPayload {
         profiles = Map.copyOf(profiles);
-        if (profiles.size() > MAX_ITEMS || (!available && !profiles.isEmpty())) throw new IllegalArgumentException("Invalid tooltip snapshot size/state");
+        if (profiles.size() > MAX_ITEMS || (!available && (!profiles.isEmpty() || hydrationEnabled))) throw new IllegalArgumentException("Invalid tooltip snapshot size/state");
+    }
+
+    public FoodProfilesPayload(boolean available, Map<Identifier, TooltipProfile> profiles) {
+        this(available, false, profiles);
     }
 
     private static void write(FriendlyByteBuf buffer, FoodProfilesPayload payload) {
         int start = buffer.writerIndex();
         buffer.writeBoolean(payload.available);
+        buffer.writeBoolean(payload.hydrationEnabled);
         buffer.writeVarInt(payload.profiles.size());
         for (var entry : payload.profiles.entrySet()) {
             var profile = entry.getValue();
@@ -40,12 +46,15 @@ public record FoodProfilesPayload(boolean available, Map<Identifier, TooltipProf
             writeOptional(buffer, profile.benefit());
             buffer.writeIdentifier(profile.group());
             writeOptional(buffer, profile.profileId());
+            buffer.writeVarInt(profile.hydration().thirst());
+            buffer.writeVarInt(profile.hydration().quenched());
             if (buffer.writerIndex() - start > MAX_BYTES) throw new EncoderException("Tooltip snapshot exceeds byte limit");
         }
     }
 
     private static FoodProfilesPayload read(FriendlyByteBuf buffer) {
         boolean available = buffer.readBoolean();
+        boolean hydrationEnabled = buffer.readBoolean();
         int count = buffer.readVarInt();
         if (count < 0 || count > MAX_ITEMS) throw new DecoderException("Invalid tooltip item count");
         var profiles = new HashMap<Identifier, TooltipProfile>();
@@ -60,11 +69,12 @@ public record FoodProfilesPayload(boolean available, Map<Identifier, TooltipProf
             var benefit = readOptional(buffer);
             var group = buffer.readIdentifier();
             var profileId = readOptional(buffer);
-            if (profiles.put(item, new TooltipProfile(quality, recovery, categories, benefit, group, profileId)) != null) {
+            var hydration = new Hydration(buffer.readVarInt(), buffer.readVarInt());
+            if (profiles.put(item, new TooltipProfile(quality, recovery, categories, benefit, group, profileId, hydration)) != null) {
                 throw new DecoderException("Duplicate tooltip item");
             }
         }
-        return new FoodProfilesPayload(available, profiles);
+        return new FoodProfilesPayload(available, hydrationEnabled, profiles);
     }
 
     private static void writeOptional(FriendlyByteBuf buffer, Optional<Identifier> value) {

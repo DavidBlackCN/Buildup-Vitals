@@ -2,6 +2,7 @@ package com.davidblackcn.buildupvitals.client;
 
 import com.davidblackcn.buildupvitals.network.FoodProfilesPayload;
 import com.davidblackcn.buildupvitals.network.TooltipProfile;
+import com.davidblackcn.buildupvitals.hydration.HydrationAdapter;
 import java.util.Map;
 import java.util.Optional;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
@@ -21,6 +22,7 @@ public final class ClientFoodProfiles {
         ClientPlayNetworking.registerGlobalReceiver(FoodProfilesPayload.TYPE, (payload, context) -> {
             profiles = payload.profiles();
             available = payload.available();
+            HydrationAdapter.receive(payload.hydrationEnabled(), profiles);
         });
     }
 
@@ -33,5 +35,6 @@ public final class ClientFoodProfiles {
     private static void clear() {
         available = false;
         profiles = Map.of();
+        HydrationAdapter.disconnect();
     }
 }

@@ -49,6 +49,9 @@ public class RecoveryClientGameTest implements FabricClientGameTest {
     }
 
     private static void exercise(ClientGameTestContext context, TestServerContext server, TestServerConnection connection) {
+        if (com.davidblackcn.buildupvitals.hydration.HydrationAdapter.enabled()) {
+            server.runOnServer(instance -> ThirstTestSupport.prepareRecoveryFixture(connection.getServerPlayer()));
+        }
         server.runOnServer(instance -> {
             instance.setDifficulty(Difficulty.NORMAL, true);
             var player = connection.getServerPlayer();
@@ -80,6 +83,7 @@ public class RecoveryClientGameTest implements FabricClientGameTest {
             player.setHealth(10);
             player.getFoodData().setFoodLevel(20);
             player.getFoodData().setSaturation(10);
+            if (com.davidblackcn.buildupvitals.hydration.HydrationAdapter.enabled()) ThirstTestSupport.prepareRecoveryFixture(player);
             player.level().getGameRules().set(GameRules.NATURAL_HEALTH_REGENERATION, true, instance);
         });
         server.waitFor(instance -> PlayerRecovery.state(connection.getServerPlayer()).progress() >= 60);
@@ -93,6 +97,7 @@ public class RecoveryClientGameTest implements FabricClientGameTest {
             player.setHealth(10);
             player.getFoodData().setFoodLevel(20);
             player.getFoodData().setSaturation(10);
+            if (com.davidblackcn.buildupvitals.hydration.HydrationAdapter.enabled()) ThirstTestSupport.prepareRecoveryFixture(player);
         });
         server.waitFor(instance -> PlayerRecovery.state(connection.getServerPlayer()).progress() >= 60);
         server.runOnServer(instance -> check(connection.getServerPlayer().getHealth() == 10, "Peaceful health is also coordinated"));

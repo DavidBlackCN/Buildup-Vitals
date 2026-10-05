@@ -19,12 +19,16 @@
     ]
   },
   "mixins": [
+    "buildup_vitals.thirst.mixins.json",
     "buildup_vitals.mixins.json",
     {
       "config": "buildup_vitals.client.mixins.json",
       "environment": "client"
     }
   ],
+  "suggests": {
+    "thirstwastaken2": "=1.6.2+26.3"
+  },
   "depends": {
     "fabricloader": ">=0.19.5",
     "minecraft": "~26.3",

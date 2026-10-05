@@ -2,6 +2,7 @@ package com.davidblackcn.buildupvitals.network;
 
 import com.davidblackcn.buildupvitals.BuildupVitals;
 import com.davidblackcn.buildupvitals.data.loader.FoodProfileLoader;
+import com.davidblackcn.buildupvitals.hydration.HydrationAdapter;
 import io.netty.buffer.Unpooled;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +37,7 @@ public final class FoodProfileSync {
             var snapshot = FoodProfileLoader.snapshot(server);
             var entries = new HashMap<Identifier, TooltipProfile>();
             for (var item : snapshot.items()) entries.put(item, TooltipProfile.from(item, snapshot.resolve(item)));
-            var payload = new FoodProfilesPayload(true, entries);
+            var payload = new FoodProfilesPayload(true, HydrationAdapter.enabled(), entries);
             // Validate once before sending; oversized display data must not prevent joining/reloading.
             FoodProfilesPayload.CODEC.encode(buffer, payload);
             return payload;

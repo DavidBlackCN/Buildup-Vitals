@@ -2,7 +2,7 @@
 
 Buildup 系列的 Vanilla+ 玩家状态机制模组。第一目标平台为 Fabric / Minecraft 26.3。
 
-当前处于 Stage 5（Client Feedback & Tooltips）：食物提示显示品质、基础恢复、料理增益和饮食类别，中英文及 F3+H 高级信息均可用。显示数据随服务端登录和成功重载同步；既有恢复与饮食机制保持不变。设计总纲见 [DESIGN_PRINCIPLES.md](DESIGN_PRINCIPLES.md)，分阶段实施计划见 [PLAN.md](PLAN.md)。每个 Stage 验收通过后才能进入下一阶段；战斗节奏与数值平衡按用户要求留到主要功能和机制基本完成后评估。
+当前处于 Stage 6（Thirst Was Taken 2 Optional Integration）：可将 Food Profile Hydration 接入 TWT2 的既有口渴结算，保留配置/原生数据包优先级，避免重复补水。不安装 TWT2 时仍可独立运行；食物提示继续支持中英文和 F3+H。设计总纲见 [DESIGN_PRINCIPLES.md](DESIGN_PRINCIPLES.md)，分阶段实施计划见 [PLAN.md](PLAN.md)。每个 Stage 验收通过后才能进入下一阶段；战斗节奏与数值平衡按用户要求留到主要功能和机制基本完成后评估。
 
 ## 当前工程基线
 
@@ -34,7 +34,7 @@ $env:PATH = "$env:JAVA_HOME/bin;$env:PATH"
 
 构建产物：`build/libs/buildup_vitals-0.1.0-dev.jar`。`run/` 中的测试世界、日志、协议选择和配置均不提交到 Git。
 
-开发客户端使用 Fabric 开发账号，Realms 认证失败不代表本地单人世界无法启动。历史验证见 [Stage 0 报告](docs/STAGE_0_REPORT.md)、[Stage 1 报告](docs/STAGE_1_REPORT.md)、[Stage 2 报告](docs/STAGE_2_REPORT.md)、[Stage 3 报告](docs/STAGE_3_REPORT.md)、[Stage 4 报告](docs/STAGE_4_REPORT.md)；当前验证和人工验收见 [Stage 5 报告](docs/STAGE_5_REPORT.md)。
+开发客户端使用 Fabric 开发账号，Realms 认证失败不代表本地单人世界无法启动。历史验证见 [Stage 0 报告](docs/STAGE_0_REPORT.md)、[Stage 1 报告](docs/STAGE_1_REPORT.md)、[Stage 2 报告](docs/STAGE_2_REPORT.md)、[Stage 3 报告](docs/STAGE_3_REPORT.md)、[Stage 4 报告](docs/STAGE_4_REPORT.md)、[Stage 5 报告](docs/STAGE_5_REPORT.md)；当前验证和人工验收见 [Stage 6 报告](docs/STAGE_6_REPORT.md)。
 
 ## Food Profile 数据与查询
 
@@ -46,7 +46,13 @@ $env:PATH = "$env:JAVA_HOME/bin;$env:PATH"
 /buildupvitals food profile minecraft:baked_potato
 ```
 
-命令需要 Game Masters 权限（通常 OP 2 / 开启作弊）。当前内置六份示例 Profile，展示 Item、Tag、料理增益和饮食类别；未匹配时使用 fallback。蘑菇煲基础提供 3 HP 储备与 Restorative，南瓜派基础提供 1 HP 储备与 Invigorated。牛排、面包、苹果和水果 Tag 提供类别信息，原版食物营养保持不变。Hydration、Traits 和 overrides 仍是预留数据。
+命令需要 Game Masters 权限（通常 OP 2 / 开启作弊）。当前内置六份示例 Profile，展示 Item、Tag、料理增益和饮食类别；未匹配时使用 fallback。蘑菇煲基础提供 3 HP 储备与 Restorative，南瓜派基础提供 1 HP 储备与 Invigorated。牛排、面包、苹果和水果 Tag 提供类别信息，原版食物营养保持不变。Hydration 按可选适配生效；Traits 和 overrides 仍是预留数据。
+
+## 可选口渴适配
+
+支持 **Thirst Was Taken 2 Fabric 1.6.2+26.3**。详见 [HYDRATION.md](docs/HYDRATION.md)：TWT2 配置与 drinks 数据包优先，随后采用 Buildup Profile，最终只由 TWT2 结算一次。其默认配置已有苹果、蘑菇煲等值；要交给 Buildup 管理，需要按说明移除相应配置条目。
+
+开发环境加入 `-PwithThirst=true` 才加载 TWT2，例如 `.\gradlew.bat runClient -PwithThirst=true`；普通构建仅有编译依赖，不捆绑该 Mod。口渴水滴提示复用 TWT2 与 AppleSkin 的显示；不装 AppleSkin 时机制仍工作。TWT2 自带的 Quenched 治疗保留，恢复协调与数值评估留待后续阶段。
 
 ## 恢复与验证
 
@@ -66,6 +72,8 @@ $env:PATH = "$env:JAVA_HOME/bin;$env:PATH"
 ```
 
 客户端测试自动创建测试世界并验证恢复、料理增益、饮食记忆、切维度、死亡、保存重进、Tooltip 同步及重连，并生成中英文普通/高级提示截图。运行目录为 `build/run/clientGameTest/`，不会操作日常开发世界。
+
+安装 TWT2 的测试场景另加 `-PwithThirst=true`，覆盖补水、优先级、事件取消、纯水/盐水、重载、移除与重连；未安装时仅验证适配关闭，不把未执行的口渴场景计为通过。完整三组合命令见 [HYDRATION.md](docs/HYDRATION.md)。
 
 可选 AppleSkin 兼容测试：从 [作者 Maven](https://maven.ryanliptak.com/squeek/appleskin/appleskin-fabric/mc26.3-3.0.10/) 取得对应 JAR 放到忽略目录 `run/compat/` 后执行：
 
