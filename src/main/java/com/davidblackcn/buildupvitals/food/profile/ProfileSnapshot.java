@@ -81,6 +81,10 @@ public final class ProfileSnapshot {
         return byItem.size();
     }
 
+    public Set<Identifier> items() {
+        return byItem.keySet();
+    }
+
     public record Match(FoodProfile profile, Optional<ProfileDefinition> definition) {
         public boolean fallback() {
             return definition.isEmpty();

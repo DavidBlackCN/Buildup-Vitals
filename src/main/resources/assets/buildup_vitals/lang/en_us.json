@@ -1,3 +1,22 @@
 {
-  "tag.item.buildup_vitals.example_fruit": "Example Fruits"
+  "tag.item.buildup_vitals.example_fruit": "Example Fruits",
+  "tooltip.buildup_vitals.quality.basic": "Basic food",
+  "tooltip.buildup_vitals.quality.prepared": "Prepared food",
+  "tooltip.buildup_vitals.quality.meal": "Complete meal",
+  "tooltip.buildup_vitals.quality.feast": "Feast",
+  "tooltip.buildup_vitals.recovery": "Gradually restores %s health (base)",
+  "tooltip.buildup_vitals.benefit": "Provides the %s meal benefit",
+  "tooltip.buildup_vitals.benefit.restorative": "Restorative",
+  "tooltip.buildup_vitals.benefit.invigorated": "Invigorated",
+  "tooltip.buildup_vitals.category.protein": "Protein",
+  "tooltip.buildup_vitals.category.grain": "Grain",
+  "tooltip.buildup_vitals.category.vegetable": "Vegetables",
+  "tooltip.buildup_vitals.category.fruit": "Fruit",
+  "tooltip.buildup_vitals.category.dairy": "Dairy",
+  "tooltip.buildup_vitals.category.sweet": "Sweets",
+  "tooltip.buildup_vitals.debug.profile": "Buildup profile: %s",
+  "tooltip.buildup_vitals.debug.recovery": "Buildup recovery.health: %s HP",
+  "tooltip.buildup_vitals.debug.group": "Buildup variety_group: %s",
+  "tooltip.buildup_vitals.debug.benefit": "Buildup meal_benefit: %s (available: %s)",
+  "tooltip.buildup_vitals.debug.base_values": "Base values; diet bonuses and reserve cap apply."
 }

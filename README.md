@@ -2,7 +2,7 @@
 
 Buildup 系列的 Vanilla+ 玩家状态机制模组。第一目标平台为 Fabric / Minecraft 26.3。
 
-当前处于 Stage 4（Diet Memory & Dietary Variety）：记录最近 10 次有效进食，多样饮食为食物恢复、料理增益时长和 Well-fed 恢复速度提供少量额外收益。重复饮食保留完整基础营养与恢复。设计总纲见 [DESIGN_PRINCIPLES.md](DESIGN_PRINCIPLES.md)，分阶段实施计划见 [PLAN.md](PLAN.md)。每个 Stage 验收通过后才能进入下一阶段；战斗节奏与数值平衡按用户要求留到主要功能和机制基本完成后评估。
+当前处于 Stage 5（Client Feedback & Tooltips）：食物提示显示品质、基础恢复、料理增益和饮食类别，中英文及 F3+H 高级信息均可用。显示数据随服务端登录和成功重载同步；既有恢复与饮食机制保持不变。设计总纲见 [DESIGN_PRINCIPLES.md](DESIGN_PRINCIPLES.md)，分阶段实施计划见 [PLAN.md](PLAN.md)。每个 Stage 验收通过后才能进入下一阶段；战斗节奏与数值平衡按用户要求留到主要功能和机制基本完成后评估。
 
 ## 当前工程基线
 
@@ -34,7 +34,7 @@ $env:PATH = "$env:JAVA_HOME/bin;$env:PATH"
 
 构建产物：`build/libs/buildup_vitals-0.1.0-dev.jar`。`run/` 中的测试世界、日志、协议选择和配置均不提交到 Git。
 
-开发客户端使用 Fabric 开发账号，Realms 认证失败不代表本地单人世界无法启动。历史验证见 [Stage 0 报告](docs/STAGE_0_REPORT.md)、[Stage 1 报告](docs/STAGE_1_REPORT.md)、[Stage 2 报告](docs/STAGE_2_REPORT.md)、[Stage 3 报告](docs/STAGE_3_REPORT.md)；当前验证和人工验收见 [Stage 4 报告](docs/STAGE_4_REPORT.md)。
+开发客户端使用 Fabric 开发账号，Realms 认证失败不代表本地单人世界无法启动。历史验证见 [Stage 0 报告](docs/STAGE_0_REPORT.md)、[Stage 1 报告](docs/STAGE_1_REPORT.md)、[Stage 2 报告](docs/STAGE_2_REPORT.md)、[Stage 3 报告](docs/STAGE_3_REPORT.md)、[Stage 4 报告](docs/STAGE_4_REPORT.md)；当前验证和人工验收见 [Stage 5 报告](docs/STAGE_5_REPORT.md)。
 
 ## Food Profile 数据与查询
 
@@ -54,6 +54,8 @@ $env:PATH = "$env:JAVA_HOME/bin;$env:PATH"
 
 [饮食记忆说明](docs/DIET_MEMORY.md) 解释十次窗口、奖励公式和重复饮食边界。用 `/buildupvitals diet [player]` 查询历史及倍率。缺少类别的 fallback 食物也记录进食，保留基础营养，不虚构类别。
 
+[客户端反馈说明](docs/CLIENT_FEEDBACK.md) 解释普通与高级 Tooltip、基础数值、服务端同步及 AppleSkin 的兼容边界。无需安装其他 HUD Mod；本阶段不增加常驻状态条。
+
 `.\gradlew.bat build` 运行 JVM 测试和服务端 GameTest。前者报告位于 `build/reports/tests/test/index.html`，后者位于 `build/run/gameTest/`。测试 Mod 与测试类不会打包进发布 JAR。
 
 真实连接玩家的单人/独立服务端测试单独运行：
@@ -63,7 +65,15 @@ $env:PATH = "$env:JAVA_HOME/bin;$env:PATH"
 .\gradlew.bat runClientGameTest -PacceptMinecraftEula=true
 ```
 
-客户端测试自动创建测试世界并验证恢复、料理增益、饮食记忆、切维度、死亡、保存重进及重连，运行目录为 `build/run/clientGameTest/`，不会操作日常开发世界。
+客户端测试自动创建测试世界并验证恢复、料理增益、饮食记忆、切维度、死亡、保存重进、Tooltip 同步及重连，并生成中英文普通/高级提示截图。运行目录为 `build/run/clientGameTest/`，不会操作日常开发世界。
+
+可选 AppleSkin 兼容测试：从 [作者 Maven](https://maven.ryanliptak.com/squeek/appleskin/appleskin-fabric/mc26.3-3.0.10/) 取得对应 JAR 放到忽略目录 `run/compat/` 后执行：
+
+```powershell
+.\gradlew.bat runClientGameTest -PacceptMinecraftEula=true '-PtestAppleSkinJar=run/compat/appleskin-fabric-mc26.3-3.0.10.jar'
+```
+
+该参数仅向 GameTest 运行时加入本地测试包，不下载、捆绑或添加生产依赖。
 
 ## 许可证
 

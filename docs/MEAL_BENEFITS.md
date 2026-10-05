@@ -1,4 +1,4 @@
-# Food Quality 与 Meal Benefit（Stage 4）
+# Food Quality 与 Meal Benefit（Stage 5）
 
 这是 Buildup 独立维护的料理状态，不注册原版 MobEffect，也不添加右上角药水图标或新 HUD。所有实际效果由服务端决定；原版和第三方药水效果不占用这个槽位。
 
@@ -53,7 +53,7 @@ Profile 格式见 [FOOD_PROFILES.md](FOOD_PROFILES.md)。未知/实验引用保�
 
 新增持久化附件 `buildup_vitals:meal_benefit`，字段为可选 `type` 和 `remaining_ticks`（0–3600）。缺失附件视为空；缺少类型或时间为零归一为空，越界值由 Codec 拒绝。已保存但不可用的类型在下个 tick 清除。旧 `buildup_vitals:recovery` 格式不变。
 
-不向客户端同步自定义状态；真实生命与饱食走原版同步。管理员可在服务端只读查询：
+不向客户端同步玩家当前增益及剩余时间；Stage 5 同步食物显示元数据，用于提示食物可提供的增益。真实生命与饱食走原版同步。管理员可在服务端只读查询：
 
 ```text
 /buildupvitals food profile minecraft:pumpkin_pie
@@ -62,4 +62,4 @@ Profile 格式见 [FOOD_PROFILES.md](FOOD_PROFILES.md)。未知/实验引用保�
 /buildupvitals recovery <player>
 ```
 
-后两项显示 `meal_benefit`、`remaining_ticks` 与恢复周期。没有增益时显示 `none` / `0`。用 `/buildupvitals diet [player]` 查询饮食倍率；Tooltip 与 HUD 属于后续阶段。
+后两项显示 `meal_benefit`、`remaining_ticks` 与恢复周期。没有增益时显示 `none` / `0`。用 `/buildupvitals diet [player]` 查询饮食倍率；食物普通 Tooltip 显示已实现增益名称，高级 Tooltip 保留未知/实验引用，详见 [客户端反馈](CLIENT_FEEDBACK.md)。没有新增增益 HUD。

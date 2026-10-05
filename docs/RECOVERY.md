@@ -1,6 +1,6 @@
-# 恢复机制（Stage 4）
+# 恢复机制（Stage 5）
 
-普通食物继续使用自身 Food Component 提供 Hunger / Saturation。Food Profile 的 `recovery.health` 提供恢复储备；[Restorative](MEAL_BENEFITS.md) 可以加快其兑现，[饮食多样性](DIET_MEMORY.md) 提供少量额外储备及 Well-fed 速度奖励。未实现口渴、Tooltip 或新 HUD。战斗节奏和数值平衡待主要功能机制基本完成后统一评估。
+普通食物继续使用自身 Food Component 提供 Hunger / Saturation。Food Profile 的 `recovery.health` 提供恢复储备；[Restorative](MEAL_BENEFITS.md) 可以加快其兑现，[饮食多样性](DIET_MEMORY.md) 提供少量额外储备及 Well-fed 速度奖励。[Tooltip](CLIENT_FEEDBACK.md) 显示食物基础恢复；口渴与新的心形预览尚未实现。战斗节奏和数值平衡待主要功能机制基本完成后统一评估。
 
 ## 恢复优先级与参数
 
@@ -37,7 +37,7 @@ Food Recovery 优先，期间不会并行积累自然恢复进度。储备耗尽
 
 使用 Fabric Data Attachment `buildup_vitals:recovery`，通过 Codec 持久化 `reserve`、`progress` 和 `mode`。这是首次新增的状态格式；没有迁移或覆盖旧玩家字段。缺失状态为零；非法数值由 Codec 拒绝，日志遵循 Fabric 附件加载行为。周期进度在读取时限制到对应模式范围。
 
-附件仅服务端保存，不同步给客户端。实际生命使用原版同步；本阶段调试查询在服务端执行，因此客户端无需拥有权威恢复数值。
+玩家附件仅服务端保存，不同步给客户端。实际生命使用原版同步；调试查询在服务端执行。Stage 5 仅同步食物显示元数据，不同步当前玩家储备、恢复进度或饮食评分，Tooltip 不预测本次实际获得的治疗。
 
 ## 命令
 

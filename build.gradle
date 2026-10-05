@@ -50,6 +50,13 @@ fabricApi {
     }
 }
 
+// Optional local compatibility fixture. Never a production dependency or bundled mod.
+if (providers.gradleProperty('testAppleSkinJar').isPresent()) {
+    dependencies {
+        gametestRuntimeOnly files(providers.gradleProperty('testAppleSkinJar').get())
+    }
+}
+
 processResources {
     def modVersion = project.version
     inputs.property "version", modVersion

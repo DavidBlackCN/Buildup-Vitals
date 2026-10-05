@@ -7,6 +7,7 @@ import com.davidblackcn.buildupvitals.food.recovery.PlayerRecovery;
 import com.davidblackcn.buildupvitals.food.benefit.PlayerMealBenefits;
 import com.davidblackcn.buildupvitals.diet.PlayerDiet;
 import com.davidblackcn.buildupvitals.command.DietCommand;
+import com.davidblackcn.buildupvitals.network.FoodProfileSync;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ public final class BuildupVitals implements ModInitializer {
     @Override
     public void onInitialize() {
         FoodProfileLoader.register();
+        FoodProfileSync.register();
         FoodProfileCommand.register();
         PlayerRecovery.register();
         PlayerMealBenefits.register();

@@ -100,6 +100,8 @@ Tag 选择器使用 `"selector": { "tag": "my_pack:meals" }`，不带 `#`。Tag 
 
 ## 查询命令
 
+Stage 5 的 [食物 Tooltip](CLIENT_FEEDBACK.md) 使用服务端的最终匹配结果。登录与成功 `/reload` 后更新客户端完整显示快照；重载整体失败保留旧显示。无需在客户端另装服务器的数据包，未同步时不使用本地默认数据推断服务器玩法。
+
 需要原版 Game Masters 权限（通常为 OP 2 或开启作弊），控制台也可用：
 
 ```text

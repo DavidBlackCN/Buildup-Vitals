@@ -1,3 +1,22 @@
 {
-  "tag.item.buildup_vitals.example_fruit": "示例水果"
+  "tag.item.buildup_vitals.example_fruit": "示例水果",
+  "tooltip.buildup_vitals.quality.basic": "基础食物",
+  "tooltip.buildup_vitals.quality.prepared": "精制食物",
+  "tooltip.buildup_vitals.quality.meal": "正式料理",
+  "tooltip.buildup_vitals.quality.feast": "盛宴",
+  "tooltip.buildup_vitals.recovery": "逐渐恢复 %s 点生命值（基础）",
+  "tooltip.buildup_vitals.benefit": "提供「%s」饮食增益",
+  "tooltip.buildup_vitals.benefit.restorative": "调养",
+  "tooltip.buildup_vitals.benefit.invigorated": "精力充沛",
+  "tooltip.buildup_vitals.category.protein": "蛋白质",
+  "tooltip.buildup_vitals.category.grain": "谷物",
+  "tooltip.buildup_vitals.category.vegetable": "蔬菜",
+  "tooltip.buildup_vitals.category.fruit": "水果",
+  "tooltip.buildup_vitals.category.dairy": "乳制品",
+  "tooltip.buildup_vitals.category.sweet": "甜食",
+  "tooltip.buildup_vitals.debug.profile": "Buildup Profile：%s",
+  "tooltip.buildup_vitals.debug.recovery": "Buildup recovery.health：%s HP",
+  "tooltip.buildup_vitals.debug.group": "Buildup variety_group：%s",
+  "tooltip.buildup_vitals.debug.benefit": "Buildup meal_benefit：%s（可用：%s）",
+  "tooltip.buildup_vitals.debug.base_values": "基础数值；实际收益受饮食奖励与储备上限影响。"
 }
