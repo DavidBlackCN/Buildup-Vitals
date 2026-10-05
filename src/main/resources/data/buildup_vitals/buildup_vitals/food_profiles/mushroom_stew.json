@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "selector": { "item": "minecraft:mushroom_stew" },
+  "quality": "meal",
+  "recovery": { "health": 3.0 },
+  "hydration": { "thirst": 4, "quenched": 2 },
+  "diet": { "categories": ["vegetable"], "variety_group": "minecraft:mushroom_stew" },
+  "traits": ["soup", "warm"],
+  "meal_benefit": "buildup_vitals:restorative"
+}

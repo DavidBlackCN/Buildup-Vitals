@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Buildup Vitals Food Profile v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "selector"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "selector": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "maxProperties": 1,
+      "properties": {
+        "item": { "$ref": "#/$defs/id" },
+        "tag": { "$ref": "#/$defs/id" }
+      }
+    },
+    "priority": { "type": "integer", "minimum": -2147483648, "maximum": 2147483647, "default": 0 },
+    "quality": { "enum": ["basic", "prepared", "meal", "feast"], "default": "basic" },
+    "recovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": { "health": { "$ref": "#/$defs/nonnegativeNumber" } }
+    },
+    "hydration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "thirst": { "$ref": "#/$defs/nonnegativeInt" },
+        "quenched": { "$ref": "#/$defs/nonnegativeInt" }
+      }
+    },
+    "diet": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "categories": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "enum": ["protein", "grain", "vegetable", "fruit", "dairy", "sweet"] }
+        },
+        "variety_group": { "$ref": "#/$defs/id" }
+      }
+    },
+    "traits": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z0-9_]+$" }
+    },
+    "meal_benefit": { "$ref": "#/$defs/id" },
+    "overrides": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "hunger": { "$ref": "#/$defs/nonnegativeInt" },
+        "saturation": { "$ref": "#/$defs/nonnegativeNumber" }
+      }
+    }
+  },
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9_.-]+:[a-z0-9/._-]+$" },
+    "nonnegativeInt": { "type": "integer", "minimum": 0, "maximum": 2147483647, "default": 0 },
+    "nonnegativeNumber": { "type": "number", "minimum": 0, "maximum": 1.7976931348623157e308, "default": 0 }
+  }
+}

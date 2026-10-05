@@ -1,1 +1,2 @@
 - 🎉 chore(bootstrap): 建立 Minecraft 26.3 / Fabric 可构建基线，清理示例残留并验证客户端世界与独立服务端启动，保持原版玩法不变。
+- ✨ feat(food): 新增可重载的 Food Profile 数据层，支持 Item/Tag 匹配、数据包覆盖、错误隔离与 fallback，并提供查询命令及数据包文档；本阶段数据不改变玩家数值。

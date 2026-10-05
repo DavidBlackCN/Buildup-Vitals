@@ -1,5 +1,7 @@
 package com.davidblackcn.buildupvitals;
 
+import com.davidblackcn.buildupvitals.command.FoodProfileCommand;
+import com.davidblackcn.buildupvitals.data.loader.FoodProfileLoader;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,8 @@ public final class BuildupVitals implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Buildup Vitals bootstrap initialized.");
+        FoodProfileLoader.register();
+        FoodProfileCommand.register();
+        LOGGER.info("Buildup Vitals food profile foundation initialized.");
     }
 }

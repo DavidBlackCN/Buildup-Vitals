@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "selector": { "tag": "buildup_vitals:example_fruit" },
+  "quality": "basic",
+  "hydration": { "thirst": 1 },
+  "diet": { "categories": ["fruit"] }
+}

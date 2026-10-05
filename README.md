@@ -2,7 +2,7 @@
 
 Buildup 系列的 Vanilla+ 玩家状态机制模组。第一目标平台为 Fabric / Minecraft 26.3。
 
-当前处于 Stage 0（Bootstrap），尚未实现任何 Gameplay 机制。设计总纲见 [DESIGN_PRINCIPLES.md](DESIGN_PRINCIPLES.md)，分阶段实施计划见 [PLAN.md](PLAN.md)。每个 Stage 验收通过后才能进入下一阶段。
+当前处于 Stage 1（Food Profile Data Foundation），提供数据包加载、Item/Tag 匹配和查询命令，尚未实现任何 Gameplay 机制。设计总纲见 [DESIGN_PRINCIPLES.md](DESIGN_PRINCIPLES.md)，分阶段实施计划见 [PLAN.md](PLAN.md)。每个 Stage 验收通过后才能进入下一阶段。
 
 ## 当前工程基线
 
@@ -34,7 +34,21 @@ $env:PATH = "$env:JAVA_HOME/bin;$env:PATH"
 
 构建产物：`build/libs/buildup_vitals-0.1.0-dev.jar`。`run/` 中的测试世界、日志、协议选择和配置均不提交到 Git。
 
-开发客户端使用 Fabric 开发账号，Realms 认证失败不代表本地单人世界无法启动。运行时验证结果和人工验收清单见 [Stage 0 报告](docs/STAGE_0_REPORT.md)。
+开发客户端使用 Fabric 开发账号，Realms 认证失败不代表本地单人世界无法启动。验证结果和人工验收清单见 [Stage 0 报告](docs/STAGE_0_REPORT.md) 和 [Stage 1 报告](docs/STAGE_1_REPORT.md)。
+
+## Food Profile 数据与查询
+
+数据包格式和优先级见 [Food Profile v1](docs/FOOD_PROFILES.md)。修改数据包后执行 `/reload`，再查询：
+
+```text
+/buildupvitals food profile minecraft:apple
+/buildupvitals food profile minecraft:melon_slice
+/buildupvitals food profile minecraft:bread
+```
+
+命令需要 Game Masters 权限（通常 OP 2 / 开启作弊）。当前内置三份测试用 Profile，分别展示 Item、Tag 和未匹配时的 fallback；数据值不修改原版食物组件或玩家状态。
+
+`./gradlew.bat build` 会运行 JUnit 解析和匹配测试，测试报告位于 `build/reports/tests/test/index.html`。
 
 ## 许可证
 
