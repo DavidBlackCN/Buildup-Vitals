@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "selector": { "item": "minecraft:carrot" },
+  "quality": "feast",
+  "recovery": { "health": 2 },
+  "meal_benefit": "buildup_vitals_test:missing"
+}

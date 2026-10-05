@@ -26,8 +26,12 @@ import net.minecraft.world.level.storage.TagValueOutput;
 
 /** Test-only mod: actual vanilla food, healing and attachment paths under Mixin. */
 public class RecoveryGameTests {
-    private static ServerPlayer player(GameTestHelper helper) {
-        var player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
+    static ServerPlayer player(GameTestHelper helper) {
+        return player(helper, GameType.SURVIVAL);
+    }
+
+    static ServerPlayer player(GameTestHelper helper, GameType gameType) {
+        var player = (ServerPlayer) helper.makeMockServerPlayer(gameType);
         Connection connection = new Connection(PacketFlow.SERVERBOUND);
         new EmbeddedChannel(connection);
         new ServerGamePacketListenerImpl(helper.getLevel().getServer(), connection, player,
@@ -39,7 +43,7 @@ public class RecoveryGameTests {
         return player;
     }
 
-    private static void ticks(ServerPlayer player, int count) {
+    static void ticks(ServerPlayer player, int count) {
         for (int i = 0; i < count; i++) player.getFoodData().tick(player);
     }
 
@@ -53,14 +57,14 @@ public class RecoveryGameTests {
         helper.assertTrue(player.getFoodData().getFoodLevel() == 16, "Vanilla nutrition retained");
         helper.assertTrue(PlayerRecovery.state(player).reserve() == 3, "Finished stew supplies exactly one profile");
         helper.assertTrue(player.getHealth() == 10, "No instant food healing");
-        ticks(player, 49);
-        helper.assertTrue(player.getHealth() == 10, "Food waits 50 ticks");
+        ticks(player, 39);
+        helper.assertTrue(player.getHealth() == 10, "Restorative food waits 40 ticks");
         player.hurtServer(helper.getLevel(), player.damageSources().generic(), 2);
         helper.assertTrue(player.getHealth() == 8, "Damage is unchanged");
         ticks(player, 1);
         helper.assertTrue(player.getHealth() == 9 && PlayerRecovery.state(player).reserve() == 2,
                 "Damage does not reset food recovery");
-        ticks(player, 100);
+        ticks(player, 80);
         helper.assertTrue(player.getHealth() == 11 && PlayerRecovery.state(player).reserve() == 0, "Reserve exhausts gradually");
         helper.succeed();
     }

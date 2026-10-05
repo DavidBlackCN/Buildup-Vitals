@@ -1,6 +1,6 @@
 # Food Profile v1
 
-Stage 2 起，`recovery.health` 在服务端玩家完成进食后加入恢复储备，按 [恢复规则](RECOVERY.md) 逐渐回血。其余字段仍只加载和查询，不改变食物 Hunger/Saturation、口渴或饮食增益；示例值不是已定稿的平衡数据。
+`recovery.health` 在服务端玩家完成进食后加入恢复储备，按 [恢复规则](RECOVERY.md) 逐渐回血。Stage 3 起，显式 `meal_benefit` 引用授予已实现的主要增益，`quality` 决定持续时间，见 [料理增益规则](MEAL_BENEFITS.md)。Hydration、Diet、Traits 和 overrides 仍只加载和查询；不改写食物 Hunger/Saturation，示例值不是已定稿的平衡数据。
 
 ## 文件位置
 
@@ -55,13 +55,13 @@ Tag 选择器使用 `"selector": { "tag": "my_pack:meals" }`，不带 `#`。Tag 
 | `schema_version` | 必填，整数 1 |
 | `selector` | 必填，仅有 `item` 或 `tag` 其中之一；必须显式写 `namespace:path` |
 | `priority` | 32 位有符号整数；默认 0，较大者优先 |
-| `quality` | `basic`、`prepared`、`meal`、`feast`；默认 `basic` |
+| `quality` | `basic`、`prepared`、`meal`、`feast`；默认 `basic`；显式有效增益持续 600 / 1200 / 2400 / 3600 tick |
 | `recovery.health` | 有限非负数，单位 HP；默认 0；进食后加入最多 20 HP 的储备 |
 | `hydration.thirst` / `quenched` | 非负 32 位整数；默认 0 |
 | `diet.categories` | `protein`、`grain`、`vegetable`、`fruit`、`dairy`、`sweet` 的不重复数组；默认空 |
 | `diet.variety_group` | 可选 namespaced ID；缺省时使用被查询物品自己的 ID，Tag 内物品不会自动被归为同组 |
 | `traits` | 不重复的字符串数组，各项匹配 `[a-z0-9_]+`；默认空。`soup`、`drink`、`warm` 属于 Trait |
-| `meal_benefit` | 可选 namespaced ID；仅保存引用，不校验或实现尚未建立的 Benefit registry |
+| `meal_benefit` | 可选 namespaced ID；已实现 `buildup_vitals:restorative`、`buildup_vitals:invigorated`；`buildup_vitals:steady` 保留为实验类型 |
 | `overrides.hunger` | 可选非负 32 位整数，绝对食物点数；缺省表示保留原版 |
 | `overrides.saturation` | 可选有限非负数，绝对饱和点数，非原版 saturation modifier；缺省表示保留原版 |
 
@@ -92,6 +92,8 @@ Tag 选择器使用 `"selector": { "tag": "my_pack:meals" }`，不带 `#`。Tag 
 - 一个 Profile 文件出错时，只跳过该文件；记录资源路径、数据包名、字段路径/JSON 语法位置及原因，其余有效 Profile 继续加载。
 - 高优先级同路径文件无效时，不恢复被覆盖的低优先级版本；其余有效规则或 fallback 可接管。下一次修复并重载即可生效。
 - 缺失的 Item/Tag selector 输出警告并跳过；已存在但为空的 Tag 合法，匹配零物品。
+- 未知或实验 `meal_benefit` 输出包含文件、数据包、字段和 ID 的警告；只忽略增益行为，保留该 Profile 的 Recovery 等字段。查询仍显示原引用与 `benefit_available=false`。不会清除或刷新玩家已有增益。
+- 成功重载只影响之后进食的增益授予；不追溯移除或重算已获得增益的剩余时间。
 - 删除文件后，下次成功重载不保留旧定义；若下层数据包仍有同路径文件，会按原版规则重新显示下层版本。
 - 原版重载整体失败时，服务端保留旧的整套资源和 Profile 快照。不要把 `Prepared food profile snapshot` 日志当作整轮重载已经成功。
 
@@ -107,4 +109,4 @@ Tag 选择器使用 `"selector": { "tag": "my_pack:meals" }`，不带 `#`。Tag 
 
 命令显示最终 Profile ID、文件路径、数据包、selector、优先级、fallback 状态、全部数据值和快照规模。参数使用原版 Item 参数解析和补全；数据组件参数不会改变按 Item ID 查询的语义。
 
-内置三份示例：苹果具体 Item、蘑菇煲具体 Item、示例水果 Tag。水果 Tag 包括苹果、西瓜片和甜浆果；苹果应命中具体规则，西瓜片应命中 Tag，面包应走 fallback。
+内置四份示例：苹果具体 Item、蘑菇煲具体 Item、南瓜派具体 Item、示例水果 Tag。水果 Tag 包括苹果、西瓜片和甜浆果；苹果应命中具体规则，西瓜片应命中 Tag，面包应走 fallback。蘑菇煲为 Meal / Recovery 3 / Restorative，南瓜派为 Prepared / Recovery 1 / Invigorated。

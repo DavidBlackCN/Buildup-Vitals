@@ -1,6 +1,7 @@
 package com.davidblackcn.buildupvitals.data.loader;
 
 import com.davidblackcn.buildupvitals.BuildupVitals;
+import com.davidblackcn.buildupvitals.food.benefit.MealBenefitRegistry;
 import com.davidblackcn.buildupvitals.food.profile.ProfileDefinition;
 import com.davidblackcn.buildupvitals.food.profile.ProfileSnapshot;
 import com.google.gson.JsonParseException;
@@ -89,7 +90,11 @@ public final class FoodProfileLoader implements PreparableReloadListener {
             var source = new ProfileDefinition.Source(profileId, file, resource.sourcePackId(),
                     packOrder.get(resource.source()));
             try (var reader = resource.openAsReader()) {
-                definitions.add(ProfileParser.parse(reader, source));
+                var definition = ProfileParser.parse(reader, source);
+                definition.profile().mealBenefit().filter(id -> !MealBenefitRegistry.available(id)).ifPresent(id ->
+                        BuildupVitals.LOGGER.warn("Food profile {} [pack={}] $.meal_benefit: unknown or experimental benefit {}; benefit ignored, other fields retained",
+                                file, resource.sourcePackId(), id));
+                definitions.add(definition);
             } catch (IOException | JsonParseException exception) {
                 BuildupVitals.LOGGER.warn("Skipping food profile {} [pack={}]: {}",
                         file, resource.sourcePackId(), exception.getMessage());

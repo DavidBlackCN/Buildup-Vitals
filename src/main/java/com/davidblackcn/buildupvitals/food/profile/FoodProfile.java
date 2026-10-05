@@ -6,7 +6,7 @@ import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import net.minecraft.resources.Identifier;
 
-/** Food metadata. Stage 2 consumes recoveryHealth; other fields remain descriptive. */
+/** Food metadata. Recovery, quality and explicit meal benefits have gameplay meaning since Stage 3. */
 public record FoodProfile(
         FoodQuality quality,
         double recoveryHealth,

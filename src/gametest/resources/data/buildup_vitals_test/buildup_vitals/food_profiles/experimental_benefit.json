@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "selector": { "item": "minecraft:beetroot" },
+  "quality": "meal",
+  "recovery": { "health": 1 },
+  "meal_benefit": "buildup_vitals:steady"
+}

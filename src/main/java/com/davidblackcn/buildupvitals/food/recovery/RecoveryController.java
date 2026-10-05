@@ -25,6 +25,13 @@ public final class RecoveryController {
     }
 
     public static Step tick(RecoveryState state, Conditions conditions) {
+        return tick(state, conditions, RecoveryBalance.FOOD_TICKS);
+    }
+
+    public static Step tick(RecoveryState state, Conditions conditions, int foodInterval) {
+        if (foodInterval < 1 || foodInterval > RecoveryBalance.FOOD_TICKS) {
+            throw new IllegalArgumentException("Food interval outside the saved progress range");
+        }
         if (!conditions.alive()) {
             return new Step(RecoveryState.EMPTY, 0);
         }
@@ -37,7 +44,8 @@ public final class RecoveryController {
             return new Step(state.idle(), 0);
         }
         int progress = (mode == state.mode() ? state.progress() : 0) + 1;
-        if (progress < mode.interval()) {
+        int interval = mode == Mode.FOOD ? foodInterval : mode.interval();
+        if (progress < interval) {
             return new Step(new RecoveryState(state.reserve(), progress, mode), 0);
         }
         double healing = Math.min(1, conditions.maxHealth() - conditions.health());

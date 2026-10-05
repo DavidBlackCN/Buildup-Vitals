@@ -2,7 +2,7 @@
 
 Buildup 系列的 Vanilla+ 玩家状态机制模组。第一目标平台为 Fabric / Minecraft 26.3。
 
-当前处于 Stage 2（Recovery Core）：食物恢复储备与较慢的自然恢复已接入服务端。数据包和 Item/Tag 查询延续 Stage 1。设计总纲见 [DESIGN_PRINCIPLES.md](DESIGN_PRINCIPLES.md)，分阶段实施计划见 [PLAN.md](PLAN.md)。每个 Stage 验收通过后才能进入下一阶段。
+当前处于 Stage 3（Food Quality & Meal Benefit）：四档 Quality 控制显式料理增益的持续时间，服务器维护单一主要增益，支持调养与精力充沛。数据包与恢复机制延续前两阶段。设计总纲见 [DESIGN_PRINCIPLES.md](DESIGN_PRINCIPLES.md)，分阶段实施计划见 [PLAN.md](PLAN.md)。每个 Stage 验收通过后才能进入下一阶段；战斗节奏与数值平衡按用户要求留到主要功能和机制基本完成后评估。
 
 ## 当前工程基线
 
@@ -34,7 +34,7 @@ $env:PATH = "$env:JAVA_HOME/bin;$env:PATH"
 
 构建产物：`build/libs/buildup_vitals-0.1.0-dev.jar`。`run/` 中的测试世界、日志、协议选择和配置均不提交到 Git。
 
-开发客户端使用 Fabric 开发账号，Realms 认证失败不代表本地单人世界无法启动。历史验证见 [Stage 0 报告](docs/STAGE_0_REPORT.md)、[Stage 1 报告](docs/STAGE_1_REPORT.md)；当前验证和人工验收见 [Stage 2 报告](docs/STAGE_2_REPORT.md)。
+开发客户端使用 Fabric 开发账号，Realms 认证失败不代表本地单人世界无法启动。历史验证见 [Stage 0 报告](docs/STAGE_0_REPORT.md)、[Stage 1 报告](docs/STAGE_1_REPORT.md)、[Stage 2 报告](docs/STAGE_2_REPORT.md)；当前验证和人工验收见 [Stage 3 报告](docs/STAGE_3_REPORT.md)。
 
 ## Food Profile 数据与查询
 
@@ -46,11 +46,11 @@ $env:PATH = "$env:JAVA_HOME/bin;$env:PATH"
 /buildupvitals food profile minecraft:bread
 ```
 
-命令需要 Game Masters 权限（通常 OP 2 / 开启作弊）。当前内置三份测试用 Profile，分别展示 Item、Tag 和未匹配时的 fallback。蘑菇煲的 `recovery.health=3` 会在吃完后加入储备，逐渐兑现；其余数据字段尚不应用。
+命令需要 Game Masters 权限（通常 OP 2 / 开启作弊）。当前内置四份示例 Profile，展示 Item、Tag 与料理增益；未匹配时使用 fallback。蘑菇煲提供 3 HP 储备与 Restorative，南瓜派提供 1 HP 储备与 Invigorated。苹果和水果 Tag 不额外赋予增益，原版食物营养保持不变。Hydration、Diet、Traits 和 overrides 仍是预留数据。
 
 ## 恢复与验证
 
-[恢复机制说明](docs/RECOVERY.md) 列出阈值、储备上限、死亡及重连规则。用 `/buildupvitals recovery` 查询自身；控制台或管理员可用 `/buildupvitals recovery <player>`。
+[恢复机制说明](docs/RECOVERY.md) 与 [料理增益说明](docs/MEAL_BENEFITS.md) 列出参数、刷新替换、死亡及重连规则。用 `/buildupvitals recovery` 查询自身恢复与增益状态；控制台或管理员可用 `/buildupvitals recovery <player>`。
 
 `.\gradlew.bat build` 运行 JVM 测试和服务端 GameTest。前者报告位于 `build/reports/tests/test/index.html`，后者位于 `build/run/gameTest/`。测试 Mod 与测试类不会打包进发布 JAR。
 
@@ -61,7 +61,7 @@ $env:PATH = "$env:JAVA_HOME/bin;$env:PATH"
 .\gradlew.bat runClientGameTest -PacceptMinecraftEula=true
 ```
 
-客户端测试自动创建测试世界并验证恢复、切维度、死亡、保存重进及重连，运行目录为 `build/run/clientGameTest/`，不会操作日常开发世界。
+客户端测试自动创建测试世界并验证恢复、料理增益、切维度、死亡、保存重进及重连，运行目录为 `build/run/clientGameTest/`，不会操作日常开发世界。
 
 ## 许可证
 

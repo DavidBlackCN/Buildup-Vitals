@@ -7,6 +7,33 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RecoveryControllerTest {
+    @ParameterizedTest
+    @CsvSource({"40", "50"})
+    void speedChangesDoNotIncreaseTotalHealing(int interval) {
+        var state = RecoveryState.EMPTY.addFood(3.25);
+        double healed = 0;
+        for (int i = 0; i < interval * 4; i++) {
+            var step = RecoveryController.tick(state, conditions(10 + healed, 0, 0, false), interval);
+            healed += step.healing();
+            state = step.settle(step.healing());
+        }
+        assertEquals(3.25, healed);
+        assertEquals(0, state.reserve());
+    }
+
+    @Test
+    void speedChangePreservesProgressAndNaturalCost() {
+        var step = RecoveryController.tick(new RecoveryState(3, 45, Mode.FOOD), conditions(10, 0, 0, false), 40);
+        assertEquals(1, step.healing());
+        assertEquals(2, step.settle(1).reserve());
+        step = RecoveryController.tick(new RecoveryState(3, 39, Mode.FOOD), conditions(10, 0, 0, false), 50);
+        assertEquals(0, step.healing());
+        assertEquals(40, step.state().progress());
+        step = RecoveryController.tick(new RecoveryState(0, 79, Mode.WELL_FED), conditions(10, 20, 10, true), 40);
+        assertEquals(1, step.healing());
+        assertEquals(6, step.exhaustion(1));
+    }
+
     private static RecoveryController.Conditions conditions(double health, int hunger, float saturation, boolean natural) {
         return new RecoveryController.Conditions(true, true, health, 20, hunger, saturation, natural);
     }

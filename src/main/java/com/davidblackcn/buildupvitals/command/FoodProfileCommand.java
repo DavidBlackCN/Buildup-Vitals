@@ -1,6 +1,7 @@
 package com.davidblackcn.buildupvitals.command;
 
 import com.davidblackcn.buildupvitals.data.loader.FoodProfileLoader;
+import com.davidblackcn.buildupvitals.food.benefit.MealBenefitRegistry;
 import com.davidblackcn.buildupvitals.food.profile.DietCategory;
 import com.davidblackcn.buildupvitals.food.profile.ProfileSnapshot;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -40,10 +41,11 @@ public final class FoodProfileCommand {
                 + "\ncategories=" + profile.categories().stream().map(DietCategory::id).toList()
                 + ", variety_group=" + profile.varietyGroupFor(item) + ", traits=" + profile.traits()
                 + "\nmeal_benefit=" + profile.mealBenefit().map(Identifier::toString).orElse("<none>")
+                + ", benefit_available=" + profile.mealBenefit().filter(MealBenefitRegistry::available).isPresent()
                 + ", overrides.hunger=" + (profile.overrides().hunger().isPresent() ? profile.overrides().hunger().getAsInt() : "<vanilla>")
                 + ", overrides.saturation=" + (profile.overrides().saturation().isPresent() ? profile.overrides().saturation().getAsDouble() : "<vanilla>")
                 + "\nsnapshot=" + snapshot.profileCount() + " profiles / " + snapshot.itemCount()
-                + " indexed items; recovery.health supplies food recovery reserve";
+                + " indexed items; recovery.health supplies reserve; quality sets explicit benefit duration";
         source.sendSuccess(() -> Component.literal(text), false);
         return 1;
     }

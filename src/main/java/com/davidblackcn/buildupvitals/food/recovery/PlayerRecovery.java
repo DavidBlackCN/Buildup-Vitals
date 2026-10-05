@@ -1,6 +1,7 @@
 package com.davidblackcn.buildupvitals.food.recovery;
 
 import com.davidblackcn.buildupvitals.data.loader.FoodProfileLoader;
+import com.davidblackcn.buildupvitals.food.benefit.PlayerMealBenefits;
 import com.davidblackcn.buildupvitals.player.RecoveryAttachments;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -28,10 +29,11 @@ public final class PlayerRecovery {
         if (!player.isAlive() || player.isCreative() || player.isSpectator()) {
             return;
         }
-        double amount = FoodProfileLoader.snapshot(player.level().getServer())
-                .resolve(BuiltInRegistries.ITEM.getKey(stack.getItem())).profile().recoveryHealth();
+        var profile = FoodProfileLoader.snapshot(player.level().getServer())
+                .resolve(BuiltInRegistries.ITEM.getKey(stack.getItem())).profile();
         RecoveryState before = state(player);
-        store(player, before, before.addFood(amount));
+        store(player, before, before.addFood(profile.recoveryHealth()));
+        PlayerMealBenefits.foodConsumed(player, profile);
     }
 
     public static void tick(ServerPlayer player) {
@@ -40,7 +42,7 @@ public final class PlayerRecovery {
         var step = RecoveryController.tick(before, new RecoveryController.Conditions(player.isAlive(),
                 !player.isCreative() && !player.isSpectator(), player.getHealth(), player.getMaxHealth(),
                 food.getFoodLevel(), food.getSaturationLevel(),
-                player.level().getGameRules().get(GameRules.NATURAL_HEALTH_REGENERATION)));
+                player.level().getGameRules().get(GameRules.NATURAL_HEALTH_REGENERATION)), PlayerMealBenefits.foodInterval(player));
         float health = player.getHealth();
         if (step.healing() > 0) {
             player.heal(step.healing());
@@ -51,6 +53,7 @@ public final class PlayerRecovery {
             food.addExhaustion(exhaustion);
         }
         store(player, before, step.settle(gained));
+        PlayerMealBenefits.tick(player);
     }
 
     private static void store(ServerPlayer player, RecoveryState before, RecoveryState after) {
