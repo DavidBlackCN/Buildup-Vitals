@@ -1,6 +1,6 @@
 # Food Profile v1
 
-Schema 仍为 v1，Stage 7.5 向后兼容增加可选消费速度。`recovery.health` 在未积食的服务端玩家完成进食后加入储备，按 [Recovery v2](RECOVERY.md) 兑现。显式 `meal_benefit` 授予正式 MobEffect，Quality 决定基础时长；[饮食记忆](DIET_MEMORY.md) 提供少量奖励。安装已验证 TWT2 时，匹配的 Profile Hydration 在 blacklist 之后、TWT2 配置/drinks 之前生效。Traits 和 overrides 仍只加载与查询，不改写原生营养。
+Schema 仍为 v1，Stage 7.5 向后兼容增加可选消费速度。`recovery.health` 在未积食的服务端玩家完成进食后加入储备，按 [Recovery v2](RECOVERY.md) 兑现。显式 `meal_benefit` 授予正式 MobEffect，Quality 决定默认时长；已桥接的外来原生消费效果保留自身时长。[饮食记忆](DIET_MEMORY.md) 提供少量奖励。安装已验证 TWT2 时，匹配的 Profile Hydration 在 blacklist 之后、TWT2 配置/drinks 之前生效。Traits 和 overrides 仍只加载与查询，不改写原生营养。
 
 官方平衡的 `recovery.health` 允许0；非零最小值为 **1 HP（半颗心）**，优先整数1～6。此为官方数据约束，不改变 Schema v1 对第三方非负有限小数的支持，也不取整 Variety 加成、储备余额或缺血裁剪。普通食物约1、Prepared约1～2、Meal约3～4、Feast约4～6；干燥、特殊或不适合恢复的食物可为0。
 
@@ -64,7 +64,7 @@ Tag 选择器使用 `"selector": { "tag": "my_pack:meals" }`，不带 `#`。Tag 
 | `diet.categories` | `protein`、`grain`、`vegetable`、`fruit`、`dairy`、`sweet` 的不重复数组；默认空 |
 | `diet.variety_group` | 可选 namespaced ID；缺省时使用被查询物品自己的 ID，Tag 内物品不会自动被归为同组 |
 | `traits` | 不重复的字符串数组，各项匹配 `[a-z0-9_]+`；默认空。`soup`、`drink`、`warm` 属于 Trait |
-| `meal_benefit` | 可选 namespaced ID；已实现 `buildup_vitals:restorative`、`buildup_vitals:invigorated`；`buildup_vitals:steady` 保留为实验类型 |
+| `meal_benefit` | 可选 namespaced ID；原生 `buildup_vitals:restorative`、`buildup_vitals:invigorated`；受支持 FD 存在时还支持 `farmersdelight:nourishment`；`buildup_vitals:steady` 保留为实验类型 |
 | `overrides.hunger` | 可选非负 32 位整数，绝对食物点数；缺省表示保留原版 |
 | `overrides.saturation` | 可选有限非负数，绝对饱和点数，非原版 saturation modifier；缺省表示保留原版 |
 
@@ -85,7 +85,9 @@ Tag 选择器使用 `"selector": { "tag": "my_pack:meals" }`，不带 `#`。Tag 
 
 同类 selector 的重叠会输出冲突警告，包含首个重叠物品、赢家和被覆盖文件及数据包。同一对 Profile 在一次重载只警告一次。Tag 被明确 Item 覆盖是正常行为，不警告。
 
-没有命中时使用 fallback：`basic`、Recovery/Hydration 为 0、类别和 Trait 为空、无 Benefit/override、Variety Group 为物品 ID。本阶段不自动推断公共 Tag 类别；可通过 Tag Profile 显式赋予类别。非食物也可查询或声明 Profile，但不会因此变成可食用物品。
+没有命中时使用 fallback：`basic`、Recovery/Hydration 为 0、类别和 Trait 为空、无 Benefit/override、Variety Group 为物品 ID。不自动推断公共 Tag 类别；可通过 Tag Profile 显式赋予类别。非食物也可查询或声明 Profile，但不会因此变成可食用物品。受支持 FD 的现有 Consumable 饮料也结算 Profile/Diet；其他普通药水或无消费组件物品不因 Profile 自动进入 Food Recovery。
+
+FD 存在时内置兼容包提供 80 份显式数据，路径为 `data/buildup_vitals/buildup_vitals/food_profiles/farmersdelight/<item>.json`，Profile ID 为 `buildup_vitals:farmersdelight/<item>`。不需更改 Schema；最终 Profile 决定主增益，FD 后续原生 Nourishment 授予不能覆盖数据包改为原生增益/无增益的选择。原生 Nourishment 时长不乘 Variety；无原生消费来源时才回退 Quality 默认时长。全表与例外见 [FARMERS_DELIGHT_COMPAT](FARMERS_DELIGHT_COMPAT.md)。
 
 ## 重载与错误处理
 

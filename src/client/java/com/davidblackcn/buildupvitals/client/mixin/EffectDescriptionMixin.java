@@ -21,9 +21,10 @@ public abstract class EffectDescriptionMixin {
     private void buildupVitals$description(GuiGraphicsExtractor graphics, Component name, Component duration, Font font,
             int x, int y, int width, int step, int mouseX, int mouseY, CallbackInfo ci) {
         if (mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + step
-                && name.getContents() instanceof TranslatableContents text && text.getKey().startsWith("effect.buildup_vitals.")) {
+                && name.getContents() instanceof TranslatableContents text && (text.getKey().startsWith("effect.buildup_vitals.")
+                || (com.davidblackcn.buildupvitals.compat.farmersdelight.FarmersDelightCompatibility.supported() && text.getKey().equals("effect.farmersdelight.nourishment")))) {
             graphics.setTooltipForNextFrame(font, List.of(name, duration,
-                    Component.translatable(text.getKey() + ".description").withStyle(ChatFormatting.GRAY)), Optional.empty(), mouseX, mouseY);
+                    Component.translatable(text.getKey().equals("effect.farmersdelight.nourishment") ? "effect.buildup_vitals.foreign_nourishment.description" : text.getKey() + ".description").withStyle(ChatFormatting.GRAY)), Optional.empty(), mouseX, mouseY);
         }
     }
 }

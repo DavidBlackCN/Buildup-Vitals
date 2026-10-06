@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:steak_and_potatoes"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 4
+  },
+  "hydration": {
+    "thirst": 2,
+    "quenched": 1
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "vegetable"
+    ],
+    "variety_group": "farmersdelight:steak_and_potatoes"
+  },
+  "meal_benefit": "farmersdelight:nourishment"
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:dog_food"
+  },
+  "quality": "basic",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 2,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "grain"
+    ],
+    "variety_group": "farmersdelight:dog_food"
+  }
+}

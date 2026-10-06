@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:mushroom_rice"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 3
+  },
+  "hydration": {
+    "thirst": 3,
+    "quenched": 2
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "grain",
+      "vegetable"
+    ],
+    "variety_group": "farmersdelight:mushroom_rice"
+  },
+  "meal_benefit": "farmersdelight:nourishment"
+}

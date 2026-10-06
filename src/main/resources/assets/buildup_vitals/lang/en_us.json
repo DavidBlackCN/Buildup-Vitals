@@ -29,5 +29,6 @@
   "effect.buildup_vitals.overfull.description": "Food recovery paused; eating slower",
   "message.buildup_vitals.overeat_warning": "Feeling full. Give yourself time to digest.",
   "tooltip.buildup_vitals.consumption.quick": "Quick eating",
-  "tooltip.buildup_vitals.consumption.fast": "Fast eating"
+  "tooltip.buildup_vitals.consumption.fast": "Fast eating",
+  "effect.buildup_vitals.foreign_nourishment.description": "Food recovery: 10 ticks/HP; activity exhaustion: -10%"
 }

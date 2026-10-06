@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:glow_berry_custard"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 2
+  },
+  "hydration": {
+    "thirst": 3,
+    "quenched": 2
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "fruit",
+      "dairy",
+      "protein",
+      "sweet"
+    ],
+    "variety_group": "farmersdelight:glow_berry_custard"
+  }
+}

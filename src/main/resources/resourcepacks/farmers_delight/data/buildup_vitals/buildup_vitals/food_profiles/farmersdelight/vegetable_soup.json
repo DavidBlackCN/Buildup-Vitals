@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:vegetable_soup"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 3
+  },
+  "hydration": {
+    "thirst": 6,
+    "quenched": 4
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "vegetable"
+    ],
+    "variety_group": "farmersdelight:vegetable_soup"
+  },
+  "meal_benefit": "farmersdelight:nourishment",
+  "traits": [
+    "soup",
+    "warm"
+  ]
+}

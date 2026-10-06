@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:bacon_and_eggs"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 3
+  },
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein"
+    ],
+    "variety_group": "farmersdelight:bacon_and_eggs"
+  },
+  "meal_benefit": "farmersdelight:nourishment"
+}

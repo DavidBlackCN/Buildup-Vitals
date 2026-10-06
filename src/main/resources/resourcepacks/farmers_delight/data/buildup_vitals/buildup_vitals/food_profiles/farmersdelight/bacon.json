@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:bacon"
+  },
+  "quality": "basic",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "fast"
+  },
+  "diet": {
+    "categories": [
+      "protein"
+    ],
+    "variety_group": "minecraft:cooked_beef"
+  },
+  "traits": [
+    "snack"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:nether_salad"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 2,
+    "quenched": 1
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "vegetable"
+    ],
+    "variety_group": "farmersdelight:nether_salad"
+  }
+}

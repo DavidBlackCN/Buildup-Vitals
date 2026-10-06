@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:fried_rice"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 3
+  },
+  "hydration": {
+    "thirst": 2,
+    "quenched": 1
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "grain",
+      "vegetable"
+    ],
+    "variety_group": "farmersdelight:fried_rice"
+  },
+  "meal_benefit": "farmersdelight:nourishment"
+}

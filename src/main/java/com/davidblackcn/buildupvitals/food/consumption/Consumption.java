@@ -19,7 +19,7 @@ public final class Consumption {
     private Consumption() { }
     public static void receive(Map<Identifier, TooltipProfile> profiles) { clientProfiles = Map.copyOf(profiles); }
     public static int duration(ItemStack stack, LivingEntity user, int original) {
-        if (!stack.has(DataComponents.FOOD) || !stack.has(DataComponents.CONSUMABLE)
+        if ((!stack.has(DataComponents.FOOD) && !com.davidblackcn.buildupvitals.compat.farmersdelight.FarmersDelightCompatibility.beverage(stack)) || !stack.has(DataComponents.CONSUMABLE)
                 || !(user instanceof Player player) || player.isSpectator()) return original;
         var item = BuiltInRegistries.ITEM.getKey(stack.getItem());
         Optional<ConsumptionSpeed> speed;

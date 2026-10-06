@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:sweet_berry_cheesecake_slice"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 1
+  },
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "quick"
+  },
+  "diet": {
+    "categories": [
+      "grain",
+      "fruit",
+      "dairy"
+    ],
+    "variety_group": "farmersdelight:sweet_berry_cheesecake"
+  },
+  "traits": [
+    "snack"
+  ]
+}

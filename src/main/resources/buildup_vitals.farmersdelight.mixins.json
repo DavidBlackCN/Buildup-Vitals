@@ -1,0 +1,8 @@
+{
+  "required": true,
+  "package": "com.davidblackcn.buildupvitals.compat.farmersdelight.mixin",
+  "plugin": "com.davidblackcn.buildupvitals.compat.farmersdelight.FarmersDelightMixinPlugin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": ["NourishmentMixin", "NourishmentGrantMixin", "NourishmentFoodMixin", "BeverageMixin"],
+  "injectors": { "defaultRequire": 1 }
+}

@@ -20,14 +20,20 @@
   },
   "mixins": [
     "buildup_vitals.thirst.mixins.json",
+    "buildup_vitals.farmersdelight.mixins.json",
     "buildup_vitals.mixins.json",
     {
       "config": "buildup_vitals.client.mixins.json",
       "environment": "client"
+    },
+    {
+      "config": "buildup_vitals.farmersdelight.client.mixins.json",
+      "environment": "client"
     }
   ],
   "suggests": {
-    "thirstwastaken2": "=1.6.2+26.3"
+    "thirstwastaken2": "=1.6.2+26.3",
+    "farmersdelight": "=26.3-3.6.27+refabricated"
   },
   "depends": {
     "fabricloader": ">=0.19.5",

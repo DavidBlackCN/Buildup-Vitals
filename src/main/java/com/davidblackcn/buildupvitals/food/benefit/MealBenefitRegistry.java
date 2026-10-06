@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import net.minecraft.resources.Identifier;
 
-/** Fixed built-in types for Stage 3. Profiles reference IDs; no dynamic behavior registration. */
+/** Built-in types plus explicitly registered, version-gated foreign semantics. */
 public final class MealBenefitRegistry {
     private static final Map<Identifier, MealBenefitType> TYPES = Arrays.stream(MealBenefitType.values())
             .collect(Collectors.toUnmodifiableMap(MealBenefitType::id, type -> type));
@@ -18,6 +18,6 @@ public final class MealBenefitRegistry {
     }
 
     public static boolean available(Identifier id) {
-        return find(id).filter(MealBenefitType::implemented).isPresent();
+        return find(id).filter(MealBenefitType::implemented).isPresent() || ForeignMealBenefits.registered(id);
     }
 }

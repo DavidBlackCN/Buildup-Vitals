@@ -1,0 +1,7 @@
+{
+  "pack": {
+    "description": "Buildup Vitals profiles for Farmer's Delight",
+    "min_format": [121, 0],
+    "max_format": [121, 0]
+  }
+}

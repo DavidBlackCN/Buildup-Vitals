@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:cooked_cod_slice"
+  },
+  "quality": "basic",
+  "recovery": {
+    "health": 1
+  },
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "fast"
+  },
+  "diet": {
+    "categories": [
+      "protein"
+    ],
+    "variety_group": "minecraft:fish"
+  },
+  "traits": [
+    "snack"
+  ]
+}

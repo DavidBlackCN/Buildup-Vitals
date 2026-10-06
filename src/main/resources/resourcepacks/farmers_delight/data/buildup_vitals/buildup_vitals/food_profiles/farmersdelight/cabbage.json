@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:cabbage"
+  },
+  "quality": "basic",
+  "recovery": {
+    "health": 1
+  },
+  "hydration": {
+    "thirst": 3,
+    "quenched": 2
+  },
+  "consumption": {
+    "speed": "quick"
+  },
+  "diet": {
+    "categories": [
+      "vegetable"
+    ],
+    "variety_group": "farmersdelight:cabbage"
+  },
+  "traits": [
+    "snack"
+  ]
+}

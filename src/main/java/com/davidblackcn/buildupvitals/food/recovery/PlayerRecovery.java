@@ -38,7 +38,7 @@ public final class PlayerRecovery {
         // Clamp before multiplication so even a finite Double.MAX_VALUE profile cannot overflow.
         double recovery = Math.min(RecoveryBalance.MAX_RESERVE, profile.recoveryHealth()) * variety.foodMultiplier();
         store(player, before, before.addFood(recovery));
-        PlayerMealBenefits.foodConsumed(player, profile, variety.benefitMultiplier());
+        PlayerMealBenefits.foodConsumed(player, profile, variety.benefitMultiplier(), stack);
     }
 
     public static void tick(ServerPlayer player) {

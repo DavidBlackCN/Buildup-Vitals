@@ -1,6 +1,6 @@
 # Alpha Core Freeze
 
-冻结版本：**0.1.0-alpha.1**，Minecraft26.3 / Fabric。Stage 7.5与10 tick热修复已经人工验收；Stage 8冻结现有Core，不增加玩法、不调整平衡，不自动进入第三方料理深度兼容。
+冻结版本：**0.1.0-alpha.1**，Minecraft26.3 / Fabric。Stage 7.5与10 tick热修复已经人工验收；Stage 8冻结Core。之后经独立授权加入 [FD Compatibility](FARMERS_DELIGHT_COMPAT.md)，沿用本页的Core参数和数据契约。
 
 ## 对外契约
 
@@ -13,11 +13,11 @@
 | 玩家数据 | `buildup_vitals:recovery`、`diet_memory`、`overeat`附件；料理与积食效果使用原版MobEffect存储与同步；旧meal_benefit附件继续可迁移 |
 | 生命周期 | 死亡清短期状态，存档/重连/存活换维度保留；成功reload替换完整Profile快照，失败保留旧快照，不追溯重算已有储备或效果 |
 | 管理查询 | `/buildupvitals food profile <item>`、`recovery [player]`、`diet [player]`；保持管理员权限与服务端权威 |
-| 可选兼容 | TWT2仅验证Fabric1.6.2+26.3，无硬前置；其他版本关闭适配；AppleSkin不作为运行依赖 |
+| 可选兼容 | TWT2 Fabric1.6.2+26.3、FD Refabricated26.3-3.6.27，无硬前置；未知版本关闭相应行为适配；AppleSkin不作为运行依赖 |
 
 Schema是兼容包的首选稳定入口。当前没有独立发布、承诺二进制兼容的Java扩展API；内部public类、Mixin注入点和网络 `food_profiles_v3` 不是给其他Mod直接调用的通用API。客户端/服务端应使用同一Buildup版本，不承诺跨版本联机协议兼容。未来必要的Schema或持久化变更需明确版本化和迁移，不能悄悄改变旧字段含义。
 
-Traits、营养overrides及实验Steady仅保留数据语义，不视为已实现效果。此冻结不加入Farmer's Delight、Kaleidoscope Cookery、Oxygen、Mana或Stamina机制。
+Traits、营养overrides及实验Steady仅保留数据语义，不视为已实现效果。当前FD本体兼容新增Foreign主增益桥接和80份Profile；FD Addon、Kaleidoscope Cookery、Oxygen、Mana或Stamina未加入。
 
 ## 工程边界
 
@@ -28,6 +28,8 @@ Traits、营养overrides及实验Steady仅保留数据语义，不视为已实�
 - Linux Wrapper使用Git执行位100755与LF。CI运行服务端GameTest所需的EULA接受参数；工作流文件修改也触发构建。测试代码与第三方JAR不打包入发布产物。
 
 ## 验证范围与复用规则
+
+下表记录 Stage 8 冻结时的基线。随后 FD 兼容已执行五组组合的完整构建，当前为108项JVM、47项服务端GameTest（40项Core+7项FD条件测试）和5个客户端入口；新增Profile全覆盖、补水优先级、Foreign互斥/生命周期、重载与成就验证，详见 [FD兼容矩阵](FARMERS_DELIGHT_COMPAT.md)。
 
 | 检查 | 证据范围 |
 |---|---|
@@ -44,7 +46,7 @@ Traits、营养overrides及实验Steady仅保留数据语义，不视为已实�
 ## 人工验收
 
 - 使用Alpha JAR进入原有单人存档和专服；确认主要效果、Tooltip、储备和积食行为与已验收版本一致。
-- 两名真人玩家分别吃苹果与滋养料理，一人死亡/重连，确认另一人的恢复、饮食和效果不受影响。
+- 两名真人玩家分别吃苹果与调养料理，一人死亡/重连，确认另一人的恢复、饮食和效果不受影响。
 - 按数据包指南修改、故意写坏、修复并删除同一Profile；确认日志可定位问题，重载和客户端展示一致。
 - 下一次push检查Linux工作流不再出现 `./gradlew: Permission denied`，且build与产物上传成功。
 

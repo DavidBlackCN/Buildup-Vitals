@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:melon_juice"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 9,
+    "quenched": 9
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "fruit"
+    ],
+    "variety_group": "farmersdelight:melon_juice"
+  }
+}

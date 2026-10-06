@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:honey_glazed_ham"
+  },
+  "quality": "feast",
+  "recovery": {
+    "health": 5
+  },
+  "hydration": {
+    "thirst": 2,
+    "quenched": 1
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "grain",
+      "fruit",
+      "sweet"
+    ],
+    "variety_group": "farmersdelight:honey_glazed_ham"
+  },
+  "meal_benefit": "farmersdelight:nourishment"
+}

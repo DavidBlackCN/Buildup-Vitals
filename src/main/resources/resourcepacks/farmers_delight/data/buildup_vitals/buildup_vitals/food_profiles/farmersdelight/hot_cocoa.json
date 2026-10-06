@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:hot_cocoa"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 1
+  },
+  "hydration": {
+    "thirst": 7,
+    "quenched": 9
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "dairy",
+      "sweet"
+    ],
+    "variety_group": "farmersdelight:hot_cocoa"
+  }
+}

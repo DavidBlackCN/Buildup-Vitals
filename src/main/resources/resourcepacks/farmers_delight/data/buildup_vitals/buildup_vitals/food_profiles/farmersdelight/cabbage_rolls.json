@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:cabbage_rolls"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 2
+  },
+  "hydration": {
+    "thirst": 3,
+    "quenched": 2
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "vegetable"
+    ],
+    "variety_group": "farmersdelight:cabbage_rolls"
+  }
+}

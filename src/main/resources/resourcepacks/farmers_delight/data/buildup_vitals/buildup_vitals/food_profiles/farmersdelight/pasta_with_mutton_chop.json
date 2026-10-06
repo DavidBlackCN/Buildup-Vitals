@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:pasta_with_mutton_chop"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 4
+  },
+  "hydration": {
+    "thirst": 2,
+    "quenched": 1
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "grain",
+      "vegetable"
+    ],
+    "variety_group": "farmersdelight:meat_pasta"
+  },
+  "meal_benefit": "farmersdelight:nourishment"
+}

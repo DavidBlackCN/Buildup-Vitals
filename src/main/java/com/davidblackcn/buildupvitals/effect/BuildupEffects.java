@@ -22,7 +22,7 @@ public final class BuildupEffects {
                 Identifier.fromNamespaceAndPath(BuildupVitals.MOD_ID, name), new MobEffect(MobEffectCategory.BENEFICIAL, color) {
                     @Override public void onEffectStarted(net.minecraft.world.entity.LivingEntity entity, int amplifier) {
                         if (!entity.level().isClientSide()) {
-                            for (var other : mainEffects()) if (other.value() != this) entity.removeEffect(other);
+                            com.davidblackcn.buildupvitals.food.benefit.ForeignMealBenefits.started(entity, this);
                         }
                     }
                 });

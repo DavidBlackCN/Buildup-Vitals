@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:cooked_rice"
+  },
+  "quality": "basic",
+  "recovery": {
+    "health": 1
+  },
+  "hydration": {
+    "thirst": 2,
+    "quenched": 1
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "grain"
+    ],
+    "variety_group": "farmersdelight:cooked_rice"
+  },
+  "meal_benefit": "farmersdelight:nourishment"
+}

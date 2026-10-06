@@ -1,10 +1,10 @@
 # 客户端反馈 v2（Stage 7.5）
 
-普通食物 Tooltip 使用服务端最终 Profile，显示品质、爱心 + 基础 HP、主要效果图标 + 短名称、非 normal 消费速度及饮食类别。示例蘑菇煲为「正式料理 / 爱心 +3 HP / 滋养图标 + 滋养 / 蔬菜」，不再使用长篇恢复和增益介绍。
+普通食物 Tooltip 使用服务端最终 Profile，显示品质、爱心 + 基础 HP、主要效果图标 + 短名称、非 normal 消费速度及饮食类别。示例蘑菇煲为「正式料理 / 爱心 +3 HP / 调养图标 + 调养 / 蔬菜」，不再使用长篇恢复和增益介绍。
 
 恢复图标复用 Minecraft GUI 心形 sprite，增益图标为本模组 18×18 透明像素资源。使用 26.3 `FontDescription.AtlasSprite`，不修改整套 tooltip 渲染器。HP 是基础储备，不表示即时回血，2 HP=一颗心；Variety、剩余容量和积食会改变实际到账量。显示量裁剪到储备上限20，极小无效量省略，最多六位小数。
 
-Quick/Fast 显示简短本地化文字；normal 或未声明档位不额外占一行。仅真实 Food+Consumable 添加 Buildup 食物行；fallback 标为 Basic，不虚构恢复、增益或类别。零恢复、未知/实验 Benefit 省略对应行。
+Quick/Fast 显示简短本地化文字；normal 或未声明档位不额外占一行。真实 Food+Consumable 及受支持 FD 的现有 Consumable 饮料添加 Buildup 食物行；fallback 标为 Basic，不虚构恢复、增益或类别。零恢复、未知/实验 Benefit 省略对应行。
 
 创造与生存模式采用相同的消费档位：normal 32 tick、quick 21 tick（约 1.5 倍速度）、fast 16 tick。创造模式仍不积累过食负荷或获得食物恢复，也不受积食减速；客户端动画和服务端使用计时遵循同一规则。
 
@@ -17,6 +17,8 @@ AppleSkin 仅用于显示原版 Hunger/Saturation 以及上游口渴图示，不
 ## 效果 UI 与提示
 
 Restorative、Invigorated、Steady、Overfull 都有正式图标、中英文名称和短说明。食物授予默认无粒子；原版负责 HUD、背包卡片及剩余时间同步。背包效果卡悬停追加简短说明，窄屏与展开卡片都有效。Steady 仅注册占位，不在食物提示中承诺实际收益。
+
+Restorative 中文固定为「调养」，Steady 为「安适」。FD Nourishment 保留原名「滋养」、原图标和原倒计时，内部桥接不会额外显示两个原生图标。其悬停说明为10 tick/HP食物恢复、活动耗竭-10%。Profile 已同步时，FD 原生 Nourishment 食品 tooltip 行由 Buildup 唯一主增益行替代；数据包改为无增益或原生增益后不残留失效的 Nourishment 行。其他 FD 独立效果说明保留；未同步时保留原生提示，不编造服务器玩法。
 
 负荷首次达到48由服务器发送一次 actionbar 轻提示，低于32后重置提示锁存；不每 tick 提醒，不新增负荷条，也不在普通食物 Tooltip 显示负荷数。已有积食通过原版负面状态图标表达。
 

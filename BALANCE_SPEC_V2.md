@@ -1490,3 +1490,20 @@ Stage 7.5 完成后必须同步修改 `DESIGN_PRINCIPLES.md`，至少修正以�
 
 > `DESIGN_PRINCIPLES.md` 负责“为什么这样设计”，
 > `BALANCE_SPEC_V2.md` 负责“当前具体如何平衡”。
+
+---
+
+# 44. Farmer's Delight 正式兼容补充
+
+目标为 FD Refabricated `26.3-3.6.27+refabricated`，保持可选依赖。全量80份 Food/Consumable 数值表位于版本目录的 `docs/FARMERS_DELIGHT_COMPAT.md`，使用既有 Food Profile Schema v1，不修改 Core Recovery 曲线。
+
+- `farmersdelight:nourishment` 是 Foreign Main Meal Benefit，保留原 ID、图标和 MobEffect 计时，行为等效 Restorative + Invigorated；不额外添加调养/振奋图标，不产生第二个治疗时钟。
+- 中和目标版本每 tick 的耗竭返还，保留正常营养费用。Nourishment 与原生主增益互斥，新异类替换；Overfull 阻止首次授予/刷新和新增恢复，营养、补水及饮食记录保留。
+- 原生 Nourishment 的600/1200/3600/6000 tick不乘Variety、不截成3600；3600上限继续适用于Buildup默认Quality时长授予。外来时长不是第二次奖励来源。数据包显式为没有原生效果的食品选择Nourishment时，才使用Quality默认授予规则。
+- 普通生鲜、熟制单品约1 HP；Prepared 1～2；Meal 3～4；Feast 4～5。干曲奇、生肉、特殊食品可为0，所有正式非零基础值至少1 HP。西瓜汁保留原生独立2 HP治疗而Recovery为0，苹果酒保留Absorption而Recovery为0。
+- 饮料参考：牛奶8/8、可可7/9、西瓜汁9/9、苹果酒8/10；Bone Broth8/6；普通Soup/Stew6/4或6/5；真正干燥零食0/0。沿用TWT2 blacklist > Buildup explicit Profile > TWT2 默认/配置 > fallback，只结算一次。
+- 复杂料理、汤、三明治、意面和宴席保持normal；小份生鲜quick，小切片/零食fast。质量不决定进食速度。原生营养不因本兼容重写。
+- Diet根据目标版本配方定义；可变配方不强加未必存在的类别，原版同类肉与FD切片共用组，避免刷Variety。恢复量奖励只一次，Hydration不放大。
+- 高饱和 + 5 HP宴席 + Variety + 有/无Quenched从半血恢复仍为100 tick；无自然恢复的3 HP Nourishment料理为30 tick。Passive以原版为baseline、主动收益允许有限正反馈的目标不变。
+
+Restorative中文为「调养」，与FD Nourishment「滋养」区分；Steady中文为「安适」，仍只注册占位。Comfort、FD Addon、Kaleidoscope Cookery、Oxygen和Mana不属于本轮实现。

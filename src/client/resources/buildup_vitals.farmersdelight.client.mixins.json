@@ -1,0 +1,8 @@
+{
+  "required": true,
+  "package": "com.davidblackcn.buildupvitals.client.compat.farmersdelight",
+  "plugin": "com.davidblackcn.buildupvitals.compat.farmersdelight.FarmersDelightMixinPlugin",
+  "compatibilityLevel": "JAVA_25",
+  "client": ["FoodEffectTooltipMixin", "VanillaSoupTooltipMixin"],
+  "injectors": { "defaultRequire": 1 }
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:salmon_slice"
+  },
+  "quality": "basic",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "fast"
+  },
+  "diet": {
+    "categories": [
+      "protein"
+    ],
+    "variety_group": "minecraft:fish"
+  },
+  "traits": [
+    "snack"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:bone_broth"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 2
+  },
+  "hydration": {
+    "thirst": 8,
+    "quenched": 6
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein"
+    ],
+    "variety_group": "farmersdelight:bone_broth"
+  },
+  "meal_benefit": "farmersdelight:nourishment",
+  "traits": [
+    "soup",
+    "warm"
+  ]
+}

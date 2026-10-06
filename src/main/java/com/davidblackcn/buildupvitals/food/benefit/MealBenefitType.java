@@ -3,7 +3,7 @@ package com.davidblackcn.buildupvitals.food.benefit;
 import com.davidblackcn.buildupvitals.BuildupVitals;
 import net.minecraft.resources.Identifier;
 
-/** Buildup-owned behavior, not a vanilla MobEffect. Steady is reserved, not active. */
+/** Native semantic IDs backed by registered MobEffects. Steady remains experimental. */
 public enum MealBenefitType {
     RESTORATIVE("restorative", true), INVIGORATED("invigorated", true), STEADY("steady", false);
 

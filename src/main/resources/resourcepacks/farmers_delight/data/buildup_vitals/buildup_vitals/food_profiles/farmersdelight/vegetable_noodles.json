@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:vegetable_noodles"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 3
+  },
+  "hydration": {
+    "thirst": 3,
+    "quenched": 2
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "grain",
+      "vegetable"
+    ],
+    "variety_group": "farmersdelight:vegetable_noodles"
+  },
+  "meal_benefit": "farmersdelight:nourishment"
+}

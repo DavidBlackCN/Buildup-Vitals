@@ -4,7 +4,8 @@
 > 首要目标平台：**Fabric 26.3**  
 > 文档状态：**v2 核心设计原则（Stage 7.5）**
 > 当前重点：**饥饿、饱和、食物恢复、饮食质量、饮食多样性、口渴兼容**  
-> 后续方向：**氧气、第三方料理机制重构、法力等其他玩家状态资源**
+> 当前兼容：**Farmer's Delight Refabricated 26.3-3.6.27 的 Food Profile 与第三方料理增益语义桥接**
+> 后续方向：**其他料理模组、氧气、法力等其他玩家状态资源**
 
 ---
 
@@ -176,9 +177,9 @@ v2 Meal Benefit 正式注册为 Minecraft MobEffect，使用原版 HUD、背包�
 
 第一批适合探索的 Meal Benefit 包括：
 
-- **Restorative / 滋养**：食物储备周期 12→10 tick，不增加最终储备总量。
+- **Restorative / 调养**：食物储备周期 12→10 tick，不增加最终储备总量。
 - **Invigorated / 振奋**：原版疾跑、跳跃、游泳及水中移动耗竭降低 10%，不减免自然恢复或全局耗竭。
-- **Steady / 稳态**：完成注册、图标与互斥，占位保留；没有正式行为前不加入官方食物 Profile。
+- **Steady / 安适**：完成注册、图标与互斥，占位保留；没有正式行为前不加入官方食物 Profile。
 
 Meal Benefit 不应只是“吃饭后获得 Speed I / Regeneration I”的药水效果合集。
 
@@ -188,17 +189,23 @@ Buildup Vitals 不应重复实现已有烹饪 Mod 的主要 Buff 语义。尤其
 
 Buildup 自己更适合关注 Recovery Reserve、Vitals 稳定性、活动消耗、饮食多样性以及 Quality 与中期状态的联动。
 
-对 Farmer's Delight、Kaleidoscope Cookery 等 Mod 的深度兼容，应在 Core 完成以后进行，并以语义协调和重新平衡为主，而不是简单叠加所有 Buff。
+第三方料理 Buff 可以经明确、经过目标版本验证的适配器注册为 **Foreign Main Meal Benefit**。保留第三方真实效果的 ID、图标、原生持续时间及存储同步，只桥接其行为语义，不注册替身效果、不另建玩家状态或第二份倒计时。Buildup 自身 Restorative、Invigorated、Steady 注册始终保留。
+
+当前适配 `farmersdelight:nourishment`：内部同时满足 Restorative 的 10 tick/HP 食物恢复和 Invigorated 的活动耗竭 ×0.9；界面仅保留 Nourishment。其目标版本没有独立 heal，实际冲突是每 tick 耗竭返还，适配中和该返还，避免特殊 Hunger/Saturation 经济绕开统一 Recovery。自然恢复、药水、信标、金苹果和其他独立治疗不受全局拦截。
+
+原生 Nourishment 食用效果的 600/1200/3600/6000 tick 时长与授予概率原样保留，本轮不附加 Variety 时长倍率。Variety 的恢复量奖励仍只结算一次。数据包为没有原生 Nourishment 消费效果的食品显式选择该 ID 时，才使用 Buildup Quality 时长及最多 3600 tick 的默认授予规则。
+
+适配器保持可选依赖、服务端权威和精确版本边界；缺少 FD 时不加载 FD 类或注册 Foreign 语义，未知版本关闭行为桥接并警告。官方兼容包使用现有 Food Profile Schema，整合包仍可覆盖恢复、补水、类别、速度与主增益，最终 Profile 决定食物授予，不能被第三方后续消费回调覆盖。
 
 ## 15. Meal Benefit 的堆叠原则
 
-Buildup 自己的主要 Meal Benefit 同一时间原则上只保留一个：
+Buildup 原生主增益与已注册 Foreign Main Meal Benefit 共用一个主槽：
 
-- 同类型 Benefit：刷新或延长；
+- 同类型 Benefit：刷新，不累加时长；
 - 不同类型 Benefit：新的主要 Benefit 替换旧的；
-- Feast：可允许一个主要 Benefit 加一个很轻的 Secondary Modifier，但 Secondary Modifier 不形成第二个完整状态。
+- Feast 当前也只有一个主增益，没有正式 Secondary Modifier 槽位。
 
-第三方 Mod 自己提供的 Buff 不强制占用 Buildup 的 Meal Benefit 槽位。
+未注册桥接的第三方效果与独立药水效果不占主槽。Nourishment 与 Restorative / Invigorated / Steady 双向互斥，后授予的异类生效，直接命令授予也遵守互斥。Overfull 独立共存，阻止 Nourishment 首次授予与刷新，也阻止新增 Food Reserve；不移除已经生效的 Nourishment，不抹掉营养、Hydration 或饮食记录。FD Comfort 不作为当前正式玩法恢复。
 
 ## 16. 负面 Meal Benefit
 
@@ -406,7 +413,7 @@ Food Profile 的可选 `consumption.speed` 分 normal / quick / fast 三档，�
 
 ## 33. 后续阶段
 
-Core 稳定之后再逐步推进 Oxygen / Air 深度优化、Farmer's Delight 与 Kaleidoscope Cookery 的深度平衡、第三方料理 Buff 语义协调，以及 Mana / Stamina 等外部 Vitals Adapter。
+Core 已冻结，当前加入 FD 本体的 80 份 Food / Consumable Profile 与 Nourishment 语义桥接。FD Addon、Kaleidoscope Cookery、Oxygen / Air、Mana / Stamina 均需后续独立授权与版本验证，不随本次兼容自动推进。
 
 ## 34. Non-Goals
 

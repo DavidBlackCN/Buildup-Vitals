@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:cake_slice"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 1
+  },
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "quick"
+  },
+  "diet": {
+    "categories": [
+      "grain",
+      "dairy",
+      "sweet"
+    ],
+    "variety_group": "minecraft:cake"
+  },
+  "traits": [
+    "snack"
+  ]
+}

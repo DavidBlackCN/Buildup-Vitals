@@ -23,7 +23,9 @@ Variety保留仅作用于满Hunger且Saturation>0的最高+7.5%速度参数；�
 
 服务端仅在真实 Food + Consumable 消费完成后读取 Profile，记录饮食，按当次 Variety 加入储备。总上限 20 HP；小于 `0.000001 HP` 的尾数归零。治疗后按实际成功治疗扣储备，不扣被其他机制阻止的治疗。满血保留储备并归零时钟，不预充治疗；再次受伤重新开始正常周期。受击不清零、不暂停、不延迟已有进度。创造/旁观不授予或兑现储备。
 
-药水、信标、金苹果和第三方独立治疗照常运行；没有包装 `LivingEntity.heal` 或全局伤害入口。Invigorated 不减免自然恢复耗竭。AppleSkin 的原版回血预测不是 Buildup 储备预测。
+药水、信标、金苹果和未桥接的第三方独立治疗照常运行；没有包装 `LivingEntity.heal` 或全局伤害入口。Invigorated 不减免自然恢复耗竭。AppleSkin 的原版回血预测不是 Buildup 储备预测。
+
+受支持 FD 的 Nourishment 是 Foreign Main Meal Benefit，行为等效调养 + 振奋；10 tick/HP 食物兑现仍经过同一 Controller。目标 FD 版本没有独立 heal，兼容仅中和其每 tick 耗竭返还，避免规避自然恢复营养成本。FD 西瓜汁等独立治疗保持原生，官方 Profile 不额外叠高恢复。详见 [FD 兼容](FARMERS_DELIGHT_COMPAT.md)。高饱和 5 HP 宴席 + Variety + 有/无 Quenched 从半血回满仍为100 tick；无自然恢复的3 HP FD 牛肉炖菜为30 tick。本次不修改任何 Recovery 基准数值。
 
 ## 满饱食与积食
 
@@ -58,6 +60,6 @@ Passive Natural Recovery直接以原版为baseline。主动进食、料理和良
 | 15 | 140 / 7秒 | 140 / 7秒 | 110 / 5.5秒 |
 | 12.8 | 310 / 15.5秒 | 300 / 15秒 | 230 / 11.5秒 |
 
-Saturation20时4 HP兔肉煲、3 HP滋养料理、最高Variety及有/无Quenched组合也均为100 tick。食物的有限收益包括节省自然恢复营养消耗，延后有限营养下的降速。12.8组被动相差一个周期：本模组保留实际治疗扣费和浮点结算，不承诺逐tick完全等同原版。Hunger19、Saturation20的Stable对照为800 tick；持续Quenched数学结果为696 tick。无自然恢复时苹果/兔肉煲/滋养料理分别兑现1/4/3 HP，耗时12/48/30 tick。
+Saturation20时4 HP兔肉煲、3 HP调养料理、最高Variety及有/无Quenched组合也均为100 tick。食物的有限收益包括节省自然恢复营养消耗，延后有限营养下的降速。12.8组被动相差一个周期：本模组保留实际治疗扣费和浮点结算，不承诺逐tick完全等同原版。Hunger19、Saturation20的Stable对照为800 tick；持续Quenched数学结果为696 tick。无自然恢复时苹果/兔肉煲/调养料理分别兑现1/4/3 HP，耗时12/48/30 tick。
 
 数学参考源自目标26.3 FoodData，JVM与服务端测试交叉核对；验证范围见 [Alpha Core Freeze](ALPHA_CORE.md)。历史阶段报告归档于工作区根目录docs/26.3，不作为发布文档提交。

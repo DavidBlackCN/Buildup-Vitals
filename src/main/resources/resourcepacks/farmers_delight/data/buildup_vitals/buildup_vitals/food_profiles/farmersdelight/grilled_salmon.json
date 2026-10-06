@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:grilled_salmon"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 4
+  },
+  "hydration": {
+    "thirst": 3,
+    "quenched": 2
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "vegetable",
+      "fruit"
+    ],
+    "variety_group": "farmersdelight:grilled_salmon"
+  },
+  "meal_benefit": "farmersdelight:nourishment"
+}

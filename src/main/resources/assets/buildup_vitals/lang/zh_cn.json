@@ -19,15 +19,16 @@
   "tooltip.buildup_vitals.debug.group": "Buildup variety_group：%s",
   "tooltip.buildup_vitals.debug.benefit": "Buildup meal_benefit：%s（可用：%s）",
   "tooltip.buildup_vitals.debug.base_values": "基础数值；实际收益受饮食奖励与储备上限影响。",
-  "effect.buildup_vitals.restorative": "滋养",
+  "effect.buildup_vitals.restorative": "调养",
   "effect.buildup_vitals.restorative.description": "食物恢复：10 tick/HP",
   "effect.buildup_vitals.invigorated": "振奋",
   "effect.buildup_vitals.invigorated.description": "活动消耗 -10%",
-  "effect.buildup_vitals.steady": "稳态",
+  "effect.buildup_vitals.steady": "安适",
   "effect.buildup_vitals.steady.description": "预留饮食增益",
   "effect.buildup_vitals.overfull": "积食",
   "effect.buildup_vitals.overfull.description": "暂停食物恢复；进食变慢",
   "message.buildup_vitals.overeat_warning": "吃得有点撑，让胃休息一会儿吧。",
   "tooltip.buildup_vitals.consumption.quick": "轻快进食",
-  "tooltip.buildup_vitals.consumption.fast": "快速进食"
+  "tooltip.buildup_vitals.consumption.fast": "快速进食",
+  "effect.buildup_vitals.foreign_nourishment.description": "食物恢复：10 tick/HP；活动耗竭：-10%"
 }

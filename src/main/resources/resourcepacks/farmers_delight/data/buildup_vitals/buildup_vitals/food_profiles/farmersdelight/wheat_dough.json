@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:wheat_dough"
+  },
+  "quality": "basic",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "grain"
+    ],
+    "variety_group": "farmersdelight:wheat_dough"
+  }
+}

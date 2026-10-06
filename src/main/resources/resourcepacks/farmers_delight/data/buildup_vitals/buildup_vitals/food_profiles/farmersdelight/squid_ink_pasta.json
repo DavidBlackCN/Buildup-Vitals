@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:squid_ink_pasta"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 4
+  },
+  "hydration": {
+    "thirst": 2,
+    "quenched": 1
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "grain",
+      "vegetable"
+    ],
+    "variety_group": "farmersdelight:squid_ink_pasta"
+  },
+  "meal_benefit": "farmersdelight:nourishment"
+}

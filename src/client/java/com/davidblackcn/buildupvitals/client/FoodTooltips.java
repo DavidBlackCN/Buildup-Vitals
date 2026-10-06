@@ -23,7 +23,7 @@ public final class FoodTooltips {
                     && !net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("appleskin")) {
                 com.davidblackcn.buildupvitals.compat.thirst.ThirstBridge.appendHydration(stack, lines);
             }
-            if (!stack.has(DataComponents.FOOD) || !stack.has(DataComponents.CONSUMABLE)) return;
+            if ((!stack.has(DataComponents.FOOD) && !com.davidblackcn.buildupvitals.compat.farmersdelight.FarmersDelightCompatibility.beverage(stack)) || !stack.has(DataComponents.CONSUMABLE)) return;
             var item = BuiltInRegistries.ITEM.getKey(stack.getItem());
             ClientFoodProfiles.find(item).ifPresent(profile -> append(profile, flag.isAdvanced(), lines));
         });
@@ -43,7 +43,7 @@ public final class FoodTooltips {
             lines.add(Component.translatable(PREFIX + "recovery", icon("minecraft:hud/heart/full"), amount).withStyle(ChatFormatting.DARK_GREEN));
         }
         profile.benefit().filter(MealBenefitRegistry::available).ifPresent(id ->
-                lines.add(Component.translatable(PREFIX + "benefit", icon(id.withPrefix("mob_effect/").toString()), Component.translatable("effect.buildup_vitals." + id.getPath()))
+                lines.add(Component.translatable(PREFIX + "benefit", icon(id.withPrefix("mob_effect/").toString()), Component.translatable("effect." + id.getNamespace() + "." + id.getPath()))
                         .withStyle(ChatFormatting.AQUA)));
         profile.consumptionSpeed().filter(speed -> speed != com.davidblackcn.buildupvitals.food.profile.ConsumptionSpeed.NORMAL)
                 .ifPresent(speed -> lines.add(Component.translatable(PREFIX + "consumption." + speed.id()).withStyle(ChatFormatting.YELLOW)));

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:stuffed_pumpkin"
+  },
+  "quality": "feast",
+  "recovery": {
+    "health": 4
+  },
+  "hydration": {
+    "thirst": 4,
+    "quenched": 3
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "grain",
+      "vegetable",
+      "fruit"
+    ],
+    "variety_group": "farmersdelight:stuffed_pumpkin"
+  },
+  "meal_benefit": "farmersdelight:nourishment"
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:sweet_berry_cookie"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 0,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "fast"
+  },
+  "diet": {
+    "categories": [
+      "grain",
+      "fruit",
+      "sweet"
+    ],
+    "variety_group": "minecraft:cookie"
+  },
+  "traits": [
+    "snack"
+  ]
+}

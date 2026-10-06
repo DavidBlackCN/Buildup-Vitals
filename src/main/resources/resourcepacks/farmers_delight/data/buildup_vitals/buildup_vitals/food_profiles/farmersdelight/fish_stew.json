@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:fish_stew"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 3
+  },
+  "hydration": {
+    "thirst": 6,
+    "quenched": 4
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "vegetable"
+    ],
+    "variety_group": "farmersdelight:fish_stew"
+  },
+  "meal_benefit": "farmersdelight:nourishment",
+  "traits": [
+    "soup",
+    "warm"
+  ]
+}

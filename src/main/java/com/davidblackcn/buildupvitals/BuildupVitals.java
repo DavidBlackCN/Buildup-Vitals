@@ -19,6 +19,7 @@ public final class BuildupVitals implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        com.davidblackcn.buildupvitals.compat.farmersdelight.FarmersDelightCompatibility.register();
         FoodProfileLoader.register();
         HydrationAdapter.register();
         FoodProfileSync.register();

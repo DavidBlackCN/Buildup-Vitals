@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:roast_chicken"
+  },
+  "quality": "feast",
+  "recovery": {
+    "health": 5
+  },
+  "hydration": {
+    "thirst": 3,
+    "quenched": 2
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "grain",
+      "vegetable"
+    ],
+    "variety_group": "farmersdelight:roast_chicken"
+  },
+  "meal_benefit": "farmersdelight:nourishment"
+}

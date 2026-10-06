@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:stuffed_potato"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 2
+  },
+  "hydration": {
+    "thirst": 2,
+    "quenched": 1
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "vegetable",
+      "dairy"
+    ],
+    "variety_group": "farmersdelight:stuffed_potato"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:apple_cider"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 8,
+    "quenched": 10
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "fruit",
+      "sweet"
+    ],
+    "variety_group": "farmersdelight:apple_cider"
+  }
+}

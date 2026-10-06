@@ -26,6 +26,9 @@ public final class RecoveryCommand {
     private static int show(CommandSourceStack source, ServerPlayer player) {
         var state = PlayerRecovery.state(player);
         var benefit = PlayerMealBenefits.state(player);
+        int actualRemainingTicks = benefit.type()
+                .flatMap(com.davidblackcn.buildupvitals.food.benefit.ForeignMealBenefits::holder)
+                .map(player::getEffect).map(net.minecraft.world.effect.MobEffectInstance::getDuration).orElse(0);
         var food = player.getFoodData();
         double natural = com.davidblackcn.buildupvitals.food.recovery.RecoveryController.naturalInterval(
                 new com.davidblackcn.buildupvitals.food.recovery.RecoveryController.Conditions(player.isAlive(), !player.isCreative() && !player.isSpectator(),
@@ -42,7 +45,7 @@ public final class RecoveryCommand {
                 + ", reserve=" + state.reserve() + " HP, mode=" + state.mode()
                 + ", progress=" + state.progress() + "/" + interval
                 + ", meal_benefit=" + benefit.type().map(Object::toString).orElse("none")
-                + ", remaining_ticks=" + benefit.remainingTicks()
+                + ", remaining_ticks=" + actualRemainingTicks
                 + ", health=" + player.getHealth() + "/" + player.getMaxHealth()
                 + ", hunger=" + player.getFoodData().getFoodLevel()
                 + ", saturation=" + player.getFoodData().getSaturationLevel()

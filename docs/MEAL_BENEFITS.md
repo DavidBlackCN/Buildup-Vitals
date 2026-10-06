@@ -1,17 +1,17 @@
-# Meal Benefit v2（Stage 7.5）
+# Meal Benefit v2 与 Foreign Main Meal Benefit
 
 主要饮食增益正式注册为原版 MobEffect，由原版负责保存、同步和倒计时。HUD、背包效果卡显示图标与时间；食物授予默认无粒子。不注册 Potion 或酿造配方。
 
 | ID（命名空间 buildup_vitals） | 中文 | 类型 | 行为 |
 |---|---|---|---|
-| restorative | 滋养 | Beneficial | 食物储备周期 12→10 tick，不增加储备总量 |
+| restorative | 调养 | Beneficial | 食物储备周期 12→10 tick，不增加储备总量 |
 | invigorated | 振奋 | Beneficial | 指定活动 Exhaustion ×0.9 |
-| steady | 稳态 | Beneficial | 已注册的 UI/互斥占位，无实际加成；官方 Profile 不投放 |
+| steady | 安适 | Beneficial | 已注册的 UI/互斥占位，无实际加成；官方 Profile 不投放 |
 | overfull | 积食 | Harmful | 暂停食物储备、阻止新储备/增益、进食时长 ×1.25 |
 
-三种主要增益互斥，包括命令授予和食物授予；Overfull 独立共存。外部药水和第三方效果不占主槽。Steady 仍被 Profile 行为注册表标为 experimental：引用会警告并忽略该字段，其他 Profile 字段保留。可用 `/effect give` 查看其正式图标及互斥行为。
+三种原生主增益与已注册 Foreign Main Meal Benefit 互斥，包括命令授予和食物授予；Overfull 独立共存。未桥接的第三方效果和独立药水效果不占主槽。Steady 仍被 Profile 行为注册表标为 experimental：引用会警告并忽略该字段，其他 Profile 字段保留。可用 `/effect give` 查看其正式图标及互斥行为。
 
-当前高饱和自然恢复基准为10 tick，储备本已按统一时钟取更快周期，因此滋养不会在该档位再额外提速或另加治疗。其12→10 tick收益仍作用于无自然恢复或自然恢复更慢的食物兑现阶段。
+当前高饱和自然恢复基准为10 tick，储备本已按统一时钟取更快周期，因此调养或 Nourishment 不会在该档位再额外提速或另加治疗。其12→10 tick收益仍作用于无自然恢复或自然恢复更慢的食物兑现阶段。
 
 ## 授予与时长
 
@@ -34,4 +34,12 @@ Restorative 只改变储备兑现效率，保留已有进度，不创造额外�
 
 保留 `buildup_vitals:meal_benefit` 附件注册及原 Codec 作为兼容入口。首次登录或服务端恢复 tick 遇到有效旧类型/时间，且没有现代主要效果时，转换为同类型、同剩余 tick、无粒子的 MobEffect，然后删除旧附件。已有现代效果优先；未知/实验/失效旧状态安全清除。之后只使用原版 MobEffect 保存和计时，不存在附件与效果双重倒计时。
 
-`/buildupvitals recovery [player]` 显示当前主要增益与恢复信息；超过 3600 tick 或无限的管理员效果在此食物状态摘要中裁剪到 3600，原版效果自身时间不变。普通 Tooltip 使用效果图标与短名称；背包效果卡悬停显示简短说明。详见 [CLIENT_FEEDBACK](CLIENT_FEEDBACK.md)。
+`/buildupvitals recovery [player]` 显示当前主增益的真实 MobEffect 剩余 tick，包括超过 3600 的外来效果；无限效果为原版 `-1`。内部旧 `MealBenefitState` 仅用于兼容摘要和有上限的默认授予，不负责外来效果的存储或计时。普通 Tooltip 使用效果图标与短名称；背包效果卡悬停显示简短说明。详见 [CLIENT_FEEDBACK](CLIENT_FEEDBACK.md)。
+
+## Foreign 主增益：Nourishment
+
+FD Refabricated `26.3-3.6.27+refabricated` 的 `farmersdelight:nourishment` 注册为 Foreign 主增益，保留 FD ID、图标和原生 MobEffect，行为等效调养 + 振奋，不添加两个原生图标或额外治疗器。原生 600 / 1200 / 3600 / 6000 tick 和消费效果概率保留，不乘 Variety 时长；上面的 3600 上限只约束 Buildup 默认时长授予。没有原生效果来源但显式引用该 ID 的数据包食品使用 Quality 默认授予。
+
+新异类立即替换；同类走原版刷新语义，不累加，不因更短料理缩短现有效果。Overfull 阻止首次授予/刷新，包括直接命令或其他模组调用；已有效果照常倒计时。食物触发过饱的当次也不能绕过限制。死亡、牛奶、自然到期和命令移除后没有残留语义状态。
+
+FD 给原版蘑菇煲、甜菜汤和兔肉煲追加的 Nourishment 服从它们最终的 Buildup Profile，保留原有调养/振奋选择。FD 食物也可通过数据包改成原生主增益或无主增益。只拦截已桥接的 Nourishment 消费授予；其他独立效果保留。详见 [FD 兼容与验收](FARMERS_DELIGHT_COMPAT.md)。

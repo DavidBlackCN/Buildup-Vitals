@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:gleaming_salad"
+  },
+  "quality": "feast",
+  "recovery": {
+    "health": 4
+  },
+  "hydration": {
+    "thirst": 5,
+    "quenched": 4
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "vegetable",
+      "fruit",
+      "sweet"
+    ],
+    "variety_group": "farmersdelight:gleaming_salad"
+  },
+  "meal_benefit": "farmersdelight:nourishment"
+}

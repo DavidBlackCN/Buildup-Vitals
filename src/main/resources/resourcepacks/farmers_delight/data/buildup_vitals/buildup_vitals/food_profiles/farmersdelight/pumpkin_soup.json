@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "farmersdelight:pumpkin_soup"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 4
+  },
+  "hydration": {
+    "thirst": 6,
+    "quenched": 5
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "vegetable",
+      "dairy"
+    ],
+    "variety_group": "farmersdelight:pumpkin_soup"
+  },
+  "meal_benefit": "farmersdelight:nourishment",
+  "traits": [
+    "soup",
+    "warm"
+  ]
+}
