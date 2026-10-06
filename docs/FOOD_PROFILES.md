@@ -116,3 +116,22 @@ Stage 5 的 [食物 Tooltip](CLIENT_FEEDBACK.md) 使用服务端的最终匹配�
 命令显示最终 Profile ID、文件路径、数据包、selector、优先级、fallback 状态、全部数据值和快照规模。参数使用原版 Item 参数解析和补全；数据组件参数不会改变按 Item ID 查询的语义。
 
 Stage 7.5 更新全部40份原版 Item Profile，保留示例水果 Tag；完整表见 [VANILLA_BALANCE](VANILLA_BALANCE.md)。Recovery Hotfix 后蘑菇煲为 Meal / Recovery 3 / Restorative，南瓜派为 Prepared / Recovery 2 / Invigorated；牛排、面包、烤马铃薯保留 Basic，均为1 HP恢复，不附加主要增益。苹果 quick、西瓜片与曲奇 fast，曲奇因干燥不提供直接恢复。消费速度随服务端成功重载的 v3 快照同步；删除字段恢复原生时长，无需迁移旧 v1 JSON。
+
+## 数据包制作与排错流程
+
+1. 在测试世界的 `datapacks/my_pack/` 创建上述 `pack.mcmeta` 和一个Profile；ZIP包应让 `pack.mcmeta` 位于ZIP根目录。
+2. 修改现有食物时使用Item selector；希望覆盖内置蘑菇煲可使用 `data/buildup_vitals/buildup_vitals/food_profiles/mushroom_stew.json`，也可使用自己的namespace和相同Item selector。完整覆盖不合并字段，遗漏字段恢复默认值。
+3. 执行 `/reload`，用 `/datapack list enabled` 确认启用，再用 `/buildupvitals food profile minecraft:mushroom_stew` 查看最终来源；如果包未启用，先通过原版 `/datapack enable` 启用。
+4. 受伤且未积食时完成一次进食，使用 `/buildupvitals recovery` 和 `/buildupvitals diet` 验证储备、效果和历史；Tooltip展示基础量，实际Variety奖励以服务端查询为准。
+5. 修改数值、重载、再次进食；旧储备和已有料理效果不会被追溯重算。删除Profile并重载，确认回到下层定义或fallback，消费档位也不残留。
+
+| 现象 | 检查 |
+|---|---|
+| 文件不生效 | 路径中的两层namespace/目录是否正确；包是否启用；selector物品是否存在；查询结果由谁覆盖 |
+| 日志 `Skipping food profile` | 按日志的文件、pack、字段修正；负恢复量或截断JSON只隔离该文件，其余有效Profile继续工作 |
+| 高优先级坏文件后恢复量变0 | 同路径低优先级文件已被遮盖；修好高优先级文件再reload，或删除它恢复下层版本 |
+| `Prepared food profile snapshot` 后仍是旧值 | 该日志只表示准备完成；检查整轮reload是否被其他监听器拒绝，失败时两端都保留旧快照 |
+| Tag没有覆盖原版食物 | 具体Item selector优先于Tag，与Tag所在包的优先级无关 |
+| 无补水或与基础值不同 | 核对已验证TWT2版本、blacklist、水质和裁剪规则，见 [HYDRATION](HYDRATION.md) |
+
+Alpha冻结范围见 [ALPHA_CORE](ALPHA_CORE.md)。第三方小数恢复仍合法，官方最小1 HP只是内置平衡约定。`traits`、`overrides`和实验Steady不构成已实现玩法；未知食物可直接fallback，不必为了安全食用而添加空兼容包。

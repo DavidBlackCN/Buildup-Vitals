@@ -48,4 +48,16 @@ Schema v1 可选 `consumption.speed`：normal=32、quick=21、fast=16 tick。它
 
 管理员 `/buildupvitals recovery [player]` 查看 Health、Hunger、Saturation、Reserve、模式、实际周期/进度、主要效果、Overeat、Overfull、Variety、自然速度和 TWT2 Thirst/Quenched。`Infinity` 表示当前不满足自然恢复条件。`/buildupvitals diet [player]` 查询饮食明细。
 
-当前对照见 [10 tick自然恢复基准](RECOVERY_BASELINE_10.md)。Passive Natural Recovery直接以原版为baseline；满营养半血回满同为100 tick。主动进食、料理和良好Vitals允许有限正反馈，不再强求所有组合落在原版±10%，不因部分主动场景快约10%～20%而再次削弱自然恢复。连续恢复量公式、Food12、Stable80、Restorative10和自然最快10 tick保持不变；不叠加第二个治疗时钟。此前 [Recovery Balance Hotfix](RECOVERY_BALANCE_HOTFIX.md) 与 [Stage 7.5 报告](STAGE_7_5_REPORT.md) 保留为历史记录。自动测试验证数学和生命周期，战斗手感仍需实玩验收。
+Passive Natural Recovery直接以原版为baseline。主动进食、料理和良好Vitals允许有限正反馈，不再强求所有组合落在原版±10%，不因部分主动场景快约10%～20%而再次削弱自然恢复。连续恢复量公式、Food12、Stable80、Restorative10和自然最快10 tick保持不变；不叠加第二个治疗时钟。
+
+从10/20 HP、Hunger20、Exhaustion0和进度0开始，无额外活动或独立治疗；食物组统一消费后的Saturation，从吃完开始计时（20 tick/秒）：
+
+| 消费后Saturation | 原版被动 | Buildup被动 | Buildup + 1 HP苹果 |
+|---|---:|---:|---:|
+| 20 | 100 tick / 5秒 | 100 / 5秒 | 100 / 5秒 |
+| 15 | 140 / 7秒 | 140 / 7秒 | 110 / 5.5秒 |
+| 12.8 | 310 / 15.5秒 | 300 / 15秒 | 230 / 11.5秒 |
+
+Saturation20时4 HP兔肉煲、3 HP滋养料理、最高Variety及有/无Quenched组合也均为100 tick。食物的有限收益包括节省自然恢复营养消耗，延后有限营养下的降速。12.8组被动相差一个周期：本模组保留实际治疗扣费和浮点结算，不承诺逐tick完全等同原版。Hunger19、Saturation20的Stable对照为800 tick；持续Quenched数学结果为696 tick。无自然恢复时苹果/兔肉煲/滋养料理分别兑现1/4/3 HP，耗时12/48/30 tick。
+
+数学参考源自目标26.3 FoodData，JVM与服务端测试交叉核对；验证范围见 [Alpha Core Freeze](ALPHA_CORE.md)。历史阶段报告归档于工作区根目录docs/26.3，不作为发布文档提交。

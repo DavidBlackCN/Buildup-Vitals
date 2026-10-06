@@ -30,4 +30,4 @@ F3+H 额外显示最终 Profile ID、原始 Recovery、Variety Group、Benefit �
 
 使用 Fabric large-payload 分片，校验枚举、数量、重复条目及非法数值，没有客户端上报生命或储备的通道。渲染只查内存，不读文件或发网络请求。当前状态效果走原版同步，不自行维护第二份计时器。
 
-截图、真实连接与兼容测试结果见 [Stage 7.5 报告](STAGE_7_5_REPORT.md)。其他 HUD Mod、多人长期游玩和极端 GUI 比例需另外验收。
+当前验证范围见 [Alpha Core Freeze](ALPHA_CORE.md)。历史截图和阶段报告保留在本地工作区；其他HUD Mod、多人长期游玩和极端GUI比例需另外验收。

@@ -60,4 +60,4 @@ Java 25、目标目录，已同意测试 EULA 后运行：
 .\gradlew.bat build runClientGameTest -PwithThirst=true -PacceptMinecraftEula=true '-PtestAppleSkinJar=run/compat/appleskin-fabric-mc26.3-3.0.10.jar'
 ```
 
-实际证据与边界见 [Stage 7.5 报告](STAGE_7_5_REPORT.md)。连接测试的专服为同 JVM DedicatedServer + TCP，并非独立操作系统进程或多人长期联机压测。
+当前验证范围见 [Alpha Core Freeze](ALPHA_CORE.md)。连接测试的专服为同JVM DedicatedServer + TCP，并非独立操作系统进程或多人长期联机压测。已有组合证据在相关代码未变时复用，不要求每次文档维护重跑完整矩阵。

@@ -72,6 +72,19 @@ public class TooltipClientGameTest implements FabricClientGameTest {
             check(keyCount(lines, "quality.feast") == 1, "Server override changes tooltip quality");
             check(lines.stream().anyMatch(line -> line.getString().contains("7")), "Server recovery override appears in tooltip");
         });
+        // Invalid higher-priority files must fall back consistently on both sides, then recover.
+        for (var malformed : List.of(profile("minecraft:mushroom_stew", -1), "{\"schema_version\":1,")) {
+            write(stew, malformed);
+            reload(context, server, false);
+            context.waitFor(client -> ClientFoodProfiles.find(STEW).map(p -> p.profileId().isEmpty()).orElse(false));
+            context.runOnClient(client -> check(ClientFoodProfiles.find(FALLBACK_ID).orElseThrow().recovery() == 2,
+                    "A malformed profile does not discard other valid files"));
+            server.runOnServer(instance -> check(com.davidblackcn.buildupvitals.data.loader.FoodProfileLoader.snapshot(instance)
+                    .resolve(STEW).fallback(), "Server and client agree on malformed-file fallback"));
+            write(stew, profile("minecraft:mushroom_stew", 7));
+            reload(context, server, false);
+            context.waitFor(client -> ClientFoodProfiles.find(STEW).map(p -> p.recovery() == 7).orElse(false));
+        }
         write(stew, profile("minecraft:mushroom_stew", 9));
         TooltipReloadFailure.FAIL_NEXT.set(true);
         reload(context, server, true);

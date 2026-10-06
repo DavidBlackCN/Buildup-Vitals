@@ -16,7 +16,8 @@
       "com.davidblackcn.buildupvitals.HydrationGameTests",
       "com.davidblackcn.buildupvitals.VanillaPackGameTests",
       "com.davidblackcn.buildupvitals.V2GameTests",
-      "com.davidblackcn.buildupvitals.RecoveryBalanceGameTests"
+      "com.davidblackcn.buildupvitals.RecoveryBalanceGameTests",
+      "com.davidblackcn.buildupvitals.CoreFreezeGameTests"
     ],
     "fabric-client-gametest": [
       "com.davidblackcn.buildupvitals.V2ClientGameTest",

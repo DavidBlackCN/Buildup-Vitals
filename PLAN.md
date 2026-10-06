@@ -1,15 +1,15 @@
 # Buildup Vitals — Codex Implementation Plan
 
 > 目标平台：Minecraft 26.3 / Fabric  
-> 项目状态：Stage 7.5 / Balance v2，等待人工验收
+> 项目状态：Stage 8 / Alpha Core Freeze，0.1.0-alpha.1，等待本阶段人工验收
 > Mod ID：`buildup_vitals`  
 > Maven Group：`com.davidblackcn`  
 > Java Package：`com.davidblackcn.buildupvitals`  
 > 当前设计基准：`BALANCE_SPEC_V2.md` > 已更新的 `DESIGN_PRINCIPLES.md`
 
-## Stage 7.5 当前进展
+## Stage 8 当前进展
 
-本轮按 [Stage 7.5 Plan](<Stage 7.5 Plan.md>) 的 A→I 推进：恢复、满饱食与积食、消费速度、MobEffect迁移、TWT2协调、40种食物、客户端反馈、测试与文档。当前规则和验证见 [STAGE_7_5_REPORT](docs/STAGE_7_5_REPORT.md)。下文 Stage 0～7 的 Alpha 数值保留为路线历史，不再作为当前实现依据。Stage 8 尚未启动，必须等待本阶段人工验收。
+Stage 7.5及10 tick Recovery Hotfix已由用户验收。本轮执行Stage 8：检查生命周期和边界、补充多人状态隔离与坏Profile重载验证、修复CI执行权限、整理文档并冻结Core。当前契约见 [ALPHA_CORE](docs/ALPHA_CORE.md)；阶段报告保存在工作区根目录docs/26.3，不纳入本版本提交。下文Stage 0～7的旧数值仅为路线历史，当前以BALANCE_SPEC_V2和DESIGN_PRINCIPLES为准。完成后停止，不自动进入第三方料理兼容。
 
 ---
 

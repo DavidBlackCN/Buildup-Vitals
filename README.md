@@ -2,9 +2,9 @@
 
 Buildup 系列的 Vanilla+ 玩家状态机制模组。第一目标平台为 Fabric / Minecraft 26.3。
 
-当前为 Stage 7.5（Balance v2 & Consumption Rework）：连续 Saturation 恢复、12/10 tick食物恢复、满饱食进食与积食、三档进食速度、可见饮食状态效果，以及40种原版食物的 v2 Recovery/Hydration。规范见 [BALANCE_SPEC_V2](BALANCE_SPEC_V2.md)、[设计原则](DESIGN_PRINCIPLES.md) 和 [Stage 7.5 计划](<Stage 7.5 Plan.md>)。实现完成后等待人工体验验收，不自动进入 Stage 8。
+当前为 **0.1.0-alpha.1 / Alpha Core Freeze（Stage 8）**：连续Saturation恢复、12/10 tick食物恢复、满饱食进食与积食、三档进食速度、可见饮食效果，以及40种原版食物的Recovery/Hydration。当前契约和验证边界见 [Alpha Core](docs/ALPHA_CORE.md)；平衡以 [BALANCE_SPEC_V2](BALANCE_SPEC_V2.md) 和 [设计原则](DESIGN_PRINCIPLES.md) 为准。后续第三方料理深度兼容需另行验收授权。
 
-已应用 [10 tick自然恢复基准调整](docs/RECOVERY_BASELINE_10.md)：官方食物恢复基础值为0或至少1 HP（优先整数）；高饱和自然恢复直接以原版10 tick为基准，Food12、滋养10、Stable80及自然最快10 tick保持不变。主动或良好状态收益允许有限正反馈，不再要求所有组合处于原版±10%内；不新增机制，不进入 Stage 8。
+官方食物恢复基础值为0或至少1 HP（优先整数）；高饱和自然恢复直接采用原版10 tick基准，Food12、滋养10、Stable80及自然最快10 tick保持不变。主动或良好状态收益允许有限正反馈，不要求所有组合处于原版±10%内；[恢复说明](docs/RECOVERY.md) 包含典型恢复时间对照。
 
 ## 当前工程基线
 
@@ -27,16 +27,16 @@ Buildup 系列的 Vanilla+ 玩家状态机制模组。第一目标平台为 Fabr
 ```powershell
 $env:JAVA_HOME = 'C:/Program Files/Java/jdk-25.0.3' # 按本机安装位置调整
 $env:PATH = "$env:JAVA_HOME/bin;$env:PATH"
-.\gradlew.bat clean build
+.\gradlew.bat build -PacceptMinecraftEula=true
 .\gradlew.bat runClient
 .\gradlew.bat runServer
 ```
 
-开发服务端首次运行会生成 `run/eula.txt`。阅读并同意 [Minecraft EULA](https://aka.ms/MinecraftEULA) 后，手动设置 `eula=true`，再次运行 `runServer`；控制台输入 `stop` 可正常停服。
+上面的build参数表示已阅读并同意 [Minecraft EULA](https://aka.ms/MinecraftEULA)，用于自动服务端GameTest。普通开发服务端首次运行会生成 `run/eula.txt`，同意协议后手动设置 `eula=true`，再次运行 `runServer`；控制台输入 `stop` 可正常停服。Linux/macOS使用 `./gradlew`，仓库已保存其执行位和LF换行。
 
-构建产物：`build/libs/buildup_vitals-0.1.0-dev.jar`。`run/` 中的测试世界、日志、协议选择和配置均不提交到 Git。
+构建产物：`build/libs/buildup_vitals-0.1.0-alpha.1.jar`。`run/` 中的测试世界、日志、协议选择和配置均不提交到Git；测试Mod和可选第三方Mod不捆绑进产物。
 
-开发客户端使用 Fabric 开发账号，Realms 认证失败不代表本地单人世界无法启动。历史验证见 [Stage 0 报告](docs/STAGE_0_REPORT.md)、[Stage 1 报告](docs/STAGE_1_REPORT.md)、[Stage 2 报告](docs/STAGE_2_REPORT.md)、[Stage 3 报告](docs/STAGE_3_REPORT.md)、[Stage 4 报告](docs/STAGE_4_REPORT.md)、[Stage 5 报告](docs/STAGE_5_REPORT.md)、[Stage 6 报告](docs/STAGE_6_REPORT.md)；当前验证和人工验收见 [Stage 7.5 报告](docs/STAGE_7_5_REPORT.md)。
+开发客户端使用Fabric开发账号，Realms认证失败不代表本地单人世界无法启动。`docs/`仅保留当前机制、数据包Schema及冻结契约；阶段报告和一次性修复报告保存在工作区根目录 `docs/26.3/`，不纳入版本仓库提交。版本变化见 [CHANGELOG](CHANGELOG.md) 和 [UPDATE_NOTES](UPDATE_NOTES.md)。
 
 ## Food Profile 数据与查询
 

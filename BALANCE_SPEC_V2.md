@@ -120,7 +120,7 @@ v2 应尽量让 Saturation 对恢复的贡献是连续的。
 
 当前采用10 tick基准，撤销此前12→11 tick方案；恢复量曲线不变。初始10/20 HP、Hunger20、Saturation20、Exhaustion0，无额外治疗与活动时，原版与本模组普通回满均为100 tick。食物储备优先支付统一治疗脉冲，不另叠加独立治疗器。
 
-Food Recovery、Meal Benefit、Hydration、Variety等主动或良好状态收益允许在原版baseline之上提供有限正反馈，不再要求所有组合严格处于原版±10%。不因主动进食场景快约10%～20%而再次削弱Natural Recovery；约束是统一时钟、有限储备、单次治疗不重复叠加，以及自然恢复周期不低于10 tick。当前对照见版本目录的 `docs/RECOVERY_BASELINE_10.md`，此前热修复报告仅保留为历史记录。
+Food Recovery、Meal Benefit、Hydration、Variety等主动或良好状态收益允许在原版baseline之上提供有限正反馈，不再要求所有组合严格处于原版±10%。不因主动进食场景快约10%～20%而再次削弱Natural Recovery；约束是统一时钟、有限储备、单次治疗不重复叠加，以及自然恢复周期不低于10 tick。当前对照见版本目录的 `docs/RECOVERY.md`，此前热修复报告仅保留为历史记录。
 
 ## 3.2 Stable Recovery
 
