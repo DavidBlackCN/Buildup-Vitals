@@ -18,7 +18,7 @@ Profile 的非负整数分别裁剪到 0～20，防止溢出；Quenched 不乘 V
 
 ## 纯水与食物
 
-Pure Water Bottle 的栈级查询为 **10 Thirst / 8 Quenched**，空状态两瓶为 20/16。仅命中水瓶且纯度为 Pure 的栈；不会把所有 Potion、脏水、浑水、Clean 或盐水当纯水。没有对应 Buildup Profile 时使用该纯水基准；blacklist 最高，显式 Profile 仍可覆盖该基准。TWT2 自己的纯度比例、疾病、盐水不补水及额外消耗逻辑保留。
+Pure 直接饮用水的栈级查询为每份 **10 Thirst / 8 Quenched**，空状态两份为 20/16。覆盖水瓶、装水陶碗，以及非空水袋、铜水壶、铁水壶；后面三种容器每次仍只消耗一份水。使用 TWT2 的 `isPlainWaterDrink` 判定，空容器、不可直接饮用的水桶、普通药水与果汁不套用该基准；脏水、浑水、Clean 或盐水也不会变成 Pure。没有对应 Buildup Profile 时使用该纯水基准；blacklist 最高，显式 Profile 仍可覆盖该基准。TWT2 自己的纯度比例、疾病、盐水不补水及额外消耗逻辑保留。
 
 默认 Dirty/Murky/Clean 水仍使用上游水瓶基数 6/8，再按纯度比例 0%/50%/100% 调整 Quenched，疾病还可能降低结果。Pure 默认 100%，用户改过 TWT2 纯度比例时继续尊重该比例。满 Thirst 的原生饮水限制保留，满 Hunger 食物权限不改变它。
 

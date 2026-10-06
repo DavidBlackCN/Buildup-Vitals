@@ -12,6 +12,52 @@ import net.minecraft.world.item.Items;
 
 /** Optional test-only helper. Internal setters prepare fixtures; consumption uses real vanilla/TWT2 paths. */
 final class ThirstTestSupport {
+    static java.util.List<ItemStack> pureContainers() {
+        var result = new java.util.ArrayList<ItemStack>();
+        result.add(ThirstApi.waterBottle(ThirstApi.maxPurity()));
+        result.add(com.thirstwastaken2.purity.WaterPurity.set(new ItemStack(com.thirstwastaken2.item.ThirstItems.TERRACOTTA_WATER_BOWL), ThirstApi.maxPurity()));
+        for (var item : java.util.List.of(com.thirstwastaken2.item.ThirstItems.WATERSKIN,
+                com.thirstwastaken2.item.ThirstItems.COPPER_CANTEEN, com.thirstwastaken2.item.ThirstItems.IRON_FLASK)) {
+            var stack = new ItemStack(item);
+            com.thirstwastaken2.item.WaterskinItem.addWater(stack, ThirstApi.maxPurity(), 2);
+            result.add(stack);
+        }
+        return result;
+    }
+
+    static void exercisePureContainers(ServerPlayer player) {
+        var config = ThirstConfig.get();
+        var blacklist = config.itemBlacklist;
+        try {
+            config.itemBlacklist = new HashSet<>(blacklist);
+            for (var water : pureContainers()) {
+                String id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(water.getItem()).toString();
+                check(java.util.Arrays.equals(ThirstApi.thirstValues(water), new int[]{10, 8}), "Pure water base 10/8: " + id);
+                var consumed = water.copy();
+                consume(player, consumed, 0, 0, 10, 8);
+                if (com.thirstwastaken2.item.WaterskinItem.is(consumed)) {
+                    check(com.thirstwastaken2.item.WaterskinItem.servings(consumed) == 1, "One serving per drink: " + id);
+                    consume(player, consumed, 10, 8, 20, 16);
+                    check(ThirstApi.thirstValues(consumed) == null, "Empty container has no hydration: " + id);
+                }
+                var salt = com.thirstwastaken2.purity.WaterPurity.setQuality(water.copy(), com.thirstwastaken2.purity.WaterQuality.SALT);
+                consume(player, salt, 0, 0, 0, 0);
+                player.removeAllEffects();
+                for (int grade = 0; grade < 3; grade++) {
+                    var lower = com.thirstwastaken2.purity.WaterPurity.set(water.copy(), grade);
+                    check(java.util.Arrays.equals(ThirstApi.thirstValues(lower), ThirstApi.thirstValues(water.getItem())),
+                            "Lower purity retains upstream base: " + id + " grade " + grade);
+                }
+                config.itemBlacklist.add(id); ThirstApi.clearCache();
+                check(ThirstApi.thirstValues(water) == null, "Pure container respects blacklist: " + id);
+                config.itemBlacklist.remove(id); ThirstApi.clearCache();
+            }
+            var potion = net.minecraft.world.item.alchemy.PotionContents.createItemStack(Items.POTION, net.minecraft.world.item.alchemy.Potions.HEALING);
+            check(java.util.Arrays.equals(ThirstApi.thirstValues(potion), ThirstApi.thirstValues(Items.POTION)), "Healing potion is not pure water");
+            check(ThirstApi.thirstValues(new ItemStack(com.thirstwastaken2.item.ThirstItems.TERRACOTTA_BOWL)) == null, "Empty bowl has no hydration");
+        } finally { config.itemBlacklist = blacklist; ThirstApi.clearCache(); }
+    }
+
     private static boolean listenerRegistered;
     private static boolean cancelDrink;
     static void exerciseV2(ServerPlayer player) {

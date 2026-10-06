@@ -20,7 +20,7 @@ public final class Consumption {
     public static void receive(Map<Identifier, TooltipProfile> profiles) { clientProfiles = Map.copyOf(profiles); }
     public static int duration(ItemStack stack, LivingEntity user, int original) {
         if (!stack.has(DataComponents.FOOD) || !stack.has(DataComponents.CONSUMABLE)
-                || !(user instanceof Player player) || player.isCreative() || player.isSpectator()) return original;
+                || !(user instanceof Player player) || player.isSpectator()) return original;
         var item = BuiltInRegistries.ITEM.getKey(stack.getItem());
         Optional<ConsumptionSpeed> speed;
         if (player instanceof ServerPlayer serverPlayer)
@@ -30,7 +30,7 @@ public final class Consumption {
         else return original;
         boolean overfull = player instanceof ServerPlayer serverPlayer
                 ? com.davidblackcn.buildupvitals.food.overeating.PlayerOvereat.overfull(serverPlayer)
-                : player.hasEffect(BuildupEffects.OVERFULL);
+                : !player.isCreative() && player.hasEffect(BuildupEffects.OVERFULL);
         return ConsumptionSpeed.duration(speed, original, overfull);
     }
 }

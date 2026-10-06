@@ -3,10 +3,10 @@ package com.davidblackcn.buildupvitals.compat.thirst.mixin;
 import com.davidblackcn.buildupvitals.hydration.HydrationAdapter;
 import com.thirstwastaken2.api.ThirstApi;
 import com.thirstwastaken2.config.ThirstConfig;
+import com.thirstwastaken2.purity.WaterPurity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -29,10 +29,11 @@ public abstract class ThirstValuesMixin {
     }
 
     @Inject(method = "thirstValues(Lnet/minecraft/world/item/ItemStack;)[I", at = @At("RETURN"), cancellable = true)
-    private static void buildupVitals$pureBottle(ItemStack stack, CallbackInfoReturnable<int[]> cir) {
-        if (stack.is(Items.POTION) && !stack.isEmpty() && ThirstApi.purity(stack) == ThirstApi.maxPurity()
-                && !ThirstConfig.get().itemBlacklist.contains("minecraft:potion")
-                && HydrationAdapter.find(BuiltInRegistries.ITEM.getKey(stack.getItem())) == null) {
+    private static void buildupVitals$pureWater(ItemStack stack, CallbackInfoReturnable<int[]> cir) {
+        // Stack-level purity and fill checks keep empty vessels, salt, potions and juice out.
+        if (!WaterPurity.isPlainWaterDrink(stack) || ThirstApi.purity(stack) != ThirstApi.maxPurity()) return;
+        var item = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        if (!ThirstConfig.get().itemBlacklist.contains(item.toString()) && HydrationAdapter.find(item) == null) {
             cir.setReturnValue(new int[]{10, 8});
         }
     }

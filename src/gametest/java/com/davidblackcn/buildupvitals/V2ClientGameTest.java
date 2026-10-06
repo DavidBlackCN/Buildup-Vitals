@@ -30,6 +30,15 @@ public class V2ClientGameTest implements FabricClientGameTest {
     }
     private static void exercise(ClientGameTestContext context, TestServerContext server, TestServerConnection connection, String kind) {
         context.waitFor(client -> ClientFoodProfiles.available());
+        exerciseDuration(context, server, connection, GameType.CREATIVE, Items.COOKED_BEEF, 32);
+        exerciseDuration(context, server, connection, GameType.CREATIVE, Items.APPLE, 21);
+        exerciseDuration(context, server, connection, GameType.CREATIVE, Items.COOKIE, 16);
+        exerciseDuration(context, server, connection, GameType.SURVIVAL, Items.APPLE, 21);
+        server.runOnServer(instance -> {
+            connection.getServerPlayer().removeAttached(PlayerOvereat.STATE);
+            connection.getServerPlayer().removeAttached(com.davidblackcn.buildupvitals.player.RecoveryAttachments.RECOVERY);
+            connection.getServerPlayer().removeAttached(com.davidblackcn.buildupvitals.player.DietAttachments.DIET);
+        });
         server.runOnServer(instance -> {
             var player = connection.getServerPlayer(); player.setGameMode(GameType.SURVIVAL); player.setNoGravity(true); player.setHealth(20);
             player.getFoodData().setFoodLevel(20);
@@ -86,6 +95,49 @@ public class V2ClientGameTest implements FabricClientGameTest {
         context.waitTicks(3);
         check(warnings.get() == before + 1, "Server warning is sent once per episode over a real connection");
         BuildupVitals.LOGGER.info("V2 warning screenshot: {}", context.takeScreenshot("stage75-" + kind + "-warning"));
+    }
+
+    private static void exerciseDuration(ClientGameTestContext context, TestServerContext server,
+            TestServerConnection connection, GameType mode, net.minecraft.world.item.Item item, int duration) {
+        int before = server.computeOnServer(instance -> {
+            var player = connection.getServerPlayer();
+            player.stopUsingItem(); player.removeAllEffects(); player.setGameMode(mode);
+            player.setNoGravity(true); player.setHealth(20); player.getFoodData().setFoodLevel(20);
+            // A retained survival effect must not make creative timers disagree across the connection.
+            if (mode == GameType.CREATIVE)
+                player.addEffect(new MobEffectInstance(BuildupEffects.OVERFULL, 1200, 0, false, false, true));
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(item));
+            player.inventoryMenu.broadcastChanges();
+            return player.getStats().getValue(net.minecraft.stats.Stats.ITEM_USED, item);
+        });
+        context.waitFor(client -> client.player.getMainHandItem().is(item)
+                && client.player.isCreative() == (mode == GameType.CREATIVE)
+                && client.player.hasEffect(BuildupEffects.OVERFULL) == (mode == GameType.CREATIVE));
+        context.runOnClient(client -> {
+            check(client.player.getMainHandItem().getUseDuration(client.player) == duration, "Client duration " + mode + ": " + item);
+            client.options.keyUse.setDown(true);
+            client.gameMode.useItem(client.player, InteractionHand.MAIN_HAND);
+            check(client.player.getUseItemRemainingTicks() == duration, "Client starts matching animation timer");
+        });
+        server.waitFor(instance -> connection.getServerPlayer().isUsingItem());
+        server.runOnServer(instance -> {
+            var player = connection.getServerPlayer();
+            check(player.getUseItem().getUseDuration(player) == duration && player.getUseItemRemainingTicks() > 0
+                    && player.getUseItemRemainingTicks() <= duration, "Server timer matches client");
+            check(player.getStats().getValue(net.minecraft.stats.Stats.ITEM_USED, item) == before, "Use has not completed early");
+        });
+        server.waitFor(instance -> connection.getServerPlayer().getStats().getValue(net.minecraft.stats.Stats.ITEM_USED, item) > before);
+        context.runOnClient(client -> { client.options.keyUse.setDown(false); client.gameMode.releaseUsingItem(client.player); });
+        server.runOnServer(instance -> {
+            var player = connection.getServerPlayer();
+            check(player.getStats().getValue(net.minecraft.stats.Stats.ITEM_USED, item) == before + 1, "Timed use completes exactly once");
+            check(mode != GameType.CREATIVE || (player.getMainHandItem().getCount() == 1
+                    && PlayerOvereat.state(player).load() == 0 && PlayerRecovery.state(player).reserve() == 0),
+                    "Creative keeps items and does not grant recovery or overeating");
+            player.stopUsingItem();
+        });
+        context.waitFor(client -> !client.player.isUsingItem());
+        BuildupVitals.LOGGER.info("Consumption regression verified: {} {} = {} ticks", mode, item, duration);
     }
     private static void check(boolean condition, String message) { if (!condition) throw new AssertionError(message); }
 }

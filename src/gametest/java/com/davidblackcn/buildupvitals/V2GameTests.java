@@ -18,6 +18,27 @@ import static com.davidblackcn.buildupvitals.RecoveryGameTests.player;
 import static com.davidblackcn.buildupvitals.RecoveryGameTests.ticks;
 
 public class V2GameTests {
+    @GameTest public void creativeConsumptionUsesProfileSpeed(GameTestHelper helper) {
+        var creative = player(helper, GameType.CREATIVE);
+        for (var item : new net.minecraft.world.item.Item[]{Items.APPLE, Items.CARROT, Items.BEETROOT, Items.POTATO}) {
+            helper.assertTrue(new ItemStack(item).getUseDuration(creative) == 21, "Creative quick food takes 21 ticks: " + item);
+        }
+        helper.assertTrue(new ItemStack(Items.COOKIE).getUseDuration(creative) == 16, "Creative fast food takes 16 ticks");
+        creative.addEffect(new net.minecraft.world.effect.MobEffectInstance(com.davidblackcn.buildupvitals.effect.BuildupEffects.OVERFULL, 200));
+        helper.assertTrue(new ItemStack(Items.APPLE).getUseDuration(creative) == 21, "Creative stays exempt from Overfull slowdown");
+        helper.assertTrue(new ItemStack(Items.COOKED_BEEF).getUseDuration(creative) == 32, "Regular food retains native duration");
+        helper.assertTrue(new ItemStack(Items.HONEY_BOTTLE).getUseDuration(creative) == 40, "Undeclared longer native duration retained");
+        new ItemStack(Items.APPLE).finishUsingItem(helper.getLevel(), creative);
+        helper.assertTrue(PlayerOvereat.state(creative).load() == 0 && PlayerRecovery.state(creative).reserve() == 0,
+                "Speed does not activate creative recovery or overeating");
+        helper.succeed();
+    }
+
+    @GameTest public void pureWaterContainersUseV2Values(GameTestHelper helper) {
+        if (com.davidblackcn.buildupvitals.hydration.HydrationAdapter.enabled()) ThirstTestSupport.exercisePureContainers(player(helper));
+        helper.succeed();
+    }
+
     @GameTest public void specialFoodsKeepNativeEffects(GameTestHelper helper) {
         var p = player(helper);
         new ItemStack(Items.ENCHANTED_GOLDEN_APPLE).finishUsingItem(helper.getLevel(), p);

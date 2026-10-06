@@ -56,6 +56,18 @@ final class ThirstClientScenario {
     private static void exercise(ClientGameTestContext context, TestServerContext server, TestServerConnection connection, boolean screenshot) {
         context.waitFor(client -> ClientFoodProfiles.available());
         server.runOnServer(instance -> ThirstTestSupport.exercise(connection.getServerPlayer()));
+        server.runOnServer(instance -> ThirstTestSupport.exercisePureContainers(connection.getServerPlayer()));
+        context.runOnClient(client -> {
+            for (var water : ThirstTestSupport.pureContainers())
+                check(java.util.Arrays.equals(ThirstApi.thirstValues(water), new int[]{10, 8}), "Client pure water values match consumption: " + water);
+        });
+        if (screenshot) {
+            context.waitFor(client -> client.gui.overlay() == null);
+            context.setScreen(() -> new PreviewScreen(ThirstTestSupport.pureContainers().get(1)));
+            context.waitTicks(3);
+            context.takeScreenshot("fix-pure-water-bowl-" + (FabricLoader.getInstance().isModLoaded("appleskin") ? "appleskin" : "standalone"));
+            context.setScreen(() -> null);
+        }
         Path pack = server.computeOnServer(instance -> instance.getWorldPath(LevelResource.DATAPACK_DIR).resolve("buildup_hydration_test"));
         Path profile = pack.resolve("data/buildup_vitals_test/buildup_vitals/food_profiles/hydration.json");
         Path drink = pack.resolve("data/buildup_vitals_test/thirstwastaken2/drinks/hydration.json");
@@ -161,10 +173,12 @@ final class ThirstClientScenario {
     private static void check(boolean condition, String message) { ThirstTestSupport.check(condition, message); }
 
     private static final class PreviewScreen extends Screen {
-        private PreviewScreen() { super(Component.literal("Hydration verification")); }
+        private final ItemStack stack;
+        private PreviewScreen() { this(new ItemStack(TestFoods.FALLBACK)); }
+        private PreviewScreen(ItemStack stack) { super(Component.literal("Hydration verification")); this.stack = stack; }
         @Override public void extractRenderState(GuiGraphicsExtractor graphics, int x, int y, float delta) {
             extractTransparentBackground(graphics);
-            graphics.setTooltipForNextFrame(font, new ItemStack(TestFoods.FALLBACK), width / 2 - 50, height / 2 - 45);
+            graphics.setTooltipForNextFrame(font, stack, width / 2 - 50, height / 2 - 45);
         }
     }
 }

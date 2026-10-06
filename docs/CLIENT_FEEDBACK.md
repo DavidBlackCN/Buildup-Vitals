@@ -6,6 +6,8 @@
 
 Quick/Fast 显示简短本地化文字；normal 或未声明档位不额外占一行。仅真实 Food+Consumable 添加 Buildup 食物行；fallback 标为 Basic，不虚构恢复、增益或类别。零恢复、未知/实验 Benefit 省略对应行。
 
+创造与生存模式采用相同的消费档位：normal 32 tick、quick 21 tick（约 1.5 倍速度）、fast 16 tick。创造模式仍不积累过食负荷或获得食物恢复，也不受积食减速；客户端动画和服务端使用计时遵循同一规则。
+
 ## 水滴与 AppleSkin
 
 安装受支持 TWT2 后使用其真实解析结果和纯度修正。无 AppleSkin 时 Buildup 复用上游水滴组件；有 AppleSkin 时由 TWT2 自己绘制，避免重复。Pure Water 的提示为10/8基准，盐水不显示虚假的补水。没有 TWT2 时不出现无效口渴提示。
