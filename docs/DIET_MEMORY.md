@@ -43,13 +43,13 @@ repeat = 1 − 0.10 × (同食物 ID 或同组的记录数 − 1) / 9
 |---|---|---|
 | 食物恢复储备 | `基础 Recovery × (1 + 0.15 × score × repeat)` | 零恢复仍为零；总储备上限 20 HP；只在进食时加入一次 |
 | 料理增益时长 | `floor(基础时长 × (1 + 0.10 × score × repeat))` | 最长仍 3600 tick；同类不缩短、异类替换；不增加效果强度 |
-| Well-fed 速度 | 倍率 `1 + 0.075 × score × repeat`；周期 `11 / 倍率`，保留小数进度 | 单次 `min(Saturation,6)/6 HP`；自然部分实际每 HP 支付6 Exhaustion；与 Quenched 组合后至少10 tick |
+| Well-fed 速度 | 保留倍率 `1 + 0.075 × score × repeat`；实际周期 `max(10, 10 / 倍率)` | 当前已达10 tick下限，Variety和Quenched均不额外提高该档位频率；单次 `min(Saturation,6)/6 HP`，实际自然部分每HP支付6 Exhaustion |
 | Stable / Food 兑现周期 | 不直接乘 Variety | Stable 80 tick；Food 12 tick，Restorative 10 tick；Food 取与自然周期中较小者 |
 | Hunger / Saturation | 原版 Food Component | 从不按饮食乘算、扣减或锁定 |
 
 所有最终收益倍率均从 **1.0** 起算。`repeat=0.9` 不代表吃同一种食物只得到 90% 恢复；它只作用于多样性额外奖励。单组长期饮食 `score=0`，回到完整基础。Restorative 不改变储备总量；Variety 奖励是在进食时明确加入的额外储备，两者职责不同。
 
-v2 保留小数周期和余数，避免11 tick基准下向上取整吞掉小额奖励。切换饮食保留进度，最多下个 tick兑现一次，不补发多个周期；食物储备不能拖慢自然恢复。积食时仍记录饮食，但暂停储备兑现并阻止新增储备/主增益，不影响自然恢复奖励。详见 [RECOVERY](RECOVERY.md)。
+当前Well-fed采用原版10 tick基准；Variety的速度参数受下限裁剪，其正反馈主要保留在食物储备与增益时长。调度仍支持小数周期与余数，例如Quenched作用于Stable时；切换饮食保留进度，最多下个tick兑现一次，不补发多个周期，食物储备不能拖慢自然恢复。积食时仍记录饮食，但暂停储备兑现并阻止新增储备/主增益。详见 [RECOVERY](RECOVERY.md)。
 
 ## 数据与查询
 

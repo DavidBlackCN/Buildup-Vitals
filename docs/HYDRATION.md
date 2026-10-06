@@ -28,6 +28,8 @@ Pure 直接饮用水的栈级查询为每份 **10 Thirst / 8 Quenched**，空状
 
 已启用口渴、Thirst=20 且 Quenched>0 时，Buildup 自然恢复速度 ×1.15，与 Well-fed Variety 相乘，最终周期至少 10 tick。它不自行产生治疗，也不绕过 Hunger 或自然恢复游戏规则。储备存在时仍按 [统一恢复时钟](RECOVERY.md) 调度。
 
+当前Well-fed基准已为10 tick，所以该倍率在高饱和档位不再带来额外频率；Stable仍可由80缩至约69.565 tick。Hydration的有限收益允许优于原版被动基线，但不重新启用TWT2独立治疗器，也不突破自然周期下限。
+
 对已验证版本的 `HealthRegen.healWithQuenched(ServerPlayer,ThirstData,ExhaustionTracker)F` 使用一个 HEAD 返回 0 的窄注入，关闭其独立治疗及独立治疗费用。未改写 `quenchedHealthRegen` 配置或其他用户配置，没有全局 `LivingEntity.heal` 钩子。TWT2 其他活动耗水、气候、疾病及 FoodData 耗竭镜像继续存在，因此自然恢复的原版营养成本仍可能经 TWT2 镜像耗水。
 
 TWT2 针对原版 FoodData 的脱水回血限制不额外接管 Buildup Controller：v2 自然恢复基线由 Hunger/Saturation 决定，Quenched 只奖励良好水分状态。第三方独立治疗仍需各自兼容，不能由本次有限协调代表所有模组组合。

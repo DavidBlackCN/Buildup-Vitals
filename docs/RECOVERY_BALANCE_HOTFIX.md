@@ -1,5 +1,7 @@
 # Stage 7.5 Recovery Balance Hotfix
 
+> 历史报告：本文记录此前11 tick方案与当时验收目标。当前已由 [10 tick自然恢复基准](RECOVERY_BASELINE_10.md) 替代；不再以组合场景偏离±10%作为削弱自然恢复的理由。
+
 日期：2026-10-06。仅处理 Recovery 数值和验证，不增加机制，不进入 Stage 8。
 
 ## 结论与范围

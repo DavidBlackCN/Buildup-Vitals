@@ -85,13 +85,13 @@ Buildup Vitals 不需要完全推翻这一模型，主要变化发生在 Saturat
 
 v2 总恢复节奏以接近原版的量级为目标，将恢复价值分配到 Saturation、食物储备、料理增益和可选 Hydration。
 
-- **Well-fed Recovery**：Hunger=20 且 Saturation>0，每 11 tick 恢复 `min(Saturation,6)/6 HP`，随 Saturation 连续变化。
+- **Well-fed Recovery**：Hunger=20 且 Saturation>0，每 10 tick 恢复 `min(Saturation,6)/6 HP`，随 Saturation 连续变化，与原版峰值节奏对齐。
 - **Stable Recovery**：Hunger≥18 且不满足上一条件，每 80 tick 恢复 1 HP，不要求最低 Saturation。
 - 自然恢复按实际成功恢复的 HP 支付每 HP 6 Exhaustion；Buildup 速度奖励组合后的自然周期不得小于 10 tick。药水等外部治疗不受此上限限制。
 
 具体原型值与行为以 `BALANCE_SPEC_V2.md` 为准，人工验收后可以小幅微调。
 
-Stage 7.5 Recovery Balance Hotfix 将高饱和间隔由 12 微调到 11 tick，恢复量曲线不变。初始半血、满 Hunger、Saturation=20 且无额外活动时，普通回满由 120 降到 110 tick，对照原版 100 tick 为 +10%；料理与良好 Vitals 共用时钟，普通状态组合不突破 10 tick 自然峰值。
+Passive Natural Recovery直接以原版作为baseline，当前高饱和基准为10 tick，撤销此前12→11 tick方案。初始半血、满Hunger、Saturation20且无额外活动时，普通回满与原版同为100 tick。Food Recovery、Meal Benefit、Hydration、Variety等主动或良好状态收益允许提供有限正反馈，不再要求所有组合严格落在原版±10%内，也不因主动进食快约10%～20%而再次削弱自然恢复。通过统一时钟、有限储备和10 tick自然下限防止明显失控的叠加治疗。
 
 ## 8. 食物直接恢复生命
 
@@ -283,7 +283,7 @@ Variety Score
 
 - Food Recovery：最高约 +10%～15%；
 - Meal Benefit：轻微提高持续时间或效果，例如最高约 +10%；
-- Well-fed Natural Recovery：只提供很轻的提升，例如最高约 +5%～10%。
+- Well-fed Natural Recovery：保留最高+7.5%的Variety速度参数，但当前基准已达10 tick下限，不额外提高该档位实际频率；Variety的恢复储备与增益时长奖励仍有效。
 
 最终数值需实机测试。
 
@@ -382,7 +382,7 @@ Food Profile 的可选 `consumption.speed` 分 normal / quick / fast 三档，�
 | 项目 | 原型目标 |
 |---|---:|
 | Stable Natural Recovery | Hunger≥18，1 HP / 80 tick |
-| Well-fed Natural Recovery | Hunger=20、Saturation>0，每 11 tick 恢复 min(Saturation,6)/6 HP |
+| Well-fed Natural Recovery | Hunger=20、Saturation>0，每 10 tick 恢复 min(Saturation,6)/6 HP |
 | Basic Food Recovery | 0～1 HP |
 | Prepared Recovery | 1～2 HP |
 | Meal Recovery | 2～4 HP |
@@ -390,7 +390,7 @@ Food Profile 的可选 `consumption.speed` 分 normal / quick / fast 三档，�
 | Recovery Reserve 转化速度 | 普通 12 tick / HP；Restorative 10 tick / HP |
 | 官方 Food Recovery 基础单位 | 0 或至少 1 HP（半颗心），优先整数 1～6 HP |
 | Variety 最大 Recovery Bonus | 约 +10%～15% |
-| Variety 对 Natural Recovery | Well-fed 速度最多 +7.5%，最终至少 10 tick |
+| Variety 对 Natural Recovery | 保留+7.5%速度参数；当前Well-fed基准已达10 tick下限，不再提速 |
 | Variety 对 Meal Benefit | 约 +10% 上限 |
 | 重复食物额外收益最低倍率 | 约 85%～90% |
 | 重复食物 Hunger 倍率 | 100% |

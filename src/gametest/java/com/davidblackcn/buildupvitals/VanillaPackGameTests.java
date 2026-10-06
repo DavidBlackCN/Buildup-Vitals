@@ -128,8 +128,8 @@ public class VanillaPackGameTests {
                 var fed = player(helper);
                 fed.getFoodData().setFoodLevel(20);
                 fed.getFoodData().setSaturation(10);
-                ticks(fed, 10);
-                helper.assertTrue(fed.getHealth() == 10, "No vanilla fast food heal: " + difficulty);
+                ticks(fed, 9);
+                helper.assertTrue(fed.getHealth() == 10, "No premature natural heal: " + difficulty);
                 ticks(fed, 1);
                 helper.assertTrue(fed.getHealth() == 11, "Background recovery works: " + difficulty);
             }

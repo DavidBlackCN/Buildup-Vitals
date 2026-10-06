@@ -72,18 +72,18 @@ Buildup v2 不再把这两个档位整体大幅削弱。
 
 原则锁定：
 
-> 高 Saturation 状态下，自然恢复应接近原版，但略慢于原版峰值。
+> Passive Natural Recovery 直接以原版作为 baseline，高 Saturation 恢复基准与原版峰值节奏对齐。
 
 Stage 7.5 Recovery Balance Hotfix 当前值：
 
 ```text
-触发间隔：11 tick
+触发间隔：10 tick
 ```
 
 即：
 
 ```text
-约 0.55 秒一次
+约 0.5 秒一次
 ```
 
 恢复量建议采用与 Saturation 连续关联的模型：
@@ -118,9 +118,9 @@ Saturation < 6
 
 v2 应尽量让 Saturation 对恢复的贡献是连续的。
 
-本轮仅将间隔从 12 调为 11 tick，恢复量曲线不变。以初始 10/20 HP、Hunger=20、Saturation=20、Exhaustion=0、无额外治疗和活动为对照：原版回满为 100 tick，当前普通状态为 110 tick（+10%）。单份食物储备优先支付统一治疗脉冲，并不另叠加一条治疗通道；在这个对照中提高到 1 HP 不会再缩短总时间。
+当前采用10 tick基准，撤销此前12→11 tick方案；恢复量曲线不变。初始10/20 HP、Hunger20、Saturation20、Exhaustion0，无额外治疗与活动时，原版与本模组普通回满均为100 tick。食物储备优先支付统一治疗脉冲，不另叠加独立治疗器。
 
-±10% 是上述满营养对照的结果，不代表所有初始营养。Saturation=15 时，原版需140 tick，本模组无食物需154 tick，已有1 HP食物储备则需121 tick：储备免于自然恢复耗竭，节省的营养会延后饱和恢复减速，因此较原版快13.6%。Saturation=12.8 时同三组为310、314、245 tick，含食物约快21%。本轮保留这一既有来源差异，不通过新机制消除它；完整计算、限制和运行验证见版本目录的 `docs/RECOVERY_BALANCE_HOTFIX.md`。
+Food Recovery、Meal Benefit、Hydration、Variety等主动或良好状态收益允许在原版baseline之上提供有限正反馈，不再要求所有组合严格处于原版±10%。不因主动进食场景快约10%～20%而再次削弱Natural Recovery；约束是统一时钟、有限储备、单次治疗不重复叠加，以及自然恢复周期不低于10 tick。当前对照见版本目录的 `docs/RECOVERY_BASELINE_10.md`，此前热修复报告仅保留为历史记录。
 
 ## 3.2 Stable Recovery
 
@@ -160,7 +160,7 @@ Buildup 自己的自然类 Vitals 增益可以缩短恢复间隔，但原则上�
 
 也就是：
 
-> 良好状态可以让玩家恢复到接近原版峰值，但不应靠 Vitals 普通正反馈突破原版峰值并无限叠乘。
+> 被动自然恢复已采用原版峰值周期；良好状态和主动收益可以改善营养支出或较慢档位，但不得通过普通Vitals速度倍率突破10 tick下限并无限叠乘。
 
 特殊药水、信标、金苹果等独立外部治疗不受此限制。
 
@@ -279,10 +279,10 @@ min(
 
 ```text
 玩家高 Saturation：
-Natural = 11 tick
+Natural = 10 tick
 Food = 12 tick
 
-→ Food Reserve 随自然恢复按 11 tick 兑现
+→ Food Reserve 随自然恢复按 10 tick 兑现
 ```
 
 若未来：
@@ -1187,6 +1187,8 @@ MAX_FOOD_BONUS = +15%
 MAX_BENEFIT_BONUS = +10%
 MAX_WELL_FED_BONUS = +7.5%
 ```
+
+高饱和基础周期现在已为10 tick，所以Variety与Quenched速度倍率在该档位都受下限裁剪，不再提高实际恢复频率。Variety的食物储备与增益时长奖励保留；Quenched仍能加速Stable。不能将配置中的倍率解释为无条件突破10 tick。
 
 可以继续作为 v2 第一轮测试值。
 

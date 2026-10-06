@@ -43,7 +43,7 @@ class DietMemoryTest {
             assertEquals(0.9, result.repeatFactor(), 1e-12);
             assertEquals(1, result.foodMultiplier());
             assertEquals(1, result.benefitMultiplier());
-            assertEquals(11, result.wellFedInterval());
+            assertEquals(10, result.wellFedInterval());
         }
     }
 
@@ -127,7 +127,7 @@ class DietMemoryTest {
             assertTrue(result.benefitMultiplier() >= 1 && result.benefitMultiplier() <= 1.10);
             assertTrue(result.wellFedMultiplier() >= 1 && result.wellFedMultiplier() <= 1.075);
             assertTrue(result.repeatFactor() >= 0.9 && result.repeatFactor() <= 1);
-            assertEquals(11, result.wellFedInterval());
+            assertEquals(10, result.wellFedInterval());
         }
     }
 }

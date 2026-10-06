@@ -28,7 +28,7 @@ public class RecoveryBalanceGameTests {
                     if (HydrationAdapter.enabled()) ThirstTestSupport.tickBalanceFixture(p);
                     elapsed++;
                 }
-                int expected = saturation == 15 ? (apple ? 121 : 154) : (apple ? 245 : 314);
+                int expected = saturation == 15 ? (apple ? 110 : 140) : (apple ? 230 : 300);
                 helper.assertTrue(p.getHealth() == 20 && elapsed == expected, "Finite saturation timing matches the math: saturation=" + saturation + " apple=" + apple + " ticks=" + elapsed);
                 BuildupVitals.LOGGER.info("HOTFIX finite saturation={} apple={} ticks={}", saturation, apple, elapsed);
             }
@@ -63,10 +63,8 @@ public class RecoveryBalanceGameTests {
                         helper.assertTrue(p.getHealth() - before <= 1, "No parallel healing pulse");
                         elapsed++;
                     }
-                    helper.assertTrue(p.getHealth() == 20 && elapsed >= 100 && elapsed <= 110,
-                            "Half-health restoration stays within vanilla high-saturation time +10%: " + item + " ticks=" + elapsed);
-                    if (!variety) helper.assertTrue(elapsed == (quenched ? 100 : item == Items.MUSHROOM_STEW ? 107 : 110),
-                            "Exact base/meal/quenched completion tick");
+                    helper.assertTrue(p.getHealth() == 20 && elapsed == 100,
+                            "Full nutrition reaches the vanilla baseline without stacked healing: " + item + " ticks=" + elapsed);
                     helper.assertTrue(PlayerRecovery.state(p).reserve() == 0, "One meal's reserve is fully spent");
                     BuildupVitals.LOGGER.info("HOTFIX runtime item={} variety={} quenched={} reserve={} speed={} ticks={}",
                             item, variety, quenched, reserve, speed, elapsed);

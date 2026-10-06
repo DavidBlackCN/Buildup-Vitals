@@ -4,7 +4,7 @@ Buildup 系列的 Vanilla+ 玩家状态机制模组。第一目标平台为 Fabr
 
 当前为 Stage 7.5（Balance v2 & Consumption Rework）：连续 Saturation 恢复、12/10 tick食物恢复、满饱食进食与积食、三档进食速度、可见饮食状态效果，以及40种原版食物的 v2 Recovery/Hydration。规范见 [BALANCE_SPEC_V2](BALANCE_SPEC_V2.md)、[设计原则](DESIGN_PRINCIPLES.md) 和 [Stage 7.5 计划](<Stage 7.5 Plan.md>)。实现完成后等待人工体验验收，不自动进入 Stage 8。
 
-已应用 [Recovery Balance Hotfix](docs/RECOVERY_BALANCE_HOTFIX.md)：官方食物恢复基础值为0或至少1 HP（优先整数）；高饱和自然恢复间隔为11 tick，Food12、滋养10、Stable80及自然最快10 tick保持不变。半血且满营养的普通恢复时间为原版的+10%，不新增机制，不进入 Stage 8。
+已应用 [10 tick自然恢复基准调整](docs/RECOVERY_BASELINE_10.md)：官方食物恢复基础值为0或至少1 HP（优先整数）；高饱和自然恢复直接以原版10 tick为基准，Food12、滋养10、Stable80及自然最快10 tick保持不变。主动或良好状态收益允许有限正反馈，不再要求所有组合处于原版±10%内；不新增机制，不进入 Stage 8。
 
 ## 当前工程基线
 

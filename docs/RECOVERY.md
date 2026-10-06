@@ -6,14 +6,14 @@
 
 | 条件 | 基础周期 | 单次恢复 |
 |---|---:|---:|
-| Hunger = 20，Saturation > 0 | 11 tick | `min(Saturation, 6) / 6 HP` |
+| Hunger = 20，Saturation > 0 | 10 tick | `min(Saturation, 6) / 6 HP` |
 | Hunger ≥18，且不满足上行 | 80 tick | 1 HP |
 | 存在可用食物储备 | 12 tick | 最多 1 HP |
 | 储备 + Restorative | 10 tick | 最多 1 HP |
 
 Saturation 1、2、3、6、>6 对应单次 1/6、1/3、1/2、1、1 HP。Stable 没有额外 Saturation 门槛；Hunger <18 无自然恢复。自然恢复遵守 `naturalHealthRegeneration`，食物储备及外部治疗不受该游戏规则关闭影响。和平模式的原版背景治疗同样交由此时钟协调；饥饿伤害和原版耗竭扣减保留。
 
-Variety 仅给满 Hunger 且 Saturation >0 的恢复最多 +7.5% 速度；已验证 TWT2 中启用口渴且 Thirst=20、Quenched>0 给自然恢复 ×1.15 速度。两者相乘，最终自然周期至少 10 tick。小数周期保留小数进度，不用整数向上取整丢掉小额奖励。
+Variety保留仅作用于满Hunger且Saturation>0的最高+7.5%速度参数；已验证TWT2中启用口渴且Thirst20、Quenched>0时，自然速度参数乘1.15。最终自然周期至少10 tick，因此当前高饱和档位已达下限，两者都不会使其更快。Variety仍增加食物储备与增益时长；Quenched仍可将Stable周期由80缩至约69.565 tick。小数周期继续保留小数进度。
 
 有储备时取 `min(foodInterval, naturalInterval)`。单次治疗取食物可支付量与本次自然恢复量的较大值，并裁剪到实际缺血量；不足 1 HP 的储备尾数可以由自然恢复补足。食物优先支付，剩余实际自然治疗才产生 `实际 HP ×6` Exhaustion。没有两套并行治疗器，不会因为吃下料理而拖慢自然恢复。
 
@@ -48,4 +48,4 @@ Schema v1 可选 `consumption.speed`：normal=32、quick=21、fast=16 tick。它
 
 管理员 `/buildupvitals recovery [player]` 查看 Health、Hunger、Saturation、Reserve、模式、实际周期/进度、主要效果、Overeat、Overfull、Variety、自然速度和 TWT2 Thirst/Quenched。`Infinity` 表示当前不满足自然恢复条件。`/buildupvitals diet [player]` 查询饮食明细。
 
-当前恢复时间对照见 [Recovery Balance Hotfix](RECOVERY_BALANCE_HOTFIX.md)：半血、Hunger20、Saturation20时普通状态110 tick，对照原版100 tick为+10%；最强普通 Vitals 组合仍为100 tick。高饱和间隔由12微调到11，恢复量曲线、Food12、Stable80、Restorative10不变。历史实现与人工体验清单见 [Stage 7.5 报告](STAGE_7_5_REPORT.md)。自动测试验证数学和生命周期，战斗手感仍需实玩验收。
+当前对照见 [10 tick自然恢复基准](RECOVERY_BASELINE_10.md)。Passive Natural Recovery直接以原版为baseline；满营养半血回满同为100 tick。主动进食、料理和良好Vitals允许有限正反馈，不再强求所有组合落在原版±10%，不因部分主动场景快约10%～20%而再次削弱自然恢复。连续恢复量公式、Food12、Stable80、Restorative10和自然最快10 tick保持不变；不叠加第二个治疗时钟。此前 [Recovery Balance Hotfix](RECOVERY_BALANCE_HOTFIX.md) 与 [Stage 7.5 报告](STAGE_7_5_REPORT.md) 保留为历史记录。自动测试验证数学和生命周期，战斗手感仍需实玩验收。
