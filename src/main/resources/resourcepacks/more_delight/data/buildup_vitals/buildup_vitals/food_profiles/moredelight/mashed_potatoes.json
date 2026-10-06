@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "moredelight:mashed_potatoes"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 2
+  },
+  "hydration": {
+    "thirst": 3,
+    "quenched": 2
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "vegetable",
+      "dairy"
+    ],
+    "variety_group": "moredelight:mashed_potatoes"
+  },
+  "traits": [
+    "warm"
+  ]
+}

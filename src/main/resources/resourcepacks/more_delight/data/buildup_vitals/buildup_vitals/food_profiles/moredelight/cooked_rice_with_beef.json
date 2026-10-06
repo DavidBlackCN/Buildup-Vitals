@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "moredelight:cooked_rice_with_beef"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 3
+  },
+  "hydration": {
+    "thirst": 2,
+    "quenched": 1
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "grain",
+      "dairy"
+    ],
+    "variety_group": "moredelight:meat_rice"
+  },
+  "meal_benefit": "farmersdelight:nourishment",
+  "traits": [
+    "warm"
+  ]
+}

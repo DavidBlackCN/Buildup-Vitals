@@ -59,9 +59,16 @@ fabricApi {
 dependencies {
     gametestCompileOnly "maven.modrinth:thirst-was-taken-2:${project.thirst_version}"
     gametestCompileOnly "maven.modrinth:farmers-delight-refabricated:${project.farmers_delight_version}"
-    if (providers.gradleProperty('withFarmersDelight').map { it.toBoolean() }.getOrElse(false)) {
+    if (providers.gradleProperty('withFarmersDelight').map { it.toBoolean() }.getOrElse(false)
+            || providers.gradleProperty('withMoreDelight').map { it.toBoolean() }.getOrElse(false)) {
         localRuntime "maven.modrinth:farmers-delight-refabricated:${project.farmers_delight_version}"
         gametestRuntimeOnly "maven.modrinth:farmers-delight-refabricated:${project.farmers_delight_version}"
+    }
+    if (providers.gradleProperty('withMoreDelight').map { it.toBoolean() }.getOrElse(false)) {
+        localRuntime "maven.modrinth:more-delight:${project.more_delight_version}"
+        localRuntime "maven.modrinth:delight-lib:${project.delight_lib_version}"
+        gametestRuntimeOnly "maven.modrinth:more-delight:${project.more_delight_version}"
+        gametestRuntimeOnly "maven.modrinth:delight-lib:${project.delight_lib_version}"
     }
     if (providers.gradleProperty('withThirst').map { it.toBoolean() }.getOrElse(false)) {
         localRuntime "maven.modrinth:thirst-was-taken-2:${project.thirst_version}"

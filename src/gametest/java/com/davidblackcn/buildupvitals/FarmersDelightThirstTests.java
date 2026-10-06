@@ -16,6 +16,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 /** Loaded only inside the supported TWT2 + FD branch. */
 final class FarmersDelightThirstTests {
     static void exercise(GameTestHelper helper) {
+        exercise(helper, "farmersdelight");
+    }
+    static void exercise(GameTestHelper helper, String namespace) {
         var config = ThirstConfig.get();
         var foods = config.foods;
         var blacklist = config.itemBlacklist;
@@ -25,7 +28,7 @@ final class FarmersDelightThirstTests {
             for (var item : BuiltInRegistries.ITEM) {
                 var id = BuiltInRegistries.ITEM.getKey(item);
                 var stack = item.getDefaultInstance();
-                if (!id.getNamespace().equals("farmersdelight") || !stack.has(DataComponents.CONSUMABLE)) continue;
+                if (!id.getNamespace().equals(namespace) || !stack.has(DataComponents.CONSUMABLE)) continue;
                 var profile = FoodProfileLoader.snapshot(helper.getLevel().getServer()).resolve(id).profile();
                 config.foods.put(id.toString(), new int[]{19, 19});
                 ThirstApi.clearCache();

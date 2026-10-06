@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "moredelight:toast"
+  },
+  "quality": "basic",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 0,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "fast"
+  },
+  "diet": {
+    "categories": [
+      "grain"
+    ],
+    "variety_group": "minecraft:bread"
+  },
+  "traits": [
+    "snack"
+  ]
+}

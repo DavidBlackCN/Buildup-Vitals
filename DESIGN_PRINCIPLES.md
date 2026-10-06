@@ -4,7 +4,7 @@
 > 首要目标平台：**Fabric 26.3**  
 > 文档状态：**v2 核心设计原则（Stage 7.5）**
 > 当前重点：**饥饿、饱和、食物恢复、饮食质量、饮食多样性、口渴兼容**  
-> 当前兼容：**Farmer's Delight Refabricated 26.3-3.6.27 的 Food Profile 与第三方料理增益语义桥接**
+> 当前兼容：**Farmer's Delight Refabricated 26.3-3.6.27，以及 More Delight 26.09.16-26.3-fabric 的 Food Profile 与料理增益语义桥接**
 > 后续方向：**其他料理模组、氧气、法力等其他玩家状态资源**
 
 ---
@@ -413,7 +413,7 @@ Food Profile 的可选 `consumption.speed` 分 normal / quick / fast 三档，�
 
 ## 33. 后续阶段
 
-Core 已冻结，当前加入 FD 本体的 80 份 Food / Consumable Profile 与 Nourishment 语义桥接。FD Addon、Kaleidoscope Cookery、Oxygen / Air、Mana / Stamina 均需后续独立授权与版本验证，不随本次兼容自动推进。
+Core 已冻结，当前有 FD 本体的 80 份 Food / Consumable Profile 与 Nourishment 语义桥接；独立授权后加入 More Delight 26.09.16-26.3-fabric 的31份Profile，复用现有桥接而不新增机制。其六种Nourishment料理保留3600 tick，两种独立再生沙拉不附加Recovery；同配方家族共用Variety Group。其他FD Addon、Kaleidoscope Cookery、Oxygen / Air、Mana / Stamina 仍需后续独立授权与版本验证。
 
 ## 34. Non-Goals
 

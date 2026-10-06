@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "moredelight:creamy_pasta_with_chicken_cuts"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 4
+  },
+  "hydration": {
+    "thirst": 3,
+    "quenched": 2
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "grain",
+      "vegetable",
+      "dairy"
+    ],
+    "variety_group": "moredelight:creamy_meat_pasta"
+  },
+  "meal_benefit": "farmersdelight:nourishment",
+  "traits": [
+    "warm"
+  ]
+}

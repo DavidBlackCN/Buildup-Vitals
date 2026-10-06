@@ -43,3 +43,5 @@ FD Refabricated `26.3-3.6.27+refabricated` 的 `farmersdelight:nourishment` 注�
 新异类立即替换；同类走原版刷新语义，不累加，不因更短料理缩短现有效果。Overfull 阻止首次授予/刷新，包括直接命令或其他模组调用；已有效果照常倒计时。食物触发过饱的当次也不能绕过限制。死亡、牛奶、自然到期和命令移除后没有残留语义状态。
 
 FD 给原版蘑菇煲、甜菜汤和兔肉煲追加的 Nourishment 服从它们最终的 Buildup Profile，保留原有调养/振奋选择。FD 食物也可通过数据包改成原生主增益或无主增益。只拦截已桥接的 Nourishment 消费授予；其他独立效果保留。详见 [FD 兼容与验收](FARMERS_DELIGHT_COMPAT.md)。
+
+[More Delight 26.09.16-26.3-fabric](MORE_DELIGHT_COMPAT.md) 的六种 Nourishment 料理复用该桥接，原生3600 tick不乘Variety。两种沙拉的Regeneration I / 100 tick保留为独立效果，额外Recovery为0，不占主增益槽。没有为附属重复注册效果或新增Mixin。

@@ -1,0 +1,281 @@
+[
+  {
+    "id": "diced_potatoes",
+    "nutrition": 2,
+    "saturation": 1.6,
+    "ticks": 32,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "chocolate_popsicle",
+    "nutrition": 3,
+    "saturation": 1.2,
+    "ticks": 32,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "omelette",
+    "nutrition": 6,
+    "saturation": 7.2,
+    "ticks": 32,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "cooked_rice_with_chicken_cuts",
+    "nutrition": 14,
+    "saturation": 22.4,
+    "ticks": 32,
+    "bowl": true,
+    "effect": "farmersdelight:nourishment",
+    "duration": 3600
+  },
+  {
+    "id": "cooked_rice_with_beef",
+    "nutrition": 14,
+    "saturation": 22.4,
+    "ticks": 32,
+    "bowl": true,
+    "effect": "farmersdelight:nourishment",
+    "duration": 3600
+  },
+  {
+    "id": "cooked_rice_with_porkchop",
+    "nutrition": 14,
+    "saturation": 22.4,
+    "ticks": 32,
+    "bowl": true,
+    "effect": "farmersdelight:nourishment",
+    "duration": 3600
+  },
+  {
+    "id": "creamy_pasta_with_ham",
+    "nutrition": 12,
+    "saturation": 19.2,
+    "ticks": 32,
+    "bowl": true,
+    "effect": "farmersdelight:nourishment",
+    "duration": 3600
+  },
+  {
+    "id": "creamy_pasta_with_chicken_cuts",
+    "nutrition": 12,
+    "saturation": 19.2,
+    "ticks": 32,
+    "bowl": true,
+    "effect": "farmersdelight:nourishment",
+    "duration": 3600
+  },
+  {
+    "id": "mashed_potatoes",
+    "nutrition": 12,
+    "saturation": 19.2,
+    "ticks": 32,
+    "bowl": true,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "diced_potatoes_with_chicken_cuts",
+    "nutrition": 10,
+    "saturation": 16.0,
+    "ticks": 32,
+    "bowl": true,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "diced_potatoes_with_beef",
+    "nutrition": 10,
+    "saturation": 16.0,
+    "ticks": 32,
+    "bowl": true,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "diced_potatoes_with_porkchop",
+    "nutrition": 10,
+    "saturation": 16.0,
+    "ticks": 32,
+    "bowl": true,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "diced_potatoes_with_egg_and_tomato",
+    "nutrition": 10,
+    "saturation": 16.0,
+    "ticks": 32,
+    "bowl": true,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "potato_salad",
+    "nutrition": 6,
+    "saturation": 7.2,
+    "ticks": 32,
+    "bowl": true,
+    "effect": "minecraft:regeneration",
+    "duration": 100
+  },
+  {
+    "id": "chicken_salad",
+    "nutrition": 6,
+    "saturation": 7.2,
+    "ticks": 32,
+    "bowl": true,
+    "effect": "minecraft:regeneration",
+    "duration": 100
+  },
+  {
+    "id": "carrot_soup",
+    "nutrition": 12,
+    "saturation": 19.2,
+    "ticks": 32,
+    "bowl": true,
+    "effect": "farmersdelight:nourishment",
+    "duration": 3600
+  },
+  {
+    "id": "simple_hamburger",
+    "nutrition": 8,
+    "saturation": 12.8,
+    "ticks": 32,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "hamburger_with_egg",
+    "nutrition": 9,
+    "saturation": 14.4,
+    "ticks": 32,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "loaded_hamburger",
+    "nutrition": 13,
+    "saturation": 20.8,
+    "ticks": 32,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "chicken_sandwich_with_egg_and_tomato",
+    "nutrition": 11,
+    "saturation": 17.6,
+    "ticks": 32,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "steak_sandwich",
+    "nutrition": 10,
+    "saturation": 16.0,
+    "ticks": 32,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "porkchop_sandwich",
+    "nutrition": 10,
+    "saturation": 16.0,
+    "ticks": 32,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "egg_with_bacon_sandwich",
+    "nutrition": 11,
+    "saturation": 17.6,
+    "ticks": 32,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "tomato_sandwich",
+    "nutrition": 7,
+    "saturation": 11.2,
+    "ticks": 32,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "bread_slice",
+    "nutrition": 2,
+    "saturation": 1.6,
+    "ticks": 32,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "toast",
+    "nutrition": 3,
+    "saturation": 2.4,
+    "ticks": 16,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "toast_with_egg",
+    "nutrition": 5,
+    "saturation": 6.0,
+    "ticks": 16,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "toast_with_honey",
+    "nutrition": 5,
+    "saturation": 6.0,
+    "ticks": 16,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "toast_with_sweet_berries",
+    "nutrition": 5,
+    "saturation": 6.0,
+    "ticks": 16,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "toast_with_glow_berries",
+    "nutrition": 5,
+    "saturation": 6.0,
+    "ticks": 16,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  },
+  {
+    "id": "toast_with_chocolate",
+    "nutrition": 5,
+    "saturation": 6.0,
+    "ticks": 16,
+    "bowl": false,
+    "effect": "",
+    "duration": 0
+  }
+]

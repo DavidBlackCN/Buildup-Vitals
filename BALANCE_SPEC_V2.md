@@ -1507,3 +1507,9 @@ Stage 7.5 完成后必须同步修改 `DESIGN_PRINCIPLES.md`，至少修正以�
 - 高饱和 + 5 HP宴席 + Variety + 有/无Quenched从半血恢复仍为100 tick；无自然恢复的3 HP Nourishment料理为30 tick。Passive以原版为baseline、主动收益允许有限正反馈的目标不变。
 
 Restorative中文为「调养」，与FD Nourishment「滋养」区分；Steady中文为「安适」，仍只注册占位。Comfort、FD Addon、Kaleidoscope Cookery、Oxygen和Mana不属于本轮实现。
+
+## 44.1 More Delight 附属兼容补充
+
+后续独立授权适配 More Delight `26.09.16-26.3-fabric`（Delight Lib 同版本），完整31份Profile见版本目录 `docs/MORE_DELIGHT_COMPAT.md`。不改Core数值和FD桥接：六种Nourishment料理保留3600 tick；两种100 tick Regeneration I沙拉保留独立效果，额外Recovery为0。
+
+普通单品1 HP、干吐司0、Prepared 1～2、Meal 3～4，不强设Feast。胡萝卜汤6/4补水，普通饭菜2/1～3/2，干吐司0/0；面包片、马铃薯丁、冰棍及吐司fast，其余normal。按配方设置类别，同家族肉饭、意面、土豆拼盘、配料吐司分别共组，汉堡等复用FD对应组。原生营养、配方和容器不变，TWT2显式优先级与Overfull约束继续生效；其他Addon未适配。

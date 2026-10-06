@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "moredelight:chicken_salad"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 4,
+    "quenched": 3
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "vegetable"
+    ],
+    "variety_group": "moredelight:chicken_salad"
+  }
+}

@@ -33,7 +33,8 @@
   ],
   "suggests": {
     "thirstwastaken2": "=1.6.2+26.3",
-    "farmersdelight": "=26.3-3.6.27+refabricated"
+    "farmersdelight": "=26.3-3.6.27+refabricated",
+    "moredelight": "=26.09.16-26.3-fabric"
   },
   "depends": {
     "fabricloader": ">=0.19.5",

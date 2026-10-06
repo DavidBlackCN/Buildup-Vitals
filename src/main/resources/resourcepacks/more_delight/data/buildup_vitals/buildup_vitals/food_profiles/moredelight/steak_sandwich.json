@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "moredelight:steak_sandwich"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 3
+  },
+  "hydration": {
+    "thirst": 2,
+    "quenched": 1
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "grain",
+      "vegetable"
+    ],
+    "variety_group": "moredelight:meat_sandwich"
+  }
+}

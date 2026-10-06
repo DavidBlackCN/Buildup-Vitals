@@ -27,6 +27,8 @@ Variety保留仅作用于满Hunger且Saturation>0的最高+7.5%速度参数；�
 
 受支持 FD 的 Nourishment 是 Foreign Main Meal Benefit，行为等效调养 + 振奋；10 tick/HP 食物兑现仍经过同一 Controller。目标 FD 版本没有独立 heal，兼容仅中和其每 tick 耗竭返还，避免规避自然恢复营养成本。FD 西瓜汁等独立治疗保持原生，官方 Profile 不额外叠高恢复。详见 [FD 兼容](FARMERS_DELIGHT_COMPAT.md)。高饱和 5 HP 宴席 + Variety + 有/无 Quenched 从半血回满仍为100 tick；无自然恢复的3 HP FD 牛肉炖菜为30 tick。本次不修改任何 Recovery 基准数值。
 
+More Delight 的31份Profile按同一恢复时钟兑现，不改上述参数；胡萝卜汤3 HP在无自然恢复条件下为30 tick。两种自带100 tick Regeneration I的沙拉不给额外储备，保留独立效果。数值全表见 [MORE_DELIGHT_COMPAT](MORE_DELIGHT_COMPAT.md)。
+
 ## 满饱食与积食
 
 普通 Food + Consumable 在 Hunger=20 仍允许使用，非食物药水不会因此变成食物。进食完成前读取 Hunger，计算：

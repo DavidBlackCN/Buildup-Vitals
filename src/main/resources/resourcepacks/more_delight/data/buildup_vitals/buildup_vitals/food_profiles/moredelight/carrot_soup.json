@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "moredelight:carrot_soup"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 3
+  },
+  "hydration": {
+    "thirst": 6,
+    "quenched": 4
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "vegetable",
+      "dairy"
+    ],
+    "variety_group": "moredelight:carrot_soup"
+  },
+  "meal_benefit": "farmersdelight:nourishment",
+  "traits": [
+    "soup",
+    "warm"
+  ]
+}

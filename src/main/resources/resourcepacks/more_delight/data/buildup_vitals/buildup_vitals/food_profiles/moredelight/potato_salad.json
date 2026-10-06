@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "moredelight:potato_salad"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 3,
+    "quenched": 2
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "vegetable"
+    ],
+    "variety_group": "moredelight:potato_salad"
+  }
+}

@@ -26,6 +26,8 @@ Pure 直接饮用水的栈级查询为每份 **10 Thirst / 8 Quenched**，空状
 
 FD Refabricated 26.3-3.6.27 的全部80个 Food/Consumable 也经同一显式覆盖入口：TWT2 blacklist > Buildup explicit Profile（含0）> TWT2 默认/配置 > fallback。包括没有 Food 组件的牛奶瓶、热可可和西瓜汁，不增加第二套结算。默认牛奶8/8、可可7/9、西瓜汁9/9、苹果酒8/10、Bone Broth8/6；普通汤5～6档、干曲奇0/0，完整值见 [FD 兼容](FARMERS_DELIGHT_COMPAT.md)。Overfull 不阻止补水，Variety 不放大补水，删除或覆盖 Profile 继续服从正常 reload 语义。
 
+[More Delight](MORE_DELIGHT_COMPAT.md) 的31份显式 Profile 也使用同一入口，胡萝卜汤6/4、普通饭菜2/1～3/2、干吐司0/0；无额外饮料结算器。黑名单、配置冲突、实际一次消费及积食下补水均纳入附属兼容验证。
+
 ## Quenched 恢复协调
 
 已启用口渴、Thirst=20 且 Quenched>0 时，Buildup 自然恢复速度 ×1.15，与 Well-fed Variety 相乘，最终周期至少 10 tick。它不自行产生治疗，也不绕过 Hunger 或自然恢复游戏规则。储备存在时仍按 [统一恢复时钟](RECOVERY.md) 调度。

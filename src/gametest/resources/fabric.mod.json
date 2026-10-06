@@ -18,14 +18,16 @@
       "com.davidblackcn.buildupvitals.V2GameTests",
       "com.davidblackcn.buildupvitals.RecoveryBalanceGameTests",
       "com.davidblackcn.buildupvitals.CoreFreezeGameTests",
-      "com.davidblackcn.buildupvitals.FarmersDelightGameTests"
+      "com.davidblackcn.buildupvitals.FarmersDelightGameTests",
+      "com.davidblackcn.buildupvitals.MoreDelightGameTests"
     ],
     "fabric-client-gametest": [
       "com.davidblackcn.buildupvitals.V2ClientGameTest",
       "com.davidblackcn.buildupvitals.RecoveryClientGameTest",
       "com.davidblackcn.buildupvitals.TooltipClientGameTest",
       "com.davidblackcn.buildupvitals.HydrationClientGameTest",
-      "com.davidblackcn.buildupvitals.FarmersDelightClientGameTest"
+      "com.davidblackcn.buildupvitals.FarmersDelightClientGameTest",
+      "com.davidblackcn.buildupvitals.MoreDelightClientGameTest"
     ]
   }
 }

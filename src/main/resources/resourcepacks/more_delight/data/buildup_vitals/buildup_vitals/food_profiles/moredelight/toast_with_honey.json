@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "moredelight:toast_with_honey"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 1
+  },
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "fast"
+  },
+  "diet": {
+    "categories": [
+      "grain",
+      "sweet"
+    ],
+    "variety_group": "moredelight:topped_toast"
+  },
+  "traits": [
+    "snack"
+  ]
+}

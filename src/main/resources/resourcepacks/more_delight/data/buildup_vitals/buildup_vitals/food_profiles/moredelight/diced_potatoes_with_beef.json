@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "moredelight:diced_potatoes_with_beef"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 3
+  },
+  "hydration": {
+    "thirst": 2,
+    "quenched": 1
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "vegetable"
+    ],
+    "variety_group": "moredelight:potato_plate"
+  },
+  "traits": [
+    "warm"
+  ]
+}

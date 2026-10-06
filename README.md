@@ -2,7 +2,7 @@
 
 Buildup 系列的 Vanilla+ 玩家状态机制模组。第一目标平台为 Fabric / Minecraft 26.3。
 
-当前为 **0.1.0-alpha.1 / Alpha Core + Farmer's Delight Compatibility**：连续Saturation恢复、12/10 tick食物恢复、满饱食进食与积食、三档进食速度、可见饮食效果，以及40种原版食物和可选FD的80种Food/Consumable Profile。Core契约见 [Alpha Core](docs/ALPHA_CORE.md)，本次兼容及验收见 [Farmer's Delight](docs/FARMERS_DELIGHT_COMPAT.md)；平衡以 [BALANCE_SPEC_V2](BALANCE_SPEC_V2.md) 和 [设计原则](DESIGN_PRINCIPLES.md) 为准。
+当前为 **0.1.0-alpha.1 / Alpha Core + Farmer's Delight / More Delight Compatibility**：连续Saturation恢复、12/10 tick食物恢复、满饱食进食与积食、三档进食速度、可见饮食效果，以及40种原版、可选FD的80种和More Delight的31种Food/Consumable Profile。Core契约见 [Alpha Core](docs/ALPHA_CORE.md)，兼容及验收见 [Farmer's Delight](docs/FARMERS_DELIGHT_COMPAT.md) 与 [More Delight](docs/MORE_DELIGHT_COMPAT.md)；平衡以 [BALANCE_SPEC_V2](BALANCE_SPEC_V2.md) 和 [设计原则](DESIGN_PRINCIPLES.md) 为准。
 
 官方食物恢复基础值为0或至少1 HP（优先整数）；高饱和自然恢复直接采用原版10 tick基准，Food12、调养/Nourishment10、Stable80及自然最快10 tick保持不变。主动或良好状态收益允许有限正反馈，不要求所有组合处于原版±10%内；[恢复说明](docs/RECOVERY.md) 包含典型恢复时间对照。
 
@@ -92,3 +92,5 @@ Mod 使用 [MIT License](LICENSE)。Gradle Wrapper 保留上游 Apache-2.0 声�
 ## Farmer's Delight
 
 可选支持 FD Refabricated **26.3-3.6.27**：开发或测试运行时加入 `-PwithFarmersDelight=true`，发布包不捆绑 FD。详见 [兼容说明、全部80份 Profile 与人工验收清单](docs/FARMERS_DELIGHT_COMPAT.md)。Nourishment 保留原生 ID、图标和持续时间，在统一主增益槽中提供调养 + 振奋语义。
+
+可选附属 **More Delight 26.09.16-26.3-fabric** 的31种食品已提供完整 Profile，复用上述 Nourishment 桥接。使用时还需安装 More Delight 自身前置 **Delight Lib 26.09.16-26.3-fabric**。开发/测试加 `-PwithMoreDelight=true` 自动加载三个模组；生产包均不捆绑。完整平衡表、测试组合及人工验收见 [More Delight](docs/MORE_DELIGHT_COMPAT.md)。

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "moredelight:diced_potatoes"
+  },
+  "quality": "basic",
+  "recovery": {
+    "health": 1
+  },
+  "hydration": {
+    "thirst": 2,
+    "quenched": 1
+  },
+  "consumption": {
+    "speed": "fast"
+  },
+  "diet": {
+    "categories": [
+      "vegetable"
+    ],
+    "variety_group": "minecraft:potato"
+  }
+}

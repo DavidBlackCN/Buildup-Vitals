@@ -89,6 +89,8 @@ Tag 选择器使用 `"selector": { "tag": "my_pack:meals" }`，不带 `#`。Tag 
 
 FD 存在时内置兼容包提供 80 份显式数据，路径为 `data/buildup_vitals/buildup_vitals/food_profiles/farmersdelight/<item>.json`，Profile ID 为 `buildup_vitals:farmersdelight/<item>`。不需更改 Schema；最终 Profile 决定主增益，FD 后续原生 Nourishment 授予不能覆盖数据包改为原生增益/无增益的选择。原生 Nourishment 时长不乘 Variety；无原生消费来源时才回退 Quality 默认时长。全表与例外见 [FARMERS_DELIGHT_COMPAT](FARMERS_DELIGHT_COMPAT.md)。
 
+More Delight 存在时另启用 `buildup_vitals:more_delight` 内置包，为目标 `26.09.16-26.3-fabric` 的31种食品提供数据。路径为 `data/buildup_vitals/buildup_vitals/food_profiles/moredelight/<item>.json`，Profile ID 为 `buildup_vitals:moredelight/<item>`。沿用相同 Schema、覆盖与 Nourishment 语义，无需添加新机制；全表和例外见 [MORE_DELIGHT_COMPAT](MORE_DELIGHT_COMPAT.md)。
+
 ## 重载与错误处理
 
 - `/reload` 重新读取资源并构建完整不可变快照，预先展开 Tag 为物品索引；查询为 Map 查找，不做文件 IO。

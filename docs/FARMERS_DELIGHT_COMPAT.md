@@ -1,6 +1,6 @@
 # Farmer's Delight Compatibility — Minecraft 26.3
 
-支持 **Farmer's Delight Refabricated 26.3-3.6.27**，运行时完整版本字符串为 `26.3-3.6.27+refabricated`。FD 是可选依赖，Buildup 自己的 Restorative / Invigorated / Steady 注册始终存在。此兼容不包含 FD Addon、Kaleidoscope Cookery、Oxygen、Mana 或 Comfort 玩法。
+支持 **Farmer's Delight Refabricated 26.3-3.6.27**，运行时完整版本字符串为 `26.3-3.6.27+refabricated`。FD 是可选依赖，Buildup 自己的 Restorative / Invigorated / Steady 注册始终存在。本页记录 FD 本体；后续独立适配的 [More Delight](MORE_DELIGHT_COMPAT.md) 复用此桥接。其他 Addon、Kaleidoscope Cookery、Oxygen、Mana 或 Comfort 玩法未加入。
 
 ## 版本与源码证据
 

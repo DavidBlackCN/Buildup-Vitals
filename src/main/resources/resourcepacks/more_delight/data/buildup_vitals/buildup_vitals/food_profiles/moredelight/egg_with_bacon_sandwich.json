@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "moredelight:egg_with_bacon_sandwich"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 3
+  },
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "grain"
+    ],
+    "variety_group": "farmersdelight:bacon_sandwich"
+  }
+}
