@@ -10,6 +10,8 @@ on:
       - "gradle.properties"
       - "gradlew"
       - "gradlew.bat"
+      - ".github/workflows/build.yml"
+      - ".gitattributes"
   pull_request:
     branches: ["*"]
     paths:
@@ -19,6 +21,8 @@ on:
       - "gradle.properties"
       - "gradlew"
       - "gradlew.bat"
+      - ".github/workflows/build.yml"
+      - ".gitattributes"
 
 jobs:
   build:
@@ -36,7 +40,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -PacceptMinecraftEula=true
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
