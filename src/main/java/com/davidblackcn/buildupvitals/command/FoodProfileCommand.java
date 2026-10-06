@@ -37,6 +37,7 @@ public final class FoodProfileCommand {
         String text = "Buildup Vitals food profile: " + item + "\n" + origin
                 + "\nfallback=" + match.fallback() + ", quality=" + profile.quality().id()
                 + ", recovery.health=" + profile.recoveryHealth()
+                + ", consumption.speed=" + profile.consumptionSpeed().map(com.davidblackcn.buildupvitals.food.profile.ConsumptionSpeed::id).orElse("<native>")
                 + "\nhydration.thirst=" + profile.hydration().thirst() + ", hydration.quenched=" + profile.hydration().quenched()
                 + "\ncategories=" + profile.categories().stream().map(DietCategory::id).toList()
                 + ", variety_group=" + profile.varietyGroupFor(item) + ", traits=" + profile.traits()

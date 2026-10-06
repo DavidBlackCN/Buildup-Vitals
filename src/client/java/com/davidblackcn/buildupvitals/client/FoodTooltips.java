@@ -19,6 +19,10 @@ public final class FoodTooltips {
 
     public static void register() {
         ItemTooltipCallback.EVENT.register((stack, context, flag, lines) -> {
+            if (ClientFoodProfiles.available() && com.davidblackcn.buildupvitals.hydration.HydrationAdapter.enabled()
+                    && !net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("appleskin")) {
+                com.davidblackcn.buildupvitals.compat.thirst.ThirstBridge.appendHydration(stack, lines);
+            }
             if (!stack.has(DataComponents.FOOD) || !stack.has(DataComponents.CONSUMABLE)) return;
             var item = BuiltInRegistries.ITEM.getKey(stack.getItem());
             ClientFoodProfiles.find(item).ifPresent(profile -> append(profile, flag.isAdvanced(), lines));
@@ -36,11 +40,13 @@ public final class FoodTooltips {
         if (profile.recovery() >= RecoveryBalance.MIN_RESERVE) {
             String amount = BigDecimal.valueOf(Math.min(RecoveryBalance.MAX_RESERVE, profile.recovery()))
                     .setScale(6, RoundingMode.HALF_UP).stripTrailingZeros().toPlainString();
-            lines.add(Component.translatable(PREFIX + "recovery", amount).withStyle(ChatFormatting.DARK_GREEN));
+            lines.add(Component.translatable(PREFIX + "recovery", icon("minecraft:hud/heart/full"), amount).withStyle(ChatFormatting.DARK_GREEN));
         }
         profile.benefit().filter(MealBenefitRegistry::available).ifPresent(id ->
-                lines.add(Component.translatable(PREFIX + "benefit", Component.translatable(PREFIX + "benefit." + id.getPath()))
+                lines.add(Component.translatable(PREFIX + "benefit", icon(id.withPrefix("mob_effect/").toString()), Component.translatable("effect.buildup_vitals." + id.getPath()))
                         .withStyle(ChatFormatting.AQUA)));
+        profile.consumptionSpeed().filter(speed -> speed != com.davidblackcn.buildupvitals.food.profile.ConsumptionSpeed.NORMAL)
+                .ifPresent(speed -> lines.add(Component.translatable(PREFIX + "consumption." + speed.id()).withStyle(ChatFormatting.YELLOW)));
         if (!profile.categories().isEmpty()) {
             var categories = Component.empty();
             for (var category : profile.categories()) {
@@ -59,5 +65,11 @@ public final class FoodTooltips {
                     profile.benefit().filter(MealBenefitRegistry::available).isPresent()).withStyle(ChatFormatting.DARK_GRAY));
             lines.add(Component.translatable(PREFIX + "debug.base_values").withStyle(ChatFormatting.DARK_GRAY));
         }
+    }
+
+    private static Component icon(String sprite) {
+        return Component.literal("*").withStyle(style -> style.withColor(ChatFormatting.WHITE).withFont(
+                new net.minecraft.network.chat.FontDescription.AtlasSprite(net.minecraft.data.AtlasIds.GUI,
+                        net.minecraft.resources.Identifier.parse(sprite))));
     }
 }

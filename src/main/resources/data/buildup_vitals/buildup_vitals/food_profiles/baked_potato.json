@@ -9,5 +9,12 @@
       "vegetable"
     ],
     "variety_group": "minecraft:potato"
+  },
+  "recovery": {
+    "health": 1
+  },
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
   }
 }

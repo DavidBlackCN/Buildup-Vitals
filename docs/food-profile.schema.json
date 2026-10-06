@@ -18,6 +18,11 @@
     },
     "priority": { "type": "integer", "minimum": -2147483648, "maximum": 2147483647, "default": 0 },
     "quality": { "enum": ["basic", "prepared", "meal", "feast"], "default": "basic" },
+    "consumption": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": { "speed": { "enum": ["normal", "quick", "fast"] } }
+    },
     "recovery": {
       "type": "object",
       "additionalProperties": false,

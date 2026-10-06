@@ -123,6 +123,8 @@ public class TooltipClientGameTest implements FabricClientGameTest {
         var normal = tooltip(client, Items.MUSHROOM_STEW, false);
         check(keyCount(normal, "quality.meal") == 1 && keyCount(normal, "recovery") == 1 && keyCount(normal, "benefit") == 1, "Normal tooltip contains one copy of each feature");
         check(keyCount(normal, "debug.profile") == 0, "Normal tooltip hides debug data");
+        check(keyCount(tooltip(client, Items.COOKIE, false), "consumption.fast") == 1, "Fast snack advertised");
+        check(keyCount(tooltip(client, Items.APPLE, false), "consumption.quick") == 1, "Quick food advertised");
         var advanced = tooltip(client, Items.MUSHROOM_STEW, true);
         check(keyCount(advanced, "debug.profile") == 1 && keyCount(advanced, "debug.group") == 1, "F3+H includes detailed server data");
         check(keyCount(tooltip(client, TestFoods.FALLBACK, false), "quality.basic") == 1, "Fallback food remains basic");

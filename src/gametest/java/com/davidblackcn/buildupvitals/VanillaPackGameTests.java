@@ -59,8 +59,9 @@ public class VanillaPackGameTests {
                         "Repeated staples retain nutrition");
                 helper.assertTrue(Math.abs(player.getFoodData().getSaturationLevel() - food.saturation()) < 0.0001,
                         "Repeated staples retain saturation");
-                helper.assertTrue(PlayerRecovery.state(player).reserve() == 0 && PlayerMealBenefits.state(player).type().isEmpty(),
-                        "Basic staples do not invent recovery or buffs");
+                double base = item == Items.BREAD ? 0.5 : 1;
+                helper.assertTrue(PlayerRecovery.state(player).reserve() == Math.min(20, base * (meal + 1)) && PlayerMealBenefits.state(player).type().isEmpty(),
+                        "Basic staples grant modest v2 recovery without buffs");
             }
             helper.assertTrue(PlayerDiet.state(player).variety().foodMultiplier() == 1, "Single-food diet has no penalty");
         }
@@ -71,12 +72,14 @@ public class VanillaPackGameTests {
     public void farmDietAndCookedVariantsHaveDistinctRoles(GameTestHelper helper) {
         var player = player(helper);
         for (int i = 0; i < 5; i++) {
+            player.getFoodData().setFoodLevel(10);
             new ItemStack(Items.CARROT).finishUsingItem(helper.getLevel(), player);
             new ItemStack(Items.GOLDEN_CARROT).finishUsingItem(helper.getLevel(), player);
         }
         helper.assertTrue(PlayerDiet.state(player).variety().foodMultiplier() == 1, "Gold coating does not create a new diet group");
         for (Item item : new Item[]{Items.BREAD, Items.BAKED_POTATO, Items.APPLE, Items.COOKED_CHICKEN,
                 Items.BEETROOT_SOUP, Items.PUMPKIN_PIE, Items.BREAD, Items.APPLE, Items.COOKED_COD, Items.RABBIT_STEW}) {
+            player.getFoodData().setFoodLevel(10);
             new ItemStack(item).finishUsingItem(helper.getLevel(), player);
         }
         helper.assertTrue(PlayerDiet.state(player).variety().foodMultiplier() > 1, "Farm produce and meals earn optional variety rewards");
@@ -90,7 +93,7 @@ public class VanillaPackGameTests {
         var remainder = new ItemStack(Items.BEETROOT_SOUP).finishUsingItem(helper.getLevel(), player);
         helper.assertTrue(remainder.is(Items.BOWL) && player.getHealth() == 10, "Meal retains bowl and no instant heal");
         for (int i = 0; i < 3; i++) {
-            ticks(player, 39);
+            ticks(player, 9);
             // This test advances FoodData only; simulate elapsed entity damage cooldown separately.
             player.damageCooldownTime = 0;
             helper.assertTrue(player.hurtServer(helper.getLevel(), player.damageSources().generic(), 1), "Combat hit is applied");
@@ -122,7 +125,7 @@ public class VanillaPackGameTests {
                 var fed = player(helper);
                 fed.getFoodData().setFoodLevel(20);
                 fed.getFoodData().setSaturation(10);
-                ticks(fed, 79);
+                ticks(fed, 11);
                 helper.assertTrue(fed.getHealth() == 10, "No vanilla fast food heal: " + difficulty);
                 ticks(fed, 1);
                 helper.assertTrue(fed.getHealth() == 11, "Background recovery works: " + difficulty);

@@ -1,6 +1,7 @@
 package com.davidblackcn.buildupvitals.data.loader;
 
 import com.davidblackcn.buildupvitals.food.profile.DietCategory;
+import com.davidblackcn.buildupvitals.food.profile.ConsumptionSpeed;
 import com.davidblackcn.buildupvitals.food.profile.FoodProfile;
 import com.davidblackcn.buildupvitals.food.profile.FoodQuality;
 import com.davidblackcn.buildupvitals.food.profile.ProfileDefinition;
@@ -40,7 +41,7 @@ public final class ProfileParser {
             }
         }
         JsonObject root = object(document, "$", "schema_version", "selector", "priority", "quality",
-                "recovery", "hydration", "diet", "traits", "meal_benefit", "overrides");
+                "recovery", "hydration", "diet", "traits", "meal_benefit", "overrides", "consumption");
         if (integer(required(root, "schema_version", "$"), "$.schema_version") != 1) {
             throw error("$.schema_version", "only version 1 is supported");
         }
@@ -58,6 +59,13 @@ public final class ProfileParser {
             String value = string(root.get("quality"), "$.quality");
             quality = Arrays.stream(FoodQuality.values()).filter(q -> q.id().equals(value)).findFirst()
                     .orElseThrow(() -> error("$.quality", "expected basic, prepared, meal or feast"));
+        }
+        JsonObject consumption = section(root, "consumption", "speed");
+        Optional<ConsumptionSpeed> speed = Optional.empty();
+        if (consumption.has("speed")) {
+            String value = string(consumption.get("speed"), "$.consumption.speed");
+            speed = Optional.of(Arrays.stream(ConsumptionSpeed.values()).filter(t -> t.id().equals(value)).findFirst()
+                    .orElseThrow(() -> error("$.consumption.speed", "expected normal, quick or fast")));
         }
         JsonObject recovery = section(root, "recovery", "health");
         JsonObject hydration = section(root, "hydration", "thirst", "quenched");
@@ -84,7 +92,7 @@ public final class ProfileParser {
                         ? OptionalInt.of(nonnegativeInt(overrides, "hunger", "$.overrides")) : OptionalInt.empty(),
                         overrides.has("saturation")
                                 ? OptionalDouble.of(nonnegativeNumber(overrides.get("saturation"), "$.overrides.saturation"))
-                                : OptionalDouble.empty()));
+                                : OptionalDouble.empty()), speed);
         return new ProfileDefinition(source, target, priority, profile);
     }
 

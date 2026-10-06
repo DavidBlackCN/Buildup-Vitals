@@ -5,13 +5,19 @@
   },
   "quality": "basic",
   "hydration": {
-    "thirst": 3,
-    "quenched": 1
+    "thirst": 5,
+    "quenched": 3
   },
   "diet": {
     "categories": [
       "fruit"
     ],
     "variety_group": "minecraft:melon_slice"
+  },
+  "recovery": {
+    "health": 0.5
+  },
+  "consumption": {
+    "speed": "fast"
   }
 }

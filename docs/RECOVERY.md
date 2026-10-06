@@ -1,75 +1,49 @@
-# 恢复机制（Stage 6）
+# Recovery v2（Stage 7.5）
 
-普通食物继续使用自身 Food Component 提供 Hunger / Saturation。Food Profile 的 `recovery.health` 提供恢复储备；[Restorative](MEAL_BENEFITS.md) 可以加快其兑现，[饮食多样性](DIET_MEMORY.md) 提供少量额外储备及 Well-fed 速度奖励。[Tooltip](CLIENT_FEEDBACK.md) 显示食物基础恢复；Stage 6 增加 [TWT2 可选口渴适配](HYDRATION.md)，新的心形预览尚未实现。战斗节奏和数值平衡待主要功能机制基本完成后统一评估。
+当前规范为 [BALANCE_SPEC_V2](../BALANCE_SPEC_V2.md)。生命值单位 HP，2 HP = 一颗心；20 tick = 1 秒。Stage 2～7 的 50/80/120 tick Alpha 数值已被替代。
 
-安装 TWT2 时，它默认还提供独立的 Quenched 治疗；针对原版 FoodData 的脱水回血限制也不会自动作用于本控制器。本阶段不改写这些外部行为，下面的周期仅描述 Buildup 自身的恢复，不代表所有 Mod 治疗来源的合计速度。后续统一评估这些恢复机制的协调。
+## 一套恢复时钟
 
-## 恢复优先级与参数
+| 条件 | 基础周期 | 单次恢复 |
+|---|---:|---:|
+| Hunger = 20，Saturation > 0 | 12 tick | `min(Saturation, 6) / 6 HP` |
+| Hunger ≥18，且不满足上行 | 80 tick | 1 HP |
+| 存在可用食物储备 | 12 tick | 最多 1 HP |
+| 储备 + Restorative | 10 tick | 最多 1 HP |
 
-所有时间均按服务端 20 TPS 计；卡顿时随游戏 tick 放慢，不在离线期间补发治疗。
+Saturation 1、2、3、6、>6 对应单次 1/6、1/3、1/2、1、1 HP。Stable 没有额外 Saturation 门槛；Hunger <18 无自然恢复。自然恢复遵守 `naturalHealthRegeneration`，食物储备及外部治疗不受该游戏规则关闭影响。和平模式的原版背景治疗同样交由此时钟协调；饥饿伤害和原版耗竭扣减保留。
 
-| 路径 | 条件 | 速度 | 代价 |
-|---|---|---|---|
-| Food Recovery | 生存/冒险玩家受伤且储备 > 0 | 通常每 50 tick（2.5 秒）最多 1 HP；Restorative 时 40 tick（2 秒） | 仅扣实际获得的储备治疗量 |
-| Well-fed | 无储备，Hunger ≥ 20、Saturation ≥ 6 | 基础每 80 tick（4 秒）最多 1 HP；多样性最高约 75 tick | 每实际恢复 1 HP 产生 6 Exhaustion |
-| Stable | 无储备，Hunger ≥ 18、Saturation ≥ 1 | 每 120 tick（6 秒）最多 1 HP | 同上 |
+Variety 仅给满 Hunger 且 Saturation >0 的恢复最多 +7.5% 速度；已验证 TWT2 中启用口渴且 Thirst=20、Quenched>0 给自然恢复 ×1.15 速度。两者相乘，最终自然周期至少 10 tick。小数周期保留小数进度，不用整数向上取整丢掉小额奖励。
 
-Food Recovery 优先，期间不会并行积累自然恢复进度。储备耗尽后自然恢复从新周期开始；自然恢复档位切换也重新计时。受击不会重置进度，没有战斗暂停逻辑。
+有储备时取 `min(foodInterval, naturalInterval)`。单次治疗取食物可支付量与本次自然恢复量的较大值，并裁剪到实际缺血量；不足 1 HP 的储备尾数可以由自然恢复补足。食物优先支付，剩余实际自然治疗才产生 `实际 HP ×6` Exhaustion。没有两套并行治疗器，不会因为吃下料理而拖慢自然恢复。
 
-自然恢复遵循 `minecraft:natural_health_regeneration` 游戏规则；关闭该规则后，显式的食物 Recovery 仍有效，独立药水/再生/信标等治疗仍由原机制处理。
+## 食物储备
 
-和平难度的额外快速回血也交给此控制器，避免叠加；原版和平难度自动补充 Hunger / Saturation 保留。Invigorated 仅降低指定活动的 Exhaustion，自然恢复成本、饥饿伤害与伤害计算不变。
+服务端仅在真实 Food + Consumable 消费完成后读取 Profile，记录饮食，按当次 Variety 加入储备。总上限 20 HP；小于 `0.000001 HP` 的尾数归零。治疗后按实际成功治疗扣储备，不扣被其他机制阻止的治疗。满血保留储备并归零时钟，不预充治疗；再次受伤重新开始正常周期。受击不清零、不暂停、不延迟已有进度。创造/旁观不授予或兑现储备。
 
-## 储备与生命周期
+药水、信标、金苹果和第三方独立治疗照常运行；没有包装 `LivingEntity.heal` 或全局伤害入口。Invigorated 不减免自然恢复耗竭。AppleSkin 的原版回血预测不是 Buildup 储备预测。
 
-- 吃完带 Food Component 的物品时，按当时服务端快照查询该 Item 的 Profile，记录本次饮食后加入 `recovery.health × foodMultiplier`。倍率在 1.0–1.15 之间，中途取消使用不会触发；单纯拥有 Profile 不会让非食物变为食物。
-- 内置蘑菇煲基础提供 3 HP 储备与 Restorative，正常返还碗；南瓜派基础提供 1 HP 储备与 Invigorated。无 Recovery 的食物仍为零恢复，不因 Variety 凭空回血，原版营养保留。
-- 上限固定为 **20 HP**，超出部分不进入储备。满血时保留储备、不消耗、不衰减，但清零恢复计时，不能预先积累瞬间治疗。
-- 储备中不足 1 HP 的尾数允许在下一周期兑现。接近满血时只扣实际恢复的 HP；其他 Mod 若拒绝此次 `heal`，不扣未生效的储备，也不立即连续重试。
-- 小于 `0.000001 HP` 的储备忽略/归零，避免低于实际生命精度的尾数永久挡住自然恢复。
-- 新食物可追加储备，不重置正在进行的 Food 周期；从自然恢复切到 Food 时开始新周期。
-- Variety 只加速 Well-fed，不改变 Stable 周期或自然恢复每 HP 成本。饮食改变导致间隔变化时保留进度，最多在下个 tick 兑现一次。已获得的储备不追溯加奖或扣减。
-- 创造/旁观模式不获得或兑现储备，已有储备保留、计时归零。返回生存后可继续使用。
-- 死亡立即清零，死亡重生不复制。维度切换、活着离开末地、断线重连和正常停服保存保留状态。没有跨玩家静态状态。
-- 满血/不满足恢复条件会清零进度；正常保存则记录当时的储备、模式和周期进度。`/reload` 不回溯改变已吃下的储备，只影响之后的进食。
+## 满饱食与积食
 
-参数集中在 `food/recovery/RecoveryBalance.java`。本阶段不引入额外配置框架；这些是原型平衡值，后续按体验调整。
-
-## 持久化与客户端边界
-
-使用 Fabric Data Attachment `buildup_vitals:recovery`，通过 Codec 持久化 `reserve`、`progress` 和 `mode`。这是首次新增的状态格式；没有迁移或覆盖旧玩家字段。缺失状态为零；非法数值由 Codec 拒绝，日志遵循 Fabric 附件加载行为。周期进度在读取时限制到对应模式范围。
-
-玩家附件仅服务端保存，不同步给客户端。实际生命使用原版同步；调试查询在服务端执行。Stage 5 仅同步食物显示元数据，不同步当前玩家储备、恢复进度或饮食评分，Tooltip 不预测本次实际获得的治疗。
-
-## 命令
-
-需要 Game Masters 权限（通常 OP 2 / 单人开启命令）：
+普通 Food + Consumable 在 Hunger=20 仍允许使用，非食物药水不会因此变成食物。进食完成前读取 Hunger，计算：
 
 ```text
-/buildupvitals food profile minecraft:mushroom_stew
-/buildupvitals recovery
-/buildupvitals recovery <player>
+overflow = max(0, nutrition - (20 - hungerBefore))
+load = min(80, load + overflow)
 ```
 
-第二、三个命令只读，显示储备、当前模式、周期进度、主要增益 ID、剩余 tick、生命、Hunger 和 Saturation。Food / Well-fed 周期分母显示当前实际间隔。满血时模式显示 `NONE`，即使还有储备；刚进食时可短暂显示 `FOOD`，下一 tick 判定满血后归为 `NONE`。
+正常补足缺失 Hunger 不增加负荷。48 首次轻提示；64 进入 Overfull / 积食；80 封顶；每 40 个有效生存/冒险 tick 降 1；严格低于 32 解除并允许下一轮提示。64 起约 66 秒解除，80 起约 98 秒；离线不消化。持久化保存负荷、部分消化进度以及 32～63 区间无法仅由负荷推导的积食/提示锁存。
 
-## 注入范围
+积食阻止新增储备、暂停已有储备、阻止主要饮食增益授予及刷新；自然恢复、外部治疗、营养、补水和饮食记录保留。仍可继续进食，最终使用时长乘 1.25 向上取整。没有负荷常驻 HUD 或普通 Tooltip 数字。手动 `/effect give` 的 Overfull 同样应用这些限制；负荷触发的积食在负荷尚未解除时会补回被清除的效果。
 
-| Mixin | 26.3 目标 | 原因与边界 |
-|---|---|---|
-| `FoodRecoveryMixin` | `FoodProperties.onConsume(Level, LivingEntity, ItemStack, Consumable)` 尾部 | 当前 Fabric 无完成进食事件；原版已补营养、尚未缩减食物栈，仅处理 ServerPlayer |
-| `NaturalRecoveryMixin` | `FoodData.tick(ServerPlayer)` 中唯一的 `Boolean.booleanValue()` 与方法尾部 | 只关闭本方法自然恢复分支；耗竭和饥饿分支照常执行，尾部运行控制器 |
-| `PeacefulRecoveryMixin` | `ServerPlayer.tickRegeneration()` 内的 `ServerPlayer.heal(float)` 调用 | 只取消和平难度的额外生命恢复，保留补充食物行为 |
+## 使用时间
 
-不改写 `LivingEntity.heal`、伤害方法或整段 `FoodData.tick`。注入要求命中，版本变化时显式失败。若其他 Mod 也重写这些自然恢复位置，仍需单独进行兼容验证。
+Schema v1 可选 `consumption.speed`：normal=32、quick=21、fast=16 tick。它们是以原版普通食物 32 tick 为基准的明确档位，避免把原本 16 tick 的干海带再次缩到 8 tick。未声明时完整保留物品自身时长。积食后的 fast=20、quick=27、normal=40 tick。实际服务端使用计时和客户端动画使用同一服务端 Profile 元数据；中途取消不增加储备或负荷。
 
-## 人工体验
+## 保存、迁移与查询
 
-在测试世界中准备蘑菇煲、普通面包、治疗药水和金苹果；生存模式下受伤并消耗一些 Hunger。
+`buildup_vitals:recovery` 保持原有 reserve/progress/mode 字段；progress 扩展为可保存小数，旧整数仍可读。旧周期过长的已保存进度裁剪到新模式的最大合法整数进度，合法新小数原样保留。`buildup_vitals:overeat` 是新增附件。死亡立即清空，死亡重生不复制；正常保存重进、维度切换、活着替换玩家与重连保留。效果迁移见 [MEAL_BENEFITS](MEAL_BENEFITS.md)。
 
-1. 吃蘑菇煲后查询储备，基础增加 3 HP（多样饮食可再增加最多 15%）并获得 Restorative；观察约 2 秒恢复半颗心，而非瞬间恢复。
-2. 储备兑现期间受到攻击，继续观察恢复，不应重新等待“脱战”。
-3. 储备耗尽后，用高饱食/高饱和食物观察自然恢复，普通 Well-fed 约 4 秒半颗心，多样饮食可稍快。
-4. 使用治疗药水和金苹果，确认原版治疗及效果；将储备吃到满血后检查其保留。
-5. 退出重进、切维度，查询储备；死亡后应为零。
-6. 本轮验收机制正确性；连续战斗节奏、料理收益感和参数微调按用户要求推迟到主要功能与机制基本完成后。
+管理员 `/buildupvitals recovery [player]` 查看 Health、Hunger、Saturation、Reserve、模式、实际周期/进度、主要效果、Overeat、Overfull、Variety、自然速度和 TWT2 Thirst/Quenched。`Infinity` 表示当前不满足自然恢复条件。`/buildupvitals diet [player]` 查询饮食明细。
+
+验证与人工体验清单见 [Stage 7.5 报告](STAGE_7_5_REPORT.md)。自动测试验证数学和生命周期，战斗手感仍需实玩验收。

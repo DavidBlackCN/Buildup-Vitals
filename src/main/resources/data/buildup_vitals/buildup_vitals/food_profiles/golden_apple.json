@@ -9,5 +9,12 @@
       "fruit"
     ],
     "variety_group": "minecraft:apple"
+  },
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 3,
+    "quenched": 1
   }
 }

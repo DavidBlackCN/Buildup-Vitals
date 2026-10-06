@@ -2,7 +2,7 @@
 
 Buildup 系列的 Vanilla+ 玩家状态机制模组。第一目标平台为 Fabric / Minecraft 26.3。
 
-当前处于 Stage 7（Vanilla Balance Pack & First Integrated Prototype）：内置覆盖 40 种原版可食用物品的 Alpha 数据，打通基础口粮、正式料理、恢复、多样性和可选口渴。设计总纲见 [DESIGN_PRINCIPLES.md](DESIGN_PRINCIPLES.md)，分阶段实施计划见 [PLAN.md](PLAN.md)。每个 Stage 验收后才能继续；当前数值是原型起点，战斗节奏与长期体验留待人工实玩后统一微调。
+当前为 Stage 7.5（Balance v2 & Consumption Rework）：连续 Saturation 恢复、12/10 tick食物恢复、满饱食进食与积食、三档进食速度、可见饮食状态效果，以及40种原版食物的 v2 Recovery/Hydration。规范见 [BALANCE_SPEC_V2](BALANCE_SPEC_V2.md)、[设计原则](DESIGN_PRINCIPLES.md) 和 [Stage 7.5 计划](<Stage 7.5 Plan.md>)。实现完成后等待人工体验验收，不自动进入 Stage 8。
 
 ## 当前工程基线
 
@@ -34,7 +34,7 @@ $env:PATH = "$env:JAVA_HOME/bin;$env:PATH"
 
 构建产物：`build/libs/buildup_vitals-0.1.0-dev.jar`。`run/` 中的测试世界、日志、协议选择和配置均不提交到 Git。
 
-开发客户端使用 Fabric 开发账号，Realms 认证失败不代表本地单人世界无法启动。历史验证见 [Stage 0 报告](docs/STAGE_0_REPORT.md)、[Stage 1 报告](docs/STAGE_1_REPORT.md)、[Stage 2 报告](docs/STAGE_2_REPORT.md)、[Stage 3 报告](docs/STAGE_3_REPORT.md)、[Stage 4 报告](docs/STAGE_4_REPORT.md)、[Stage 5 报告](docs/STAGE_5_REPORT.md)、[Stage 6 报告](docs/STAGE_6_REPORT.md)；当前验证和人工验收见 [Stage 7 报告](docs/STAGE_7_REPORT.md)。
+开发客户端使用 Fabric 开发账号，Realms 认证失败不代表本地单人世界无法启动。历史验证见 [Stage 0 报告](docs/STAGE_0_REPORT.md)、[Stage 1 报告](docs/STAGE_1_REPORT.md)、[Stage 2 报告](docs/STAGE_2_REPORT.md)、[Stage 3 报告](docs/STAGE_3_REPORT.md)、[Stage 4 报告](docs/STAGE_4_REPORT.md)、[Stage 5 报告](docs/STAGE_5_REPORT.md)、[Stage 6 报告](docs/STAGE_6_REPORT.md)；当前验证和人工验收见 [Stage 7.5 报告](docs/STAGE_7_5_REPORT.md)。
 
 ## Food Profile 数据与查询
 
@@ -50,9 +50,9 @@ $env:PATH = "$env:JAVA_HOME/bin;$env:PATH"
 
 ## 可选口渴适配
 
-支持 **Thirst Was Taken 2 Fabric 1.6.2+26.3**。详见 [HYDRATION.md](docs/HYDRATION.md)：TWT2 配置与 drinks 数据包优先，随后采用 Buildup Profile，最终只由 TWT2 结算一次。其默认配置已有苹果、蘑菇煲等值；要交给 Buildup 管理，需要按说明移除相应配置条目。
+支持 **Thirst Was Taken 2 Fabric 1.6.2+26.3**。优先级为 blacklist > Buildup 显式 Profile（含0）> TWT2 配置/drinks > 通用 fallback，只由 TWT2 结算一次。Pure Water Bottle 为10/8，其余水质与疾病语义保留；无需移除原有食物配置。详见 [HYDRATION](docs/HYDRATION.md)。
 
-开发环境加入 `-PwithThirst=true` 才加载 TWT2，例如 `.\gradlew.bat runClient -PwithThirst=true`；普通构建仅有编译依赖，不捆绑该 Mod。口渴水滴提示复用 TWT2 与 AppleSkin 的显示；不装 AppleSkin 时机制仍工作。TWT2 自带的 Quenched 治疗保留，恢复协调与数值评估留待后续阶段。
+开发环境加入 `-PwithThirst=true` 才加载 TWT2，例如 `.\gradlew.bat runClient -PwithThirst=true`；普通构建仅有编译依赖，不捆绑该 Mod。口渴水滴复用 TWT2，有无 AppleSkin 均有提示。Quenched 独立治疗改为自然恢复速度 ×1.15，受10 tick最短周期约束；不改写用户配置。
 
 ## 恢复与验证
 

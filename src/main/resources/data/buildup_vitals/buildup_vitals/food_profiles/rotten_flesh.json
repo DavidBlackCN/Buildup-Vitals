@@ -7,5 +7,12 @@
   "diet": {
     "categories": [],
     "variety_group": "minecraft:rotten_flesh"
+  },
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
   }
 }

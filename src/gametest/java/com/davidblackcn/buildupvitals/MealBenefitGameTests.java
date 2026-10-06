@@ -38,7 +38,7 @@ public class MealBenefitGameTests {
     }
 
     private static void grant(ServerPlayer player, MealBenefitType type, int ticks) {
-        player.setAttached(MealBenefitAttachments.MEAL_BENEFIT, new MealBenefitState(Optional.of(type.id()), ticks));
+        player.addEffect(new net.minecraft.world.effect.MobEffectInstance(com.davidblackcn.buildupvitals.effect.BuildupEffects.forType(type), ticks, 0, false, false, true));
     }
 
     private static float exhaustion(ServerPlayer player) {
@@ -66,7 +66,7 @@ public class MealBenefitGameTests {
                 "Prepared benefit replaces the main slot including the variety duration bonus");
         new ItemStack(Items.APPLE).finishUsingItem(helper.getLevel(), player);
         helper.assertTrue(PlayerMealBenefits.state(player).is(MealBenefitType.INVIGORATED), "Basic apple does not remove benefits");
-        helper.assertTrue(player.getActiveEffects().isEmpty(), "Buildup does not create vanilla potion effects");
+        helper.assertTrue(player.getActiveEffects().size() == 1 && !player.getActiveEffects().iterator().next().isVisible(), "Main benefit is a visible icon without particles");
         new ItemStack(Items.GOLDEN_APPLE).finishUsingItem(helper.getLevel(), player);
         helper.assertTrue(player.hasEffect(MobEffects.REGENERATION) && PlayerMealBenefits.state(player).is(MealBenefitType.INVIGORATED),
                 "Vanilla effects and main benefit coexist");
@@ -82,12 +82,12 @@ public class MealBenefitGameTests {
         var faster = player(helper);
         var baseline = player(helper);
         for (var player : new ServerPlayer[]{faster, baseline}) new ItemStack(Items.MUSHROOM_STEW).finishUsingItem(helper.getLevel(), player);
-        baseline.removeAttached(MealBenefitAttachments.MEAL_BENEFIT);
-        ticks(faster, 40);
-        ticks(baseline, 40);
+        baseline.removeAllEffects();
+        ticks(faster, 10);
+        ticks(baseline, 10);
         helper.assertTrue(faster.getHealth() == 11 && baseline.getHealth() == 10, "Restorative redeems reserve earlier");
-        ticks(faster, 110);
-        ticks(baseline, 110);
+        ticks(faster, 26);
+        ticks(baseline, 26);
         helper.assertTrue(faster.getHealth() == 13 && baseline.getHealth() == 13, "Both redeem exactly 3 HP");
         helper.assertTrue(PlayerRecovery.state(faster).reserve() == 0 && PlayerRecovery.state(baseline).reserve() == 0, "No reserve created by speed");
         helper.succeed();
@@ -117,7 +117,7 @@ public class MealBenefitGameTests {
         grant(natural, MealBenefitType.INVIGORATED, 1200);
         natural.getFoodData().setFoodLevel(20);
         natural.getFoodData().setSaturation(10);
-        ticks(natural, 80);
+        ticks(natural, 12);
         helper.assertTrue(natural.getHealth() == 11, "Natural healing timing remains unchanged");
         near(helper, exhaustion(natural), 6, "Natural recovery pays its full exhaustion cost");
         helper.succeed();
@@ -136,7 +136,7 @@ public class MealBenefitGameTests {
         // Vanilla's mock overrides gameMode() with its constructor argument; use a creative mock.
         player = player(helper, GameType.CREATIVE);
         grant(player, MealBenefitType.RESTORATIVE, 100);
-        helper.assertTrue(PlayerMealBenefits.foodInterval(player) == 50, "Creative receives no recovery speed bonus");
+        helper.assertTrue(PlayerMealBenefits.foodInterval(player) == 12, "Creative receives no recovery speed bonus");
         new ItemStack(Items.PUMPKIN_PIE).finishUsingItem(helper.getLevel(), player);
         helper.assertTrue(PlayerMealBenefits.state(player).is(MealBenefitType.RESTORATIVE), "Creative food does not grant benefit");
         ticks(player, 1);

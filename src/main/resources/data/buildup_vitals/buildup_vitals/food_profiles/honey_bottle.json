@@ -9,5 +9,12 @@
       "sweet"
     ],
     "variety_group": "minecraft:honey_bottle"
+  },
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 3,
+    "quenched": 1
   }
 }

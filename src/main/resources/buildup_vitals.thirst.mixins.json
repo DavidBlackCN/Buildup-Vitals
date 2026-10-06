@@ -3,6 +3,6 @@
   "package": "com.davidblackcn.buildupvitals.compat.thirst.mixin",
   "plugin": "com.davidblackcn.buildupvitals.compat.thirst.ThirstMixinPlugin",
   "compatibilityLevel": "JAVA_25",
-  "mixins": ["ThirstValuesMixin"],
+  "mixins": ["ThirstValuesMixin", "QuenchedRecoveryMixin"],
   "injectors": { "defaultRequire": 1 }
 }

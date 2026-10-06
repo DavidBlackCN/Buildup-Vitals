@@ -26,11 +26,18 @@ public final class RecoveryCommand {
     private static int show(CommandSourceStack source, ServerPlayer player) {
         var state = PlayerRecovery.state(player);
         var benefit = PlayerMealBenefits.state(player);
-        int interval = switch (state.mode()) {
-            case FOOD -> PlayerMealBenefits.foodInterval(player);
-            case WELL_FED -> PlayerDiet.state(player).variety().wellFedInterval();
-            default -> state.mode().interval();
-        };
+        var food = player.getFoodData();
+        double natural = com.davidblackcn.buildupvitals.food.recovery.RecoveryController.naturalInterval(
+                new com.davidblackcn.buildupvitals.food.recovery.RecoveryController.Conditions(player.isAlive(), !player.isCreative() && !player.isSpectator(),
+                        player.getHealth(), player.getMaxHealth(), food.getFoodLevel(), food.getSaturationLevel(),
+                        player.level().getGameRules().get(net.minecraft.world.level.gamerules.GameRules.NATURAL_HEALTH_REGENERATION)), PlayerRecovery.naturalSpeed(player));
+        double interval = state.mode() == com.davidblackcn.buildupvitals.food.recovery.RecoveryState.Mode.FOOD
+                ? Math.min(PlayerMealBenefits.foodInterval(player), natural) : natural;
+        var overeating = com.davidblackcn.buildupvitals.food.overeating.PlayerOvereat.state(player);
+        boolean thirst = com.davidblackcn.buildupvitals.hydration.HydrationAdapter.enabled();
+        String hydration = thirst ? com.davidblackcn.buildupvitals.compat.thirst.ThirstBridge.thirst(player) + "/"
+                + com.davidblackcn.buildupvitals.compat.thirst.ThirstBridge.quenched(player) + ", quenched_bonus="
+                + com.davidblackcn.buildupvitals.compat.thirst.ThirstBridge.quenchedRecovery(player) : "disabled";
         source.sendSuccess(() -> Component.literal("Recovery: " + player.getScoreboardName()
                 + ", reserve=" + state.reserve() + " HP, mode=" + state.mode()
                 + ", progress=" + state.progress() + "/" + interval
@@ -38,7 +45,10 @@ public final class RecoveryCommand {
                 + ", remaining_ticks=" + benefit.remainingTicks()
                 + ", health=" + player.getHealth() + "/" + player.getMaxHealth()
                 + ", hunger=" + player.getFoodData().getFoodLevel()
-                + ", saturation=" + player.getFoodData().getSaturationLevel()), false);
+                + ", saturation=" + player.getFoodData().getSaturationLevel()
+                + ", overeat_load=" + overeating.load() + ", overfull=" + com.davidblackcn.buildupvitals.food.overeating.PlayerOvereat.overfull(player)
+                + ", variety=" + PlayerDiet.state(player).variety().score() + ", natural_speed=" + PlayerRecovery.naturalSpeed(player)
+                + ", TWT2=" + thirst + ", thirst/quenched=" + hydration), false);
         return 1;
     }
 }

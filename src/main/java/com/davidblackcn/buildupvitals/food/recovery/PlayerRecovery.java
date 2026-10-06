@@ -33,6 +33,7 @@ public final class PlayerRecovery {
         var item = BuiltInRegistries.ITEM.getKey(stack.getItem());
         var profile = FoodProfileLoader.snapshot(player.level().getServer()).resolve(item).profile();
         var variety = PlayerDiet.foodConsumed(player, item, profile);
+        if (com.davidblackcn.buildupvitals.food.overeating.PlayerOvereat.overfull(player)) return;
         RecoveryState before = state(player);
         // Clamp before multiplication so even a finite Double.MAX_VALUE profile cannot overflow.
         double recovery = Math.min(RecoveryBalance.MAX_RESERVE, profile.recoveryHealth()) * variety.foodMultiplier();
@@ -41,13 +42,15 @@ public final class PlayerRecovery {
     }
 
     public static void tick(ServerPlayer player) {
+        PlayerMealBenefits.tick(player);
+        com.davidblackcn.buildupvitals.food.overeating.PlayerOvereat.tick(player);
         RecoveryState before = state(player);
         var food = player.getFoodData();
         var step = RecoveryController.tick(before, new RecoveryController.Conditions(player.isAlive(),
                 !player.isCreative() && !player.isSpectator(), player.getHealth(), player.getMaxHealth(),
                 food.getFoodLevel(), food.getSaturationLevel(),
                 player.level().getGameRules().get(GameRules.NATURAL_HEALTH_REGENERATION)), PlayerMealBenefits.foodInterval(player),
-                PlayerDiet.state(player).variety().wellFedInterval());
+                naturalSpeed(player), !com.davidblackcn.buildupvitals.food.overeating.PlayerOvereat.overfull(player));
         float health = player.getHealth();
         if (step.healing() > 0) {
             player.heal(step.healing());
@@ -58,7 +61,17 @@ public final class PlayerRecovery {
             food.addExhaustion(exhaustion);
         }
         store(player, before, step.settle(gained));
-        PlayerMealBenefits.tick(player);
+    }
+
+    public static double naturalSpeed(ServerPlayer player) {
+        var food = player.getFoodData();
+        double speed = food.getFoodLevel() == 20 && food.getSaturationLevel() > 0
+                ? PlayerDiet.state(player).variety().wellFedMultiplier() : 1;
+        if (com.davidblackcn.buildupvitals.hydration.HydrationAdapter.enabled()
+                && com.davidblackcn.buildupvitals.compat.thirst.ThirstBridge.quenchedRecovery(player)) {
+            speed *= com.davidblackcn.buildupvitals.config.CoreBalance.Recovery.QUENCHED_SPEED;
+        }
+        return speed;
     }
 
     private static void store(ServerPlayer player, RecoveryState before, RecoveryState after) {

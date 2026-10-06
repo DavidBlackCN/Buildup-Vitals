@@ -9,5 +9,12 @@
       "protein"
     ],
     "variety_group": "minecraft:cooked_beef"
+  },
+  "recovery": {
+    "health": 0.5
+  },
+  "hydration": {
+    "thirst": 2,
+    "quenched": 0
   }
 }

@@ -4,8 +4,8 @@
   "tooltip.buildup_vitals.quality.prepared": "Prepared food",
   "tooltip.buildup_vitals.quality.meal": "Complete meal",
   "tooltip.buildup_vitals.quality.feast": "Feast",
-  "tooltip.buildup_vitals.recovery": "Gradually restores %s health (base)",
-  "tooltip.buildup_vitals.benefit": "Provides the %s meal benefit",
+  "tooltip.buildup_vitals.recovery": "%s +%s HP",
+  "tooltip.buildup_vitals.benefit": "%s %s",
   "tooltip.buildup_vitals.benefit.restorative": "Restorative",
   "tooltip.buildup_vitals.benefit.invigorated": "Invigorated",
   "tooltip.buildup_vitals.category.protein": "Protein",
@@ -18,5 +18,16 @@
   "tooltip.buildup_vitals.debug.recovery": "Buildup recovery.health: %s HP",
   "tooltip.buildup_vitals.debug.group": "Buildup variety_group: %s",
   "tooltip.buildup_vitals.debug.benefit": "Buildup meal_benefit: %s (available: %s)",
-  "tooltip.buildup_vitals.debug.base_values": "Base values; diet bonuses and reserve cap apply."
+  "tooltip.buildup_vitals.debug.base_values": "Base values; diet bonuses and reserve cap apply.",
+  "effect.buildup_vitals.restorative": "Restorative",
+  "effect.buildup_vitals.restorative.description": "Food recovery: 10 ticks/HP",
+  "effect.buildup_vitals.invigorated": "Invigorated",
+  "effect.buildup_vitals.invigorated.description": "Activity exhaustion -10%",
+  "effect.buildup_vitals.steady": "Steady",
+  "effect.buildup_vitals.steady.description": "Reserved meal benefit",
+  "effect.buildup_vitals.overfull": "Overfull",
+  "effect.buildup_vitals.overfull.description": "Food recovery paused; eating slower",
+  "message.buildup_vitals.overeat_warning": "Feeling full. Give yourself time to digest.",
+  "tooltip.buildup_vitals.consumption.quick": "Quick eating",
+  "tooltip.buildup_vitals.consumption.fast": "Fast eating"
 }

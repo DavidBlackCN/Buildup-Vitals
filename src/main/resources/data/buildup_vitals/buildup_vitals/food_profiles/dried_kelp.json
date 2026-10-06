@@ -9,5 +9,15 @@
       "vegetable"
     ],
     "variety_group": "minecraft:dried_kelp"
+  },
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 0,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "fast"
   }
 }

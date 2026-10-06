@@ -1,6 +1,19 @@
 {
   "schema_version": 1,
-  "selector": { "item": "minecraft:cooked_beef" },
+  "selector": {
+    "item": "minecraft:cooked_beef"
+  },
   "quality": "basic",
-  "diet": { "categories": ["protein"] }
+  "diet": {
+    "categories": [
+      "protein"
+    ]
+  },
+  "recovery": {
+    "health": 1
+  },
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
+  }
 }

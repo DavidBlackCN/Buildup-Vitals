@@ -1,6 +1,6 @@
 # Food Profile v1
 
-`recovery.health` 在服务端玩家完成进食后加入恢复储备，按 [恢复规则](RECOVERY.md) 逐渐回血。显式 `meal_benefit` 引用授予已实现的主要增益，`quality` 决定基础持续时间，见 [料理增益规则](MEAL_BENEFITS.md)。Stage 4 将 Quality、Categories、Variety Group 记录到 [饮食记忆](DIET_MEMORY.md)，多样饮食可增加恢复和增益时长。Stage 6 在安装已验证 TWT2 时按 [Hydration 适配规则](HYDRATION.md) 提供补水值，优先级低于 TWT2 配置及 drinks 数据包。Traits 和 overrides 仍只加载和查询；不改写食物 Hunger/Saturation，示例值不是已定稿的平衡数据。
+Schema 仍为 v1，Stage 7.5 向后兼容增加可选消费速度。`recovery.health` 在未积食的服务端玩家完成进食后加入储备，按 [Recovery v2](RECOVERY.md) 兑现。显式 `meal_benefit` 授予正式 MobEffect，Quality 决定基础时长；[饮食记忆](DIET_MEMORY.md) 提供少量奖励。安装已验证 TWT2 时，匹配的 Profile Hydration 在 blacklist 之后、TWT2 配置/drinks 之前生效。Traits 和 overrides 仍只加载与查询，不改写原生营养。
 
 ## 文件位置
 
@@ -34,7 +34,7 @@ Minecraft 26.3 数据包格式为 121.0。最小 `pack.mcmeta`：
   "priority": 0,
   "quality": "meal",
   "recovery": { "health": 3.0 },
-  "hydration": { "thirst": 4, "quenched": 2 },
+  "hydration": { "thirst": 6, "quenched": 4 },
   "diet": {
     "categories": ["vegetable"],
     "variety_group": "my_pack:stew"
@@ -56,6 +56,7 @@ Tag 选择器使用 `"selector": { "tag": "my_pack:meals" }`，不带 `#`。Tag 
 | `selector` | 必填，仅有 `item` 或 `tag` 其中之一；必须显式写 `namespace:path` |
 | `priority` | 32 位有符号整数；默认 0，较大者优先 |
 | `quality` | `basic`、`prepared`、`meal`、`feast`；默认 `basic`；增益基础持续 600 / 1200 / 2400 / 3600 tick，也提供轻量 Variety 权重 |
+| `consumption.speed` | 可选 `normal` / `quick` / `fast`，显式档位分别为32 / 21 / 16 tick；未声明或空 consumption 对象保留物品原生时长，积食最后乘1.25并向上取整 |
 | `recovery.health` | 有限非负数，单位 HP；默认 0；作为基础量接受最多 +15% Variety 奖励，储备总上限仍为 20 HP |
 | `hydration.thirst` / `quenched` | 非负 32 位整数；默认 0；可选适配分别裁剪到 0–20 后交给 TWT2 结算，不乘 Variety |
 | `diet.categories` | `protein`、`grain`、`vegetable`、`fruit`、`dairy`、`sweet` 的不重复数组；默认空 |
@@ -112,4 +113,4 @@ Stage 5 的 [食物 Tooltip](CLIENT_FEEDBACK.md) 使用服务端的最终匹配�
 
 命令显示最终 Profile ID、文件路径、数据包、selector、优先级、fallback 状态、全部数据值和快照规模。参数使用原版 Item 参数解析和补全；数据组件参数不会改变按 Item ID 查询的语义。
 
-Stage 7 内置 40 份原版 Item Profile 和保留的示例水果 Tag Profile，详见 [原版平衡包](VANILLA_BALANCE.md)。苹果、西瓜片和烤马铃薯现均命中具体 Item 规则；Tag 仍可通过扩展成员适配其它物品，但不会覆盖具体 Item。未知 Mod 食物保持 fallback。蘑菇煲为 Meal / 基础 Recovery 3 / Restorative，南瓜派为 Prepared / 基础 Recovery 1 / Invigorated；牛排、面包、烤马铃薯保持 Basic，不额外添加 Recovery 或 Benefit。
+Stage 7.5 更新全部40份原版 Item Profile，保留示例水果 Tag；完整表见 [VANILLA_BALANCE](VANILLA_BALANCE.md)。蘑菇煲为 Meal / Recovery 3 / Restorative，南瓜派为 Prepared / Recovery 2 / Invigorated；牛排、面包、烤马铃薯保留 Basic，分别有1、0.5、1 HP恢复，不附加主要增益。苹果 quick、西瓜片与曲奇 fast。消费速度随服务端成功重载的 v3 快照同步；删除字段恢复原生时长，无需迁移旧 v1 JSON。

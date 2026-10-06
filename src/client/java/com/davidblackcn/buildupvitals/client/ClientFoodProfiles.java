@@ -22,6 +22,7 @@ public final class ClientFoodProfiles {
         ClientPlayNetworking.registerGlobalReceiver(FoodProfilesPayload.TYPE, (payload, context) -> {
             profiles = payload.profiles();
             available = payload.available();
+            com.davidblackcn.buildupvitals.food.consumption.Consumption.receive(profiles);
             HydrationAdapter.receive(payload.hydrationEnabled(), profiles);
         });
     }
@@ -35,6 +36,7 @@ public final class ClientFoodProfiles {
     private static void clear() {
         available = false;
         profiles = Map.of();
+        com.davidblackcn.buildupvitals.food.consumption.Consumption.receive(Map.of());
         HydrationAdapter.disconnect();
     }
 }

@@ -1,6 +1,7 @@
 package com.davidblackcn.buildupvitals.network;
 
 import com.davidblackcn.buildupvitals.BuildupVitals;
+import com.davidblackcn.buildupvitals.food.profile.ConsumptionSpeed;
 import com.davidblackcn.buildupvitals.food.profile.DietCategory;
 import com.davidblackcn.buildupvitals.food.profile.FoodQuality;
 import com.davidblackcn.buildupvitals.food.profile.FoodProfile.Hydration;
@@ -19,7 +20,7 @@ import net.minecraft.resources.Identifier;
 public record FoodProfilesPayload(boolean available, boolean hydrationEnabled, Map<Identifier, TooltipProfile> profiles) implements CustomPacketPayload {
     public static final int MAX_ITEMS = 65536;
     public static final int MAX_BYTES = 16 * 1024 * 1024;
-    public static final Type<FoodProfilesPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath(BuildupVitals.MOD_ID, "food_tooltips_v2"));
+    public static final Type<FoodProfilesPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath(BuildupVitals.MOD_ID, "food_profiles_v3"));
     public static final StreamCodec<FriendlyByteBuf, FoodProfilesPayload> CODEC = StreamCodec.of(FoodProfilesPayload::write, FoodProfilesPayload::read);
 
     public FoodProfilesPayload {
@@ -48,6 +49,8 @@ public record FoodProfilesPayload(boolean available, boolean hydrationEnabled, M
             writeOptional(buffer, profile.profileId());
             buffer.writeVarInt(profile.hydration().thirst());
             buffer.writeVarInt(profile.hydration().quenched());
+            buffer.writeBoolean(profile.consumptionSpeed().isPresent());
+            profile.consumptionSpeed().ifPresent(speed -> buffer.writeVarInt(speed.ordinal()));
             if (buffer.writerIndex() - start > MAX_BYTES) throw new EncoderException("Tooltip snapshot exceeds byte limit");
         }
     }
@@ -70,7 +73,8 @@ public record FoodProfilesPayload(boolean available, boolean hydrationEnabled, M
             var group = buffer.readIdentifier();
             var profileId = readOptional(buffer);
             var hydration = new Hydration(buffer.readVarInt(), buffer.readVarInt());
-            if (profiles.put(item, new TooltipProfile(quality, recovery, categories, benefit, group, profileId, hydration)) != null) {
+            Optional<ConsumptionSpeed> speed = buffer.readBoolean() ? Optional.of(readEnum(buffer, ConsumptionSpeed.values())) : Optional.empty();
+            if (profiles.put(item, new TooltipProfile(quality, recovery, categories, benefit, group, profileId, hydration, speed)) != null) {
                 throw new DecoderException("Duplicate tooltip item");
             }
         }

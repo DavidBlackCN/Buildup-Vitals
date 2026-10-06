@@ -9,5 +9,15 @@
       "vegetable"
     ],
     "variety_group": "minecraft:beetroot"
+  },
+  "recovery": {
+    "health": 0.5
+  },
+  "hydration": {
+    "thirst": 3,
+    "quenched": 1
+  },
+  "consumption": {
+    "speed": "quick"
   }
 }

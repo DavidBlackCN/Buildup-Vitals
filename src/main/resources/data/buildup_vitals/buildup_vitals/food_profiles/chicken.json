@@ -9,5 +9,12 @@
       "protein"
     ],
     "variety_group": "minecraft:cooked_chicken"
+  },
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 2,
+    "quenched": 0
   }
 }

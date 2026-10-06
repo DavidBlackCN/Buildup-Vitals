@@ -88,6 +88,10 @@ final class ThirstClientScenario {
         context.runOnClient(client -> check(values(2, 1), "Reload invalidates TWT2 value cache"));
         write(drink, drink(1, 4));
         reload(context, server, false);
+        context.waitFor(client -> values(2, 1));
+        server.runOnServer(instance -> ThirstTestSupport.consume(connection.getServerPlayer(), new ItemStack(TestFoods.FALLBACK), 5, 0, 7, 1));
+        delete(profile);
+        reload(context, server, false);
         context.waitFor(client -> values(1, 4));
         server.runOnServer(instance -> ThirstTestSupport.consume(connection.getServerPlayer(), new ItemStack(TestFoods.FALLBACK), 5, 0, 6, 4));
         write(drink, drink(0, 0));
@@ -95,6 +99,7 @@ final class ThirstClientScenario {
         context.waitFor(client -> ThirstApi.thirstValues(TestFoods.FALLBACK) == null);
         server.runOnServer(instance -> ThirstTestSupport.consume(connection.getServerPlayer(), new ItemStack(TestFoods.FALLBACK), 5, 0, 5, 0));
         delete(drink);
+        write(profile, profile(2, 1));
         reload(context, server, false);
         context.waitFor(client -> values(2, 1));
 

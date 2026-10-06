@@ -23,6 +23,7 @@ public final class BuildupVitals implements ModInitializer {
         HydrationAdapter.register();
         FoodProfileSync.register();
         FoodProfileCommand.register();
+        com.davidblackcn.buildupvitals.food.overeating.PlayerOvereat.register();
         PlayerRecovery.register();
         PlayerMealBenefits.register();
         PlayerDiet.register();

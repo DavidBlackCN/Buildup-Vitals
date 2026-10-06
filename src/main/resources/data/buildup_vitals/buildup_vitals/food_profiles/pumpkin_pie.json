@@ -1,8 +1,22 @@
 {
   "schema_version": 1,
-  "selector": { "item": "minecraft:pumpkin_pie" },
+  "selector": {
+    "item": "minecraft:pumpkin_pie"
+  },
   "quality": "prepared",
-  "recovery": { "health": 1.0 },
-  "diet": { "categories": ["grain", "sweet"], "variety_group": "minecraft:pumpkin_pie" },
-  "meal_benefit": "buildup_vitals:invigorated"
+  "recovery": {
+    "health": 2
+  },
+  "diet": {
+    "categories": [
+      "grain",
+      "sweet"
+    ],
+    "variety_group": "minecraft:pumpkin_pie"
+  },
+  "meal_benefit": "buildup_vitals:invigorated",
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
+  }
 }

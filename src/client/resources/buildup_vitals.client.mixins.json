@@ -2,7 +2,7 @@
   "required": true,
   "package": "com.davidblackcn.buildupvitals.client.mixin",
   "compatibilityLevel": "JAVA_25",
-  "client": [],
+  "client": ["EffectDescriptionMixin"],
   "injectors": {
     "defaultRequire": 1
   },

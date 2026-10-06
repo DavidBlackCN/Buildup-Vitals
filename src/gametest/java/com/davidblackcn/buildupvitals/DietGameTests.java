@@ -31,6 +31,7 @@ public class DietGameTests {
     static void mixedMeals(ServerPlayer player) {
         for (Item item : new Item[]{Items.COOKED_BEEF, Items.BREAD, Items.MUSHROOM_STEW, Items.APPLE, Items.PUMPKIN_PIE,
                 Items.COOKED_BEEF, Items.BREAD, Items.MUSHROOM_STEW, Items.APPLE, Items.PUMPKIN_PIE}) {
+            player.getFoodData().setFoodLevel(10);
             new ItemStack(item).finishUsingItem(player.level(), player);
         }
     }
@@ -62,7 +63,7 @@ public class DietGameTests {
         var baseline = player(helper);
         mixedMeals(diverse);
         diverse.removeAttached(RecoveryAttachments.RECOVERY);
-        diverse.removeAttached(MealBenefitAttachments.MEAL_BENEFIT);
+        diverse.removeAllEffects();
         for (var player : new ServerPlayer[]{diverse, baseline}) {
             player.setHealth(10);
             player.getFoodData().setFoodLevel(5);
@@ -86,12 +87,13 @@ public class DietGameTests {
         var player = player(helper);
         mixedMeals(player);
         player.removeAttached(RecoveryAttachments.RECOVERY);
-        player.removeAttached(MealBenefitAttachments.MEAL_BENEFIT);
+        player.removeAllEffects();
         player.setHealth(10);
         player.getFoodData().setFoodLevel(20);
         player.getFoodData().setSaturation(10);
+        if (com.davidblackcn.buildupvitals.hydration.HydrationAdapter.enabled()) ThirstTestSupport.prepareRecoveryFixture(player);
         int interval = PlayerDiet.state(player).variety().wellFedInterval();
-        helper.assertTrue(interval < 80 && interval >= 75, "Diverse diet has bounded Well-fed speed bonus");
+        helper.assertTrue(interval <= 12 && interval >= 11, "Diverse diet has bounded Well-fed speed bonus");
         ticks(player, interval - 1);
         helper.assertTrue(player.getHealth() == 10, "No early healing");
         ticks(player, 1);
@@ -115,7 +117,7 @@ public class DietGameTests {
         }
         var memory = PlayerDiet.state(player);
         helper.assertTrue(memory.variety().foodMultiplier() == 1 && memory.variety().benefitMultiplier() == 1
-                && memory.variety().wellFedInterval() == 80, "Repeated basic diet returns to full baseline");
+                && memory.variety().wellFedInterval() == 12, "Repeated basic diet returns to full baseline");
         helper.assertTrue(PlayerDiet.state(player(helper)).equals(DietMemory.EMPTY), "No history leaks to other players");
         for (var mode : new GameType[]{GameType.CREATIVE, GameType.SPECTATOR}) {
             var inactive = player(helper, mode);

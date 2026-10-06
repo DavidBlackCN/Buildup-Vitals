@@ -10,5 +10,15 @@
       "sweet"
     ],
     "variety_group": "minecraft:cookie"
+  },
+  "recovery": {
+    "health": 0.5
+  },
+  "hydration": {
+    "thirst": 0,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "fast"
   }
 }

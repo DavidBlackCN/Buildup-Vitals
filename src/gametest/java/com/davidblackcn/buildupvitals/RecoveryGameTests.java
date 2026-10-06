@@ -40,11 +40,17 @@ public class RecoveryGameTests {
         player.setHealth(10);
         player.getFoodData().setFoodLevel(10);
         player.getFoodData().setSaturation(0);
+        if (com.davidblackcn.buildupvitals.hydration.HydrationAdapter.enabled()) ThirstTestSupport.prepareRecoveryFixture(player);
         return player;
     }
 
     static void ticks(ServerPlayer player, int count) {
-        for (int i = 0; i < count; i++) player.getFoodData().tick(player);
+        for (int i = 0; i < count; i++) {
+            for (var effect : java.util.List.copyOf(player.getActiveEffects())) {
+                if (!effect.tickServer(player.level(), player, () -> { })) player.removeEffect(effect.getEffect());
+            }
+            player.getFoodData().tick(player);
+        }
     }
 
     @GameTest
@@ -57,14 +63,14 @@ public class RecoveryGameTests {
         helper.assertTrue(player.getFoodData().getFoodLevel() == 16, "Vanilla nutrition retained");
         helper.assertTrue(PlayerRecovery.state(player).reserve() == 3, "Finished stew supplies exactly one profile");
         helper.assertTrue(player.getHealth() == 10, "No instant food healing");
-        ticks(player, 39);
-        helper.assertTrue(player.getHealth() == 10, "Restorative food waits 40 ticks");
+        ticks(player, 9);
+        helper.assertTrue(player.getHealth() == 10, "Restorative food waits 10 ticks");
         player.hurtServer(helper.getLevel(), player.damageSources().generic(), 2);
         helper.assertTrue(player.getHealth() == 8, "Damage is unchanged");
         ticks(player, 1);
         helper.assertTrue(player.getHealth() == 9 && PlayerRecovery.state(player).reserve() == 2,
                 "Damage does not reset food recovery");
-        ticks(player, 80);
+        ticks(player, 20);
         helper.assertTrue(player.getHealth() == 11 && PlayerRecovery.state(player).reserve() == 0, "Reserve exhausts gradually");
         helper.succeed();
     }
@@ -74,20 +80,21 @@ public class RecoveryGameTests {
         ServerPlayer player = player(helper);
         player.getFoodData().setFoodLevel(20);
         player.getFoodData().setSaturation(10);
-        ticks(player, 79);
+        ticks(player, 11);
         helper.assertTrue(player.getHealth() == 10, "No vanilla 10-tick healing burst");
         ticks(player, 1);
-        helper.assertTrue(player.getHealth() == 11, "Well-fed heals 1 HP per 80 ticks");
+        helper.assertTrue(player.getHealth() == 11, "Well-fed heals 1 HP per 12 ticks");
         player.removeAttached(RecoveryAttachments.RECOVERY);
         player.getFoodData().setFoodLevel(18);
         player.getFoodData().setSaturation(3);
-        ticks(player, 119);
-        helper.assertTrue(player.getHealth() == 11, "Stable waits 120 ticks");
+        ticks(player, 79);
+        helper.assertTrue(player.getHealth() == 11, "Stable waits 80 ticks");
         ticks(player, 1);
         helper.assertTrue(player.getHealth() == 12, "Stable healing works");
         player.getFoodData().setSaturation(0);
-        ticks(player, 240);
-        helper.assertTrue(player.getHealth() == 12, "Low saturation stops natural recovery");
+        player.getFoodData().setFoodLevel(20);
+        ticks(player, 80);
+        helper.assertTrue(player.getHealth() == 13, "Zero saturation retains stable natural recovery");
         helper.succeed();
     }
 
@@ -108,7 +115,7 @@ public class RecoveryGameTests {
     @GameTest
     public void saveLoadAndPlayerReplacement(GameTestHelper helper) {
         ServerPlayer original = player(helper);
-        var expected = new RecoveryState(2.5, 27, RecoveryState.Mode.FOOD);
+        var expected = new RecoveryState(2.5, 5.5, RecoveryState.Mode.FOOD);
         original.setAttached(RecoveryAttachments.RECOVERY, expected);
         var output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, helper.getLevel().registryAccess());
         original.saveWithoutId(output);
@@ -131,7 +138,10 @@ public class RecoveryGameTests {
     public void fullHealthAndFallbackFood(GameTestHelper helper) {
         ServerPlayer player = player(helper);
         player.setHealth(20);
-        for (int i = 0; i < 20; i++) new ItemStack(Items.MUSHROOM_STEW).finishUsingItem(helper.getLevel(), player);
+        for (int i = 0; i < 20; i++) {
+            player.getFoodData().setFoodLevel(10);
+            new ItemStack(Items.MUSHROOM_STEW).finishUsingItem(helper.getLevel(), player);
+        }
         ticks(player, 200);
         helper.assertTrue(PlayerRecovery.state(player).reserve() == 20, "Full health keeps a bounded reserve");
         helper.assertTrue(PlayerRecovery.state(player).progress() == 0, "Full health cannot precharge healing");
@@ -155,7 +165,7 @@ public class RecoveryGameTests {
             ticks(player, 200);
             helper.assertTrue(player.getHealth() == 10, "Gamerule disables natural healing");
             new ItemStack(Items.MUSHROOM_STEW).finishUsingItem(helper.getLevel(), player);
-            ticks(player, 50);
+            ticks(player, 10);
             helper.assertTrue(player.getHealth() == 11, "Explicit food recovery works with natural regen disabled");
             player.heal(2);
             helper.assertTrue(player.getHealth() == 13, "Independent healing still works");

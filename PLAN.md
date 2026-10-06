@@ -1,11 +1,15 @@
 # Buildup Vitals — Codex Implementation Plan
 
 > 目标平台：Minecraft 26.3 / Fabric  
-> 项目状态：Bootstrap / Pre-Alpha  
+> 项目状态：Stage 7.5 / Balance v2，等待人工验收
 > Mod ID：`buildup_vitals`  
 > Maven Group：`com.davidblackcn`  
 > Java Package：`com.davidblackcn.buildupvitals`  
-> 当前设计基准：`DESIGN_PRINCIPLES.md`
+> 当前设计基准：`BALANCE_SPEC_V2.md` > 已更新的 `DESIGN_PRINCIPLES.md`
+
+## Stage 7.5 当前进展
+
+本轮按 [Stage 7.5 Plan](<Stage 7.5 Plan.md>) 的 A→I 推进：恢复、满饱食与积食、消费速度、MobEffect迁移、TWT2协调、40种食物、客户端反馈、测试与文档。当前规则和验证见 [STAGE_7_5_REPORT](docs/STAGE_7_5_REPORT.md)。下文 Stage 0～7 的 Alpha 数值保留为路线历史，不再作为当前实现依据。Stage 8 尚未启动，必须等待本阶段人工验收。
 
 ---
 

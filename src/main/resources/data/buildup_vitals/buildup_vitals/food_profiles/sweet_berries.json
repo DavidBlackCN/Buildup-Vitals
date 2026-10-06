@@ -5,13 +5,19 @@
   },
   "quality": "basic",
   "hydration": {
-    "thirst": 1,
-    "quenched": 0
+    "thirst": 3,
+    "quenched": 1
   },
   "diet": {
     "categories": [
       "fruit"
     ],
     "variety_group": "minecraft:sweet_berries"
+  },
+  "recovery": {
+    "health": 0.5
+  },
+  "consumption": {
+    "speed": "fast"
   }
 }

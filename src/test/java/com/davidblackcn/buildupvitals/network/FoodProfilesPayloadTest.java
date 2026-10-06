@@ -16,7 +16,8 @@ class FoodProfilesPayloadTest {
     void hydrationAndServerCapabilityRoundTripWithoutOptionalMod() {
         var id = Identifier.parse("test:drink");
         var profile = new TooltipProfile(FoodQuality.BASIC, 0, List.of(), Optional.empty(), id, Optional.of(id),
-                new com.davidblackcn.buildupvitals.food.profile.FoodProfile.Hydration(6, Integer.MAX_VALUE));
+                new com.davidblackcn.buildupvitals.food.profile.FoodProfile.Hydration(6, Integer.MAX_VALUE),
+                Optional.of(com.davidblackcn.buildupvitals.food.profile.ConsumptionSpeed.FAST));
         var payload = new FoodProfilesPayload(true, true, Map.of(id, profile));
         var buffer = new FriendlyByteBuf(Unpooled.buffer());
         try {

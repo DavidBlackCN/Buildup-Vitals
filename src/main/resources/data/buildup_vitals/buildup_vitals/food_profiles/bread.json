@@ -1,6 +1,19 @@
 {
   "schema_version": 1,
-  "selector": { "item": "minecraft:bread" },
+  "selector": {
+    "item": "minecraft:bread"
+  },
   "quality": "basic",
-  "diet": { "categories": ["grain"] }
+  "diet": {
+    "categories": [
+      "grain"
+    ]
+  },
+  "recovery": {
+    "health": 0.5
+  },
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
+  }
 }

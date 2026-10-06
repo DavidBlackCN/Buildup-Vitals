@@ -9,5 +9,12 @@
       "vegetable"
     ],
     "variety_group": "minecraft:carrot"
+  },
+  "recovery": {
+    "health": 0.5
+  },
+  "hydration": {
+    "thirst": 2,
+    "quenched": 1
   }
 }

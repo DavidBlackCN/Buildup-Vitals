@@ -2,7 +2,7 @@
 
 > 工作名称：**Buildup Vitals**  
 > 首要目标平台：**Fabric 26.3**  
-> 文档状态：**第一版核心设计原则**  
+> 文档状态：**v2 核心设计原则（Stage 7.5）**
 > 当前重点：**饥饿、饱和、食物恢复、饮食质量、饮食多样性、口渴兼容**  
 > 后续方向：**氧气、第三方料理机制重构、法力等其他玩家状态资源**
 
@@ -83,14 +83,13 @@ Buildup Vitals 不需要完全推翻这一模型，主要变化发生在 Saturat
 
 ## 7. 自然生命恢复
 
-自然回血保留，但不再承担“吃两块食物以后迅速从残血回到满血”的主要治疗职责，而被重新定位为玩家长期保持良好状态后得到的背景恢复。
+v2 总恢复节奏以接近原版的量级为目标，将恢复价值分配到 Saturation、食物储备、料理增益和可选 Hydration。
 
-首轮原型测试可从以下范围开始：
+- **Well-fed Recovery**：Hunger=20 且 Saturation>0，每 12 tick 恢复 `min(Saturation,6)/6 HP`，随 Saturation 连续变化。
+- **Stable Recovery**：Hunger≥18 且不满足上一条件，每 80 tick 恢复 1 HP，不要求最低 Saturation。
+- 自然恢复按实际成功恢复的 HP 支付每 HP 6 Exhaustion；Buildup 速度奖励组合后的自然周期不得小于 10 tick。药水等外部治疗不受此上限限制。
 
-- **Stable Recovery**：Hunger 状态良好、Saturation 达到基本要求时，约每 6 秒恢复 1 HP。
-- **Well-fed Recovery**：Hunger 较高、Saturation 较高时，约每 4 秒恢复 1 HP。
-
-这些数字只作为原型起点。设计目标是确保即使在最佳普通状态下，自然恢复也明显低于原版高饱食状态的爆发恢复能力。
+具体原型值与行为以 `BALANCE_SPEC_V2.md` 为准，人工验收后可以小幅微调。
 
 ## 8. 食物直接恢复生命
 
@@ -100,7 +99,7 @@ Buildup Vitals 使用 **Food Recovery Reserve（食物恢复储备）**。
 
 例如一道料理具有 `Recovery = 4 HP`，并不代表玩家立刻获得 4 HP，而是吃下后向 Recovery Reserve 中加入 4 HP，再在随后一段时间逐渐转换为真正的 Health。
 
-首轮测试可采用约每 2～3 秒转换 1 HP 的速度。
+v2 普通食物储备每 12 tick 最多转换 1 HP，Restorative 为 10 tick；总储备上限 20 HP。满血保留、死亡清空，跨维度与重连保留。
 
 这样既能让料理真正成为治疗体系的一部分，又不会让食物退化为廉价瞬间治疗药水，同时也为其他机制提供稳定接口。
 
@@ -118,7 +117,7 @@ Buildup Vitals 使用 **Food Recovery Reserve（食物恢复储备）**。
 
 Food Recovery 与 Natural Recovery 不应毫无控制地直接叠加，因此需要统一的 Recovery Controller 协调自然类型的生命恢复。
 
-推荐基础逻辑是：存在可执行的 Food Recovery Reserve 时优先按 Food Recovery 逻辑恢复；没有可执行的 Food Recovery 时再进入 Natural Recovery。
+有可执行储备时优先由食物支付治疗，周期取食物与当前自然周期的较小值，少量储备尾数可以由自然恢复补足。**Food Reserve 不得拖慢玩家原本应有的自然恢复**，也不使用两个并行恢复时钟。受击不重置进度。
 
 治疗药水、再生药水、信标、金苹果以及其他明确独立的治疗系统不应被强行接管。
 
@@ -167,13 +166,13 @@ Quality 也不应单纯通过配方材料数量自动推断。官方兼容数据
 
 高质量食物除了 Recovery 与 Variety 之外，可以提供 **Meal Benefit**，用于表达“我刚刚吃了一顿不错的饭”的中期状态。
 
-Meal Benefit 不要求实现为 Minecraft 原版 Status Effect。更适合由 Buildup 自己维护一层轻量饮食状态，并通过 Recovery Controller、Exhaustion、Vitals 状态与 Hydration 等机制兑现。
+v2 Meal Benefit 正式注册为 Minecraft MobEffect，使用原版 HUD、背包图标、同步和倒计时，食物授予默认无粒子。不制作默认 Potion 或酿造配方；效果行为仍由 Recovery Controller 和特定活动消耗入口兑现。
 
 第一批适合探索的 Meal Benefit 包括：
 
-- **Restorative / 调养**：提高 Recovery Reserve 的兑现效率，但不增加最终治疗总量。
-- **Invigorated / 精力充沛**：轻微降低疾跑、跳跃、游泳、攀爬等特定活动造成的 Exhaustion，首轮可从约 5%～10% 测试。
-- **Steady / 安适**：使部分 Vitals 的短时间波动更加平稳，重点是削弱短时间资源消耗峰值，而不是简单锁住 Saturation。
+- **Restorative / 滋养**：食物储备周期 12→10 tick，不增加最终储备总量。
+- **Invigorated / 振奋**：原版疾跑、跳跃、游泳及水中移动耗竭降低 10%，不减免自然恢复或全局耗竭。
+- **Steady / 稳态**：完成注册、图标与互斥，占位保留；没有正式行为前不加入官方食物 Profile。
 
 Meal Benefit 不应只是“吃饭后获得 Speed I / Regeneration I”的药水效果合集。
 
@@ -197,9 +196,11 @@ Buildup 自己的主要 Meal Benefit 同一时间原则上只保留一个：
 
 ## 16. 负面 Meal Benefit
 
-Buildup Vitals 可以存在轻量负面饮食状态，例如 Heavy / 过饱、Greasy / 油腻、Questionable / 可疑、Spoiled / 变质。
+普通 Food Item 在满 Hunger 时仍可进食。以进食前 Hunger 计算超过缺失 Hunger 的 Nutrition，将溢出部分加入 Overeat Load；正常补饥饿不受惩罚。
 
-但负面状态应主要来自食物本身的特殊性质，而不是来自“玩家没有按照系统规定去均衡饮食”。连续吃同一种正常食物不应因此获得严重营养不良类 Debuff。
+默认负荷 48 一次轻提示、64 触发 Overfull / 积食、80 封顶、每 40 tick 消化 1 点，严格低于 32 解除。只多吃一两份料理不会立即受到严重惩罚，不新增胃容量常驻 HUD。
+
+积食暂停储备兑现，阻止新储备和主增益授予/刷新，继续进食时长 ×1.25；Hunger、Saturation、Hydration、自然恢复和药水等外部治疗保留。积食独立于主增益槽位。负荷保存与重连保留、死亡清空；不因食物重复或类别不均衡而增加负荷。
 
 ## 17. Dietary Variety
 
@@ -300,7 +301,7 @@ Food
 
 Buildup Vitals 不应淘汰普通食物。
 
-牛排可以继续拥有高 Hunger、高 Saturation、低 Recovery、低或无 Hydration、Basic Quality、Protein Category，因此仍然非常适合旅行、探索和冒险。
+牛排继续拥有高 Hunger、高 Saturation、1 HP 基础 Recovery、1/0 Hydration、Basic Quality、Protein Category，因此仍然适合旅行、探索和冒险。生肉可有略多水分（约 2/0），但恢复更少且保留原生风险。
 
 正式料理则可以拥有类似的基础饱食能力，但同时提供更好的 Recovery、Hydration、Variety Contribution 与 Meal Benefit。
 
@@ -314,9 +315,9 @@ Feast 的主要优势同样应是“更全面”，而不是所有单项数值�
 
 没有安装口渴 Mod 时，其他 Buildup Vitals 功能仍应正常工作。
 
-绝大部分食物可以根据性质恢复不同程度 Hydration，以避免口渴系统变成“只能频繁喝水”的额外家务。水果可提供中等 Hydration，面包可能无或很低，汤类较高，饮品主要提供 Hydration 与 Quenched。
+绝大多数普通食物至少有少量 Hydration，真正干燥的曲奇、干海带才为 0。普通熟食约 1/0、生肉约 2/0、生鱼约 2/1、水果 3～5、汤 5～8 Thirst。Pure Water Bottle 为 10 Thirst / 8 Quenched，两瓶可以从空口渴补满；脏水、浑水和盐水继续保留上游纯度与疾病规则。
 
-Buildup Vitals 原则上不鼓励频繁使用“吃咸肉直接扣口渴”等过度现实主义负值；大多数偏干或偏咸食品设为 Hydration = 0 已经足够表达差异。
+适配优先级为 TWT2 blacklist > Buildup 显式 Profile（包括 0）> TWT2 配置/drinks > 通用 fallback。TWT2 独立 Quenched 治疗由 Buildup 协调为满 Thirst 且 Quenched>0 时自然恢复速度 ×1.15，受 10 tick 上限约束，不写用户配置文件。具体注入仅启用于已验证的 1.6.2+26.3。
 
 ## 26. 氧气系统
 
@@ -360,23 +361,29 @@ Recovery Reserve 可以未来尝试在心形 HUD 上以半透明方式预览即�
 
 普通 Tooltip 应表达食物大致特点，而不是堆满内部系数。详细数字可以放在高级 Tooltip、调试模式、配置文件或 Wiki 中。
 
-Stage 5 验收补充（2026-10-05）：普通 Tooltip 后续优先使用简洁的 icon + 短文字。恢复量优先探索爱心图标，减少“逐渐恢复 xx 点生命值（基础）”这类长句；料理增益等信息待专用图标齐备后统一优化。图标必须表达明确，复杂机制说明保留给高级提示或文档。
+## 30.1 Consumption Speed 与 Snack
 
-## 31. 首轮平衡原型目标
+Food Profile 的可选 `consumption.speed` 分 normal / quick / fast 三档，以普通食物 32 tick 为基准分别使用 32 / 21 / 16 tick。未声明则保留物品原本时长；积食在最后乘 1.25。档位随服务端 Profile 同步，实际结算始终由服务端决定。
 
-以下数值仅作为第一轮实现和实机测试的起点，不代表最终平衡已经锁死：
+曲奇、干海带、浆果、西瓜片适合 fast；苹果、胡萝卜、甜菜根、马铃薯适合 quick；正式料理保留正常进食动作。Snack 以低 Nutrition、低过食负荷和短使用时间形成自己的用途，不应只看作缩水料理。
+
+普通 Tooltip 使用图标与短文字：爱心 + 基础 HP、效果图标 + 名称、非 normal 速度提示。效果卡提供倒计时与简短悬停说明；复杂系数留给高级提示或调试。
+
+## 31. v2 平衡原型目标
+
+以下是 Stage 7.5 实现和人工验收的起点，不代表最终平衡已经锁死：
 
 | 项目 | 原型目标 |
 |---|---:|
-| Stable Natural Recovery | 约 1 HP / 6 秒 |
-| Well-fed Natural Recovery | 约 1 HP / 4 秒 |
+| Stable Natural Recovery | Hunger≥18，1 HP / 80 tick |
+| Well-fed Natural Recovery | Hunger=20、Saturation>0，每 12 tick 恢复 min(Saturation,6)/6 HP |
 | Basic Food Recovery | 0～1 HP |
 | Prepared Recovery | 1～2 HP |
 | Meal Recovery | 2～4 HP |
 | Feast Recovery | 3～5 HP |
-| Recovery Reserve 转化速度 | 约 1 HP / 2～3 秒 |
+| Recovery Reserve 转化速度 | 普通 12 tick / HP；Restorative 10 tick / HP |
 | Variety 最大 Recovery Bonus | 约 +10%～15% |
-| Variety 对 Natural Recovery | 约 +5%～10% 上限 |
+| Variety 对 Natural Recovery | Well-fed 速度最多 +7.5%，最终至少 10 tick |
 | Variety 对 Meal Benefit | 约 +10% 上限 |
 | 重复食物额外收益最低倍率 | 约 85%～90% |
 | 重复食物 Hunger 倍率 | 100% |

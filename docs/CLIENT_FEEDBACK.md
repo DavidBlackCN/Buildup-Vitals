@@ -1,62 +1,31 @@
-# 客户端反馈（Stage 6）
+# 客户端反馈 v2（Stage 7.5）
 
-食物 Tooltip 展示服务端 Food Profile 的品质、基础恢复、已实现料理增益和饮食类别，不需要其他 HUD Mod。提供简体中文与英文翻译；没有新增常驻状态条。
+普通食物 Tooltip 使用服务端最终 Profile，显示品质、爱心 + 基础 HP、主要效果图标 + 短名称、非 normal 消费速度及饮食类别。示例蘑菇煲为「正式料理 / 爱心 +3 HP / 滋养图标 + 滋养 / 蔬菜」，不再使用长篇恢复和增益介绍。
 
-## 普通提示
+恢复图标复用 Minecraft GUI 心形 sprite，增益图标为本模组 18×18 透明像素资源。使用 26.3 `FontDescription.AtlasSprite`，不修改整套 tooltip 渲染器。HP 是基础储备，不表示即时回血，2 HP=一颗心；Variety、剩余容量和积食会改变实际到账量。显示量裁剪到储备上限20，极小无效量省略，最多六位小数。
 
-蘑菇煲示例（物品名称由原版提供）：
+Quick/Fast 显示简短本地化文字；normal 或未声明档位不额外占一行。仅真实 Food+Consumable 添加 Buildup 食物行；fallback 标为 Basic，不虚构恢复、增益或类别。零恢复、未知/实验 Benefit 省略对应行。
 
-```text
-正式料理
-逐渐恢复 3 点生命值（基础）
-提供「调养」饮食增益
-蔬菜
-```
+## 水滴与 AppleSkin
 
-- Quality 始终显示，Basic / Prepared / Meal / Feast 分别使用灰、绿、金、浅紫色。
-- Recovery 以生命值 HP 为单位，2 HP 等于一颗心。显示基础储备量，不表示瞬间治疗，不预测当前玩家实际收到的治疗量。
-- 普通提示中的 Recovery 不超过既有 20 HP 储备上限；小于 `0.000001 HP` 的无效基础量不显示。有效数值最多六位小数，去掉末尾零。
-- 当前储备余量、多样饮食奖励、创造/旁观模式和恢复条件会影响实际结果。具体机制见 [RECOVERY.md](RECOVERY.md)；本阶段不读取或同步玩家的这些状态。
-- 只有已实现的 Restorative / Invigorated 显示普通增益行。未知引用和实验 Steady 不会被描述为可获得的效果。
-- 类别合并为一行，以 ` · ` 分隔；无类别时不虚构类别。零 Recovery、无 Benefit 均省略对应行。
-- 未匹配 Profile 的食物显示“基础食物”，继续保留原版营养。物品栈必须同时具有 Food 和 Consumable 组件才添加食物提示；为非食物配置 Profile 不会把它变成食物。
+安装受支持 TWT2 后使用其真实解析结果和纯度修正。无 AppleSkin 时 Buildup 复用上游水滴组件；有 AppleSkin 时由 TWT2 自己绘制，避免重复。Pure Water 的提示为10/8基准，盐水不显示虚假的补水。没有 TWT2 时不出现无效口渴提示。
 
-提示按物品 ID 查询，与服务端消费查询一致，不依据单个物品栈组件重新推断 Profile。Hunger / Saturation 仍由原版组件及其他显示 Mod 负责；Stage 6 的 Hydration 图标复用 TWT2 + AppleSkin 自带的提示，具体开关、优先级和不安装 AppleSkin 时的显示边界见 [HYDRATION.md](HYDRATION.md)。
+AppleSkin 仅用于显示原版 Hunger/Saturation 以及上游口渴图示，不是本模组硬依赖。已验证版本为 mc26.3-3.0.10，来源见 [README](../README.md)。**其生命恢复预测仍是原版估算，不认识 Buildup Reserve/Overfull/Variety**；本轮不更改用户配置，不发布储备半透明心形 HUD。
 
-用户通过 Stage 5 验收后确定了后续优化方向：普通 Tooltip 优先使用 icon + 短文字，Recovery 探索爱心数量/半格表达；料理增益待专用图标准备后再统一调整。本阶段保留既有恢复和增益文本。
+## 效果 UI 与提示
 
-## 高级提示
+Restorative、Invigorated、Steady、Overfull 都有正式图标、中英文名称和短说明。食物授予默认无粒子；原版负责 HUD、背包卡片及剩余时间同步。背包效果卡悬停追加简短说明，窄屏与展开卡片都有效。Steady 仅注册占位，不在食物提示中承诺实际收益。
 
-按 **F3+H** 开启原版高级 Tooltip 后，额外显示：
+负荷首次达到48由服务器发送一次 actionbar 轻提示，低于32后重置提示锁存；不每 tick 提醒，不新增负荷条，也不在普通食物 Tooltip 显示负荷数。已有积食通过原版负面状态图标表达。
 
-- 最终 Profile ID，未匹配则为 `fallback`；
-- 未裁剪的 `recovery.health` 原始数值；
-- 解析后的 `variety_group`；
-- `meal_benefit` 原始引用和是否已实现；
-- 基础数值受饮食奖励与储备上限影响的说明。
+## 高级提示与同步
 
-“可用 / available”只指该增益类型已实现，不代表玩家当前拥有这个增益。没有泄露服务器数据包本地路径，也没有在普通 Tooltip 中堆放评分、重复系数或计时字段。
+F3+H 额外显示最终 Profile ID、原始 Recovery、Variety Group、Benefit 引用/是否实现与基础值说明。需要实时数值时使用 `/buildupvitals recovery [player]`，不把调试系数塞进普通 tooltip。
 
-## 服务端同步与边界
+`buildup_vitals:food_profiles_v3` 是服务端到客户端的完整元数据快照，增加可选消费档位，客户端用于消费动画与 tooltip；实际治疗、负荷和授予始终由服务端决定。两端应一起更新，不混用旧 v2 通道。
 
-`buildup_vitals:food_tooltips_v2` 是仅服务端到客户端的完整食物元数据快照，Stage 6 新增 Hydration 及服务端适配启用标记。服务端在玩家加入和整轮数据包成功重载后发送已解析的 Item/Tag 最终匹配结果；客户端无需复制服务器数据包。两端应同时更新，旧 v1 通道不混用。
+登录、成功整轮 `/reload` 更新不可变快照；重载失败保留旧值；删除定义回落；连接初始化和断线清空。未收到可用快照不以客户端本地数据猜测服务器玩法，消费时长保留原生值。超过 65,536 条或16 MiB 时显示数据降级并记录警告，服务端机制仍运行；这种超大数据包下不保证自定义消费动画同步。
 
-客户端一次性替换不可变 Map。整体重载失败时双方继续使用上一次成功结果；成功删除定义会移除旧条目，必要时显示下层数据包或 fallback。与服务端本来的错误隔离语义一致：单个非法文件被跳过但整轮重载成功时，显示新的有效结果。
+使用 Fabric large-payload 分片，校验枚举、数量、重复条目及非法数值，没有客户端上报生命或储备的通道。渲染只查内存，不读文件或发网络请求。当前状态效果走原版同步，不自行维护第二份计时器。
 
-新连接初始化和断线均清空缓存。尚未收到快照、对方没有发送通道或服务器显示快照超限时，不添加 Buildup 食物行，避免使用本地默认数据冒充服务器规则。收到合法的空快照则意味着全部食物使用已知 fallback。
-
-Fabric large-payload API 负责分片，应用层最多接受 65,536 个条目、16 MiB 编码数据；类别、枚举、非有限/负恢复值和重复条目均校验。服务器发送前检查大小，超限时记录警告并发送“显示不可用”的空状态，不中断现有服务端食物机制。没有客户端上报治疗、评分或资源消耗的通道。
-
-渲染时只查询内存中的显示数据，不读磁盘、不发网络请求。只同步食物静态元数据，不修改恢复、增益、饮食附件的持久化格式，也不改变数值或食物数据包。
-
-## AppleSkin 与心形预览调研
-
-验证基准为作者发布的 [AppleSkin Fabric mc26.3-3.0.10](https://maven.ryanliptak.com/squeek/appleskin/appleskin-fabric/mc26.3-3.0.10/)，代码来源为 [AppleSkin](https://github.com/squeek502/AppleSkin)。可选测试命令见 [README](../README.md)。AppleSkin 仅以本地 JAR 加入 GameTest 运行时；发布包不包含它，也没有硬依赖或反射集成。
-
-Buildup 通过 Fabric `ItemTooltipCallback` 添加自己的说明；AppleSkin 的原版 Hunger / Saturation 图示由其自身绘制。Buildup 不重复添加这些图示，不取消其他 Mod 的 Tooltip 回调。
-
-**AppleSkin 的生命恢复预测尚未适配 Buildup 规则。** 该版本 `FoodHelper.getEstimatedHealthIncrement` 按原版营养与自然恢复计算，不认识本模组的 Recovery Reserve、不同恢复门槛和饮食奖励，因此心形预测不应视为本模组治疗承诺。需要避免该预测时，可由玩家在 AppleSkin 配置中关闭 `showFoodHealthHudOverlay`；本模组不擅自改写其配置。Hunger / Saturation 图示与这一限制是不同的功能。
-
-本阶段按 PLAN 允许的调研范围，**不发布 Recovery Reserve 半透明心形预览**。26.3 的 `net.minecraft.client.gui.Hud.extractPlayerHealth/extractHearts` 使用 `GuiGraphicsExtractor`，并处理多排生命、吸收心、状态纹理、受击闪烁与抖动。可靠的储备预览还需要服务端玩家储备同步、最大生命/吸收适配、与 AppleSkin 预测的明确优先级及多 GUI 比例验证。当前仅有食物静态显示数据，不能据此画出玩家剩余储备。此结论避免引入未经验证的心形覆盖或新进度条。
-
-本轮基础兼容范围是未安装 AppleSkin、安装上述版本后的普通/高级食物提示及客户端/服务端连接；其他 HUD/食物查询 Mod 和用户整合包仍需分别验证。
+截图、真实连接与兼容测试结果见 [Stage 7.5 报告](STAGE_7_5_REPORT.md)。其他 HUD Mod、多人长期游玩和极端 GUI 比例需另外验收。

@@ -5,11 +5,11 @@
   },
   "quality": "meal",
   "recovery": {
-    "health": 1
+    "health": 0
   },
   "hydration": {
-    "thirst": 4,
-    "quenched": 2
+    "thirst": 6,
+    "quenched": 4
   },
   "diet": {
     "categories": [

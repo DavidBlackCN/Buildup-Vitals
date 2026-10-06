@@ -1,52 +1,60 @@
-# 原版食物 Alpha 平衡包
+# 原版食物平衡包 v2
 
-Stage 7 为 26.3 注册表中同时拥有 FOOD 与 CONSUMABLE 的全部 **40 种原版物品**提供具体 Item Profile。文件位于 `src/main/resources/data/buildup_vitals/buildup_vitals/food_profiles/`；旧的 `example_fruit.json` 和标签保留，共 41 份定义。具体 Item 优先于 Tag，西瓜片和甜浆果现在命中各自官方定义。
+覆盖 Minecraft 26.3 中同时具有 Food 与 Consumable 的全部40种原版物品。目录 `src/main/resources/data/buildup_vitals/buildup_vitals/food_profiles/`，另保留旧 example_fruit Tag Profile，共41份定义。Item 优先于 Tag；未知 Mod 食物保持可靠 fallback。
 
-这是一套可玩的起始数据，不是最终平衡结论。所有食物保留原版 Hunger、Saturation、进食时间、堆叠、容器和特殊效果；不增加负面状态。下面的 Recovery 单位为 HP（2 HP = 1 颗心），表示逐渐兑现的储备，非瞬间治疗。没有列出的额外数值均为零，不表示原版营养为零。
+Recovery 单位 HP（2 HP=一颗心），表示基础储备而非瞬间治疗，实际还受 Variety、20 HP上限和积食影响。营养、容器、堆叠及特殊效果仍由原版控制；消费档位是本阶段明确增加的覆盖。native 表示未声明速度，保留物品原始时长；quick=21、fast=16 tick，积食最后 ×1.25。
 
-## 食物定位
+基本口粮也有少量恢复：熟肉/熟鱼1，面包0.5。正式汤料理恢复3～4并有较高水分；曲奇有0.5恢复和快速使用但干燥；干海带不提供额外恢复或水分。金苹果、附魔金苹果、蜂蜜瓶、可疑炖菜已有强治疗或特殊用途，不机械添加高恢复。原版没有硬塞 Feast，Steady 未投放。
 
-| 食物 | Quality | Recovery | Thirst / Quenched | 类别 | 主要增益 |
-| --- | --- | ---: | --- | --- | --- |
-| 面包 | Basic | 0 | 0 / 0 | grain | 无 |
-| 生/熟牛肉、猪肉、羊肉 | Basic | 0 | 0 / 0 | protein | 无 |
-| 生/熟鸡肉、兔肉 | Basic | 0 | 0 / 0 | protein | 无 |
-| 生/熟鳕鱼、鲑鱼，热带鱼、河豚 | Basic | 0 | 0 / 0 | protein | 无 |
-| 马铃薯、烤马铃薯、毒马铃薯、胡萝卜、金胡萝卜、甜菜根、干海带 | Basic | 0 | 0 / 0 | vegetable | 无 |
-| 苹果 | Basic | 0 | 2 / 0 | fruit | 无 |
-| 西瓜片 | Basic | 0 | 3 / 1 | fruit | 无 |
-| 甜浆果、发光浆果、紫颂果 | Basic | 0 | 1 / 0 | fruit | 无 |
-| 金苹果、附魔金苹果 | Basic | 0 | 0 / 0 | fruit | 保留原版效果 |
-| 蜂蜜瓶 | Basic | 0 | 0 / 0 | sweet | 保留原版清毒 |
-| 腐肉、蜘蛛眼 | Basic | 0 | 0 / 0 | 无 | 保留原版风险 |
-| 曲奇 | Prepared | 0 | 0 / 0 | grain, sweet | 无 |
-| 南瓜派 | Prepared | 1 | 0 / 0 | grain, sweet | Invigorated |
-| 蘑菇煲、甜菜汤 | Meal | 3 | 4 / 2 | vegetable | Restorative |
-| 兔肉煲 | Meal | 4 | 4 / 2 | protein, vegetable | Invigorated |
-| 可疑炖菜 | Meal | 1 | 4 / 2 | vegetable | 保留原版花朵效果，无额外主要增益 |
+Hydration 仅在受支持 TWT2 中结算：blacklist > Buildup Profile > 上游配置/drinks > fallback。Pure Water Bottle 不属于40种 Food，单独按纯度匹配10/8；水质/疾病语义见 [HYDRATION](HYDRATION.md)。
 
-牛排仍是高营养、便于携带的口粮；料理通过恢复、补水和有限增益体现价值。兔肉煲为探索提供活动消耗减免，蔬菜汤偏向加快现有恢复储备的兑现。曲奇不因为 Prepared 自动获得治疗；镀金食物也不因为稀有就自动成为 Feast。Steady 尚未实现，本包不发放。当前原版没有专门安排 Feast。
+## 多样性分组
 
-## Variety Group
+分组沿用 Stage 7，保持旧饮食快照语义：牛/猪/羊生熟共用 cooked_beef；鸡/兔共用 cooked_chicken；鱼类共用 fish；马铃薯变体共组，胡萝卜/金胡萝卜共组，苹果/金苹果共组，两种浆果共组，可疑炖菜/蘑菇煲共组。其余使用各自物品ID。只约束额外多样性奖励，不削减基础营养。
 
-分组只控制多样性额外奖励，不影响任何原版营养。牛/猪/羊的生熟变体共用 `minecraft:cooked_beef`；鸡/兔共用 `minecraft:cooked_chicken`；鱼类共用 `minecraft:fish`。如此替换口粮不会凭相近肉类无限刷分。
+## 完整数据表
 
-马铃薯三种变体共用 `minecraft:potato`，胡萝卜与金胡萝卜共用 `minecraft:carrot`；苹果及两种金苹果共用 `minecraft:apple`；两种浆果共用 `minecraft:sweet_berries`；可疑炖菜与蘑菇煲共用 `minecraft:mushroom_stew`。其它食物用本物品 ID。保持旧牛排、苹果、蘑菇煲等分组 ID，不修改已保存的饮食快照。
+下表由本次40份已提交 Profile 核对生成，ID 省略 minecraft 命名空间。数值为 v2 原型，长期战斗和生存体验仍待人工验收。
 
-没有为凑齐六类而虚构 dairy 食物。牛奶没有 FOOD 组件，蛋糕是方块逐口食用，均不经过当前消费入口，不新增它们的恢复、增益和饮食记忆。药水也保持独立；未知 Mod 食物继续正常进食并使用 fallback。
-
-## 调整入口与单位
-
-- 单种食物：覆盖相同 Profile 路径的 JSON，执行 `/reload`。完整格式和优先级见 [FOOD_PROFILES.md](FOOD_PROFILES.md)。例如覆盖 `data/buildup_vitals/buildup_vitals/food_profiles/rabbit_stew.json`；不编辑 JAR。
-- 核心默认参数：`src/main/java/com/davidblackcn/buildupvitals/config/CoreBalance.java` 集中 Recovery、Benefits、Variety 的起始值，原有三个 Balance 类保留为引用入口。它是编译时预设，**不是**可热重载的用户配置文件；改动后必须重建。
-- 核心时序维持此前已验收值：普通食物储备 50 ticks/HP、Restorative 40、Stable 120、Well-fed 80；20 ticks = 1 秒。储备上限 20 HP，主要增益上限 3600 ticks，饮食窗口 10 次。
-- 存档边界与参数有关：调低储备/增益上限、改变窗口或计时范围前必须审查旧存档兼容，不应只改数字后发布。本轮没有改变这些值或持久化格式。
-- Tooltip 暂显示基础数值，多样性奖励另查 `/buildupvitals diet`；恢复与增益另查 `/buildupvitals recovery`。后续仍按“icon + 短文字”方向改进。
-
-## 可选口渴与验收边界
-
-上述补水列是 Buildup 定义。安装受支持 TWT2 时，其 blacklist、配置和原生 drinks 数据包仍优先；默认配置覆盖苹果、汤等许多项目，不保证最终数值等于本表。移除对应上游配置条目后才测试 Buildup 数值，显式 `0/0` 仍是有效覆盖。详见 [HYDRATION.md](HYDRATION.md)。不安装 TWT2 时不启用任何口渴机制。
-
-TWT2 的独立 Quenched 治疗及 AppleSkin 的原版治疗预测仍是已知整合边界。本包没有擅自更改第三方配置。是否需要协调，应由后续实玩记录决定。
-
-人工长时间试玩场景与记录方式见 [Stage 7 报告](STAGE_7_REPORT.md)。自动检查证明数据接通、规则符合预期，不能代替洞穴探索、连续夜战或整段生存流程的体验判断。
+| 食物 ID | Quality | Recovery HP | Thirst / Quenched | 速度 | 主增益 | 类别 |
+|---|---|---:|---|---|---|---|
+| apple | basic | 0.5 | 4 / 2 | quick | - | fruit |
+| baked_potato | basic | 1 | 1 / 0 | native | - | vegetable |
+| beef | basic | 0.5 | 2 / 0 | native | - | protein |
+| beetroot | basic | 0.5 | 3 / 1 | quick | - | vegetable |
+| beetroot_soup | meal | 3 | 6 / 4 | native | restorative | vegetable |
+| bread | basic | 0.5 | 1 / 0 | native | - | grain |
+| carrot | basic | 0.5 | 3 / 1 | quick | - | vegetable |
+| chicken | basic | 0 | 2 / 0 | native | - | protein |
+| chorus_fruit | basic | 0.5 | 3 / 1 | native | - | fruit |
+| cod | basic | 0.5 | 2 / 1 | native | - | protein |
+| cooked_beef | basic | 1 | 1 / 0 | native | - | protein |
+| cooked_chicken | basic | 1 | 1 / 0 | native | - | protein |
+| cooked_cod | basic | 1 | 1 / 0 | native | - | protein |
+| cooked_mutton | basic | 1 | 1 / 0 | native | - | protein |
+| cooked_porkchop | basic | 1 | 1 / 0 | native | - | protein |
+| cooked_rabbit | basic | 1 | 1 / 0 | native | - | protein |
+| cooked_salmon | basic | 1 | 1 / 0 | native | - | protein |
+| cookie | prepared | 0.5 | 0 / 0 | fast | - | grain, sweet |
+| dried_kelp | basic | 0 | 0 / 0 | fast | - | vegetable |
+| enchanted_golden_apple | basic | 0 | 3 / 1 | native | - | fruit |
+| glow_berries | basic | 0.5 | 3 / 1 | fast | - | fruit |
+| golden_apple | basic | 0 | 3 / 1 | native | - | fruit |
+| golden_carrot | basic | 0.5 | 2 / 1 | native | - | vegetable |
+| honey_bottle | basic | 0 | 3 / 1 | native | - | sweet |
+| melon_slice | basic | 0.5 | 5 / 3 | fast | - | fruit |
+| mushroom_stew | meal | 3 | 6 / 4 | native | restorative | vegetable |
+| mutton | basic | 0.5 | 2 / 0 | native | - | protein |
+| poisonous_potato | basic | 0 | 2 / 1 | native | - | vegetable |
+| porkchop | basic | 0.5 | 2 / 0 | native | - | protein |
+| potato | basic | 0.5 | 2 / 1 | quick | - | vegetable |
+| pufferfish | basic | 0 | 2 / 1 | native | - | protein |
+| pumpkin_pie | prepared | 2 | 1 / 0 | native | invigorated | grain, sweet |
+| rabbit | basic | 0.5 | 2 / 0 | native | - | protein |
+| rabbit_stew | meal | 4 | 8 / 6 | native | invigorated | protein, vegetable |
+| rotten_flesh | basic | 0 | 1 / 0 | native | - | - |
+| salmon | basic | 0.5 | 2 / 1 | native | - | protein |
+| spider_eye | basic | 0 | 1 / 0 | native | - | - |
+| suspicious_stew | meal | 0 | 6 / 4 | native | - | vegetable |
+| sweet_berries | basic | 0.5 | 3 / 1 | fast | - | fruit |
+| tropical_fish | basic | 0.5 | 2 / 1 | native | - | protein |

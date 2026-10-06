@@ -15,9 +15,16 @@ public record FoodProfile(
         Optional<Identifier> varietyGroup,
         List<String> traits,
         Optional<Identifier> mealBenefit,
-        Overrides overrides
+        Overrides overrides,
+        Optional<ConsumptionSpeed> consumptionSpeed
 ) {
+    public FoodProfile(FoodQuality quality, double recoveryHealth, Hydration hydration, List<DietCategory> categories,
+                       Optional<Identifier> varietyGroup, List<String> traits, Optional<Identifier> mealBenefit, Overrides overrides) {
+        this(quality, recoveryHealth, hydration, categories, varietyGroup, traits, mealBenefit, overrides, Optional.empty());
+    }
+
     public FoodProfile {
+        java.util.Objects.requireNonNull(consumptionSpeed);
         categories = List.copyOf(categories);
         traits = List.copyOf(traits);
     }

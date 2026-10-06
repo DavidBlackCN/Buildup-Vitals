@@ -1,8 +1,26 @@
 {
   "schema_version": 1,
-  "selector": { "item": "minecraft:apple" },
+  "selector": {
+    "item": "minecraft:apple"
+  },
   "quality": "basic",
-  "hydration": { "thirst": 2 },
-  "diet": { "categories": ["fruit"], "variety_group": "minecraft:apple" },
-  "traits": ["snack"]
+  "hydration": {
+    "thirst": 4,
+    "quenched": 2
+  },
+  "diet": {
+    "categories": [
+      "fruit"
+    ],
+    "variety_group": "minecraft:apple"
+  },
+  "traits": [
+    "snack"
+  ],
+  "recovery": {
+    "health": 0.5
+  },
+  "consumption": {
+    "speed": "quick"
+  }
 }

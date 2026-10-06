@@ -1,6 +1,7 @@
 package com.davidblackcn.buildupvitals.network;
 
 import com.davidblackcn.buildupvitals.food.profile.DietCategory;
+import com.davidblackcn.buildupvitals.food.profile.ConsumptionSpeed;
 import com.davidblackcn.buildupvitals.food.profile.FoodQuality;
 import com.davidblackcn.buildupvitals.food.profile.ProfileSnapshot;
 import com.davidblackcn.buildupvitals.food.profile.FoodProfile.Hydration;
@@ -11,8 +12,9 @@ import net.minecraft.resources.Identifier;
 
 /** Display metadata only: no player state or client-authoritative gameplay. */
 public record TooltipProfile(FoodQuality quality, double recovery, List<DietCategory> categories,
-                             Optional<Identifier> benefit, Identifier group, Optional<Identifier> profileId, Hydration hydration) {
+                             Optional<Identifier> benefit, Identifier group, Optional<Identifier> profileId, Hydration hydration, Optional<ConsumptionSpeed> consumptionSpeed) {
     public TooltipProfile {
+        Objects.requireNonNull(consumptionSpeed);
         Objects.requireNonNull(quality);
         Objects.requireNonNull(benefit);
         Objects.requireNonNull(group);
@@ -26,6 +28,11 @@ public record TooltipProfile(FoodQuality quality, double recovery, List<DietCate
     }
 
     public TooltipProfile(FoodQuality quality, double recovery, List<DietCategory> categories,
+                          Optional<Identifier> benefit, Identifier group, Optional<Identifier> profileId, Hydration hydration) {
+        this(quality, recovery, categories, benefit, group, profileId, hydration, Optional.empty());
+    }
+
+    public TooltipProfile(FoodQuality quality, double recovery, List<DietCategory> categories,
                           Optional<Identifier> benefit, Identifier group, Optional<Identifier> profileId) {
         this(quality, recovery, categories, benefit, group, profileId, new Hydration(0, 0));
     }
@@ -33,7 +40,7 @@ public record TooltipProfile(FoodQuality quality, double recovery, List<DietCate
     public static TooltipProfile from(Identifier item, ProfileSnapshot.Match match) {
         var profile = match.profile();
         return new TooltipProfile(profile.quality(), profile.recoveryHealth(), profile.categories(), profile.mealBenefit(),
-                profile.varietyGroupFor(item), match.definition().map(definition -> definition.source().id()), profile.hydration());
+                profile.varietyGroupFor(item), match.definition().map(definition -> definition.source().id()), profile.hydration(), profile.consumptionSpeed());
     }
 
     public static TooltipProfile fallback(Identifier item) {

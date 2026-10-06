@@ -66,7 +66,7 @@ public class RecoveryClientGameTest implements FabricClientGameTest {
             check(PlayerMealBenefits.state(player).is(MealBenefitType.RESTORATIVE), "Connected food grants benefit");
             check(PlayerDiet.state(player).entries().size() == 1, "Connected food records exactly one meal");
         });
-        server.waitFor(instance -> PlayerRecovery.state(connection.getServerPlayer()).progress() >= 20);
+        server.waitFor(instance -> PlayerRecovery.state(connection.getServerPlayer()).progress() >= 3);
         server.runOnServer(instance -> {
             var player = connection.getServerPlayer();
             check(player.getHealth() == 10, "No early healing");
@@ -86,7 +86,7 @@ public class RecoveryClientGameTest implements FabricClientGameTest {
             if (com.davidblackcn.buildupvitals.hydration.HydrationAdapter.enabled()) ThirstTestSupport.prepareRecoveryFixture(player);
             player.level().getGameRules().set(GameRules.NATURAL_HEALTH_REGENERATION, true, instance);
         });
-        server.waitFor(instance -> PlayerRecovery.state(connection.getServerPlayer()).progress() >= 60);
+        server.waitFor(instance -> PlayerRecovery.state(connection.getServerPlayer()).progress() >= 3);
         server.runOnServer(instance -> check(connection.getServerPlayer().getHealth() == 10, "No vanilla high-saturation burst"));
         server.waitFor(instance -> connection.getServerPlayer().getHealth() == 11);
 
@@ -99,7 +99,7 @@ public class RecoveryClientGameTest implements FabricClientGameTest {
             player.getFoodData().setSaturation(10);
             if (com.davidblackcn.buildupvitals.hydration.HydrationAdapter.enabled()) ThirstTestSupport.prepareRecoveryFixture(player);
         });
-        server.waitFor(instance -> PlayerRecovery.state(connection.getServerPlayer()).progress() >= 60);
+        server.waitFor(instance -> PlayerRecovery.state(connection.getServerPlayer()).progress() >= 3);
         server.runOnServer(instance -> check(connection.getServerPlayer().getHealth() == 10, "Peaceful health is also coordinated"));
         server.waitFor(instance -> connection.getServerPlayer().getHealth() == 11);
 
@@ -116,6 +116,7 @@ public class RecoveryClientGameTest implements FabricClientGameTest {
         server.runCommand("kill @a");
         context.waitFor(client -> client.player != null && client.player.isDeadOrDying());
         server.runOnServer(instance -> check(PlayerRecovery.state(connection.getServerPlayer()).reserve() == 0, "Death clears reserve immediately"));
+        server.runOnServer(instance -> check(com.davidblackcn.buildupvitals.food.overeating.PlayerOvereat.state(connection.getServerPlayer()).load() == 0, "Death clears overeat load immediately"));
         server.runOnServer(instance -> check(PlayerMealBenefits.state(connection.getServerPlayer()).equals(MealBenefitState.EMPTY), "Death clears benefit immediately"));
         server.runOnServer(instance -> check(PlayerDiet.state(connection.getServerPlayer()).equals(DietMemory.EMPTY), "Death clears diet immediately"));
         context.runOnClient(client -> client.player.respawn());
@@ -144,7 +145,10 @@ public class RecoveryClientGameTest implements FabricClientGameTest {
             player.setNoGravity(true);
             DietGameTests.mixedMeals(player);
             player.setAttached(RecoveryAttachments.RECOVERY, new RecoveryState(2.5, 0, RecoveryState.Mode.NONE));
-            player.setAttached(MealBenefitAttachments.MEAL_BENEFIT, new MealBenefitState(Optional.of(MealBenefitType.INVIGORATED.id()), 3600));
+            player.removeAllEffects();
+            player.addEffect(new net.minecraft.world.effect.MobEffectInstance(com.davidblackcn.buildupvitals.effect.BuildupEffects.INVIGORATED, 3600, 0, false, false, true));
+            player.setAttached(com.davidblackcn.buildupvitals.food.overeating.PlayerOvereat.STATE,
+                    new com.davidblackcn.buildupvitals.food.overeating.OvereatState(60, 0, true, true));
         });
     }
 
@@ -153,6 +157,9 @@ public class RecoveryClientGameTest implements FabricClientGameTest {
                 "Reserve must survive save, reconnect and dimension transfer"));
         server.runOnServer(instance -> {
             var benefit = PlayerMealBenefits.state(connection.getServerPlayer());
+            check(com.davidblackcn.buildupvitals.food.overeating.PlayerOvereat.state(connection.getServerPlayer()).load() > 32
+                    && com.davidblackcn.buildupvitals.food.overeating.PlayerOvereat.overfull(connection.getServerPlayer()),
+                    "Overeat load and hysteresis survive reconnect and dimension transfer");
             check(benefit.is(MealBenefitType.INVIGORATED) && benefit.remainingTicks() > 0 && benefit.remainingTicks() <= 3600,
                     "Benefit must survive save, reconnect and dimension transfer");
             var memory = PlayerDiet.state(connection.getServerPlayer());

@@ -8,8 +8,8 @@
     "health": 4
   },
   "hydration": {
-    "thirst": 4,
-    "quenched": 2
+    "thirst": 8,
+    "quenched": 6
   },
   "diet": {
     "categories": [
