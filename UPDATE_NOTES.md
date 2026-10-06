@@ -19,3 +19,4 @@
 - ✨ feat(compat): 可选兼容 Farmer's Delight Refabricated 26.3-3.6.27，将原生 Nourishment 接入统一料理主增益，保留 ID、图标和持续时间，以调养与振奋语义替代耗竭返还，并遵守互斥、积食及数据包覆盖规则。
 - ✨ feat(food): 为 Farmer's Delight 全部80个 Food/Consumable 提供恢复、补水、品质、进食速度与饮食分类数据，覆盖无Food组件饮料，并确保 TWT2 显式数值优先与单次补水结算。
 - 🐛 fix(ui): 区分调养与 FD 滋养名称，移除失效或重复的 Nourishment 食物提示，保留原生效果图标与短说明；恢复查询显示外来主增益的真实剩余时间。
+- 🐛 fix(compat): 将 FD Mixin 版本检查与运行时兼容类分离，避免准备阶段提前加载 Minecraft Identifier，修复与 Iris 同时安装时的启动崩溃，并增加启动类加载回归测试。

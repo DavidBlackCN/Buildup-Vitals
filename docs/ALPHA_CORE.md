@@ -29,7 +29,7 @@ Traits、营养overrides及实验Steady仅保留数据语义，不视为已实�
 
 ## 验证范围与复用规则
 
-下表记录 Stage 8 冻结时的基线。随后 FD 兼容已执行五组组合的完整构建，当前为108项JVM、47项服务端GameTest（40项Core+7项FD条件测试）和5个客户端入口；新增Profile全覆盖、补水优先级、Foreign互斥/生命周期、重载与成就验证，详见 [FD兼容矩阵](FARMERS_DELIGHT_COMPAT.md)。
+下表记录 Stage 8 冻结时的基线。随后 FD 兼容已执行五组组合的完整构建，当前为109项JVM（含启动门控回归）、47项服务端GameTest（40项Core+7项FD条件测试）和5个客户端入口；新增Profile全覆盖、补水优先级、Foreign互斥/生命周期、重载与成就验证，详见 [FD兼容矩阵](FARMERS_DELIGHT_COMPAT.md)。
 
 | 检查 | 证据范围 |
 |---|---|

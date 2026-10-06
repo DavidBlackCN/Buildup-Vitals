@@ -11,6 +11,10 @@
 
 缺少 FD 时不注册其资源包或 Foreign 语义，所有 FD Mixin 经插件关闭。非已验证版本仍可读取内置 Profile，但关闭行为桥接并输出版本警告；这不代表该版本已兼容，需重新核对注册表和方法再测试。
 
+Mixin 准备阶段只允许调用 `FarmersDelightVersion` 的 Loader 元数据检查，不能调用持有 `Identifier` 或其他 Minecraft 类型的运行时兼容类。否则会过早加载游戏类，令 Iris 等其他模组的 Mixin 发生 `MixinTargetAlreadyLoadedException`。JVM 回归测试用隔离 ClassLoader 禁止游戏/可选模组类加载，覆盖 FD 与 TWT2 两个 Mixin 插件。
+
+本地可用 `-PtestClientModsDir=run/compat/bootstrap` 为 GameTest 加入启动回归 JAR；目录内仅放要验证的客户端兼容组件及其依赖，不放第二份 Buildup。此参数不增加发布依赖，也不捆绑测试模组。
+
 ## Nourishment 语义桥接
 
 `farmersdelight:nourishment` 是真实的 Foreign Main Meal Benefit：原 ID、图标、计时、保存、同步、移除语义及 FD 成就判断均保留。只展示 Nourishment，不同时添加 Buildup 调养和振奋。其行为为：
@@ -69,7 +73,9 @@ Recovery Controller 数值不变：Natural 10/80、Food 12、调养/Nourishment 
 .\gradlew.bat build runClientGameTest -PacceptMinecraftEula=true -PwithFarmersDelight=true -PwithThirst=true '-PtestAppleSkinJar=run/compat/appleskin-fabric-mc26.3-3.0.10.jar'
 ```
 
-五组均已通过。JVM为108项，服务端GameTest为47项（40项Core与7项FD条件测试；无FD时跳过FD专属断言并验证缺省门控），客户端为5个入口，FD场景有集成服与DedicatedServer TCP连接、重载、重连和真实成就判断。中英文FD+TWT2+AppleSkin tooltip截图已检查，无重复Nourishment行或缺失图标。
+首轮五组均已通过。当时JVM为108项，服务端GameTest为47项（40项Core与7项FD条件测试；无FD时跳过FD专属断言并验证缺省门控），客户端为5个入口，FD场景有集成服与DedicatedServer TCP连接、重载、重连和真实成就判断。中英文FD+TWT2+AppleSkin tooltip截图已检查，无重复Nourishment行或缺失图标。
+
+后续启动热修复新增第109项JVM回归测试。另以 Iris `1.11.6+mc26.3`、Sodium `0.9.3-alpha.1+mc26.3`、AsyncLogger `2.2.2+26.1.2-fabric` 复现旧版的Identifier提前加载崩溃；修复后该组合加入FD+TWT2+AppleSkin，以及不装FD/TWT2/AppleSkin的两条 `build runClientGameTest` 路径均通过。此结果不等于用户完整123模组整合包或所有光影包都已验证。
 
 | 组合 | Wrapper build / JVM | 服务端 GameTest | 客户端与 DedicatedServer TCP |
 |---|---|---|---|

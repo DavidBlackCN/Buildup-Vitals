@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public final class FarmersDelightMixinPlugin implements IMixinConfigPlugin {
-    @Override public boolean shouldApplyMixin(String target, String mixin) { return FarmersDelightCompatibility.supported(); }
+    @Override public boolean shouldApplyMixin(String target, String mixin) { return FarmersDelightVersion.supported(); }
     @Override public void onLoad(String mixinPackage) { }
     @Override public String getRefMapperConfig() { return null; }
     @Override public void acceptTargets(Set<String> mine, Set<String> others) { }

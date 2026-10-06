@@ -76,6 +76,13 @@ if (providers.gradleProperty('testAppleSkinJar').isPresent()) {
     }
 }
 
+// Local startup-regression fixtures (e.g. Iris/Sodium); never production dependencies.
+if (providers.gradleProperty('testClientModsDir').isPresent()) {
+    dependencies {
+        gametestRuntimeOnly fileTree(dir: providers.gradleProperty('testClientModsDir').get(), include: ['*.jar'])
+    }
+}
+
 processResources {
     def modVersion = project.version
     inputs.property "version", modVersion

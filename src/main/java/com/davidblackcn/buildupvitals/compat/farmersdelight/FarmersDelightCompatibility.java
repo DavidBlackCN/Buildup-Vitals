@@ -15,15 +15,14 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 
-/** No FD class references: safe to load with FD absent or a different version installed. */
+/** Runtime adapter with no FD class references. Not safe during Mixin selection: it uses Minecraft types. */
 public final class FarmersDelightCompatibility {
     public static final Identifier NOURISHMENT = Identifier.parse("farmersdelight:nourishment");
-    public static final String SUPPORTED_VERSION = "26.3-3.6.27+refabricated";
+    public static final String SUPPORTED_VERSION = FarmersDelightVersion.SUPPORTED_VERSION;
     private FarmersDelightCompatibility() { }
 
     public static boolean supported() {
-        return FabricLoader.getInstance().getModContainer("farmersdelight")
-                .map(mod -> SUPPORTED_VERSION.equals(mod.getMetadata().getVersion().getFriendlyString())).orElse(false);
+        return FarmersDelightVersion.supported();
     }
     public static void register() {
         if (!FabricLoader.getInstance().isModLoaded("farmersdelight")) return;
