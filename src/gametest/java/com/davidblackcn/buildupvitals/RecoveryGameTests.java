@@ -80,10 +80,10 @@ public class RecoveryGameTests {
         ServerPlayer player = player(helper);
         player.getFoodData().setFoodLevel(20);
         player.getFoodData().setSaturation(10);
-        ticks(player, 11);
+        ticks(player, 10);
         helper.assertTrue(player.getHealth() == 10, "No vanilla 10-tick healing burst");
         ticks(player, 1);
-        helper.assertTrue(player.getHealth() == 11, "Well-fed heals 1 HP per 12 ticks");
+        helper.assertTrue(player.getHealth() == 11, "Well-fed heals 1 HP per 11 ticks");
         player.removeAttached(RecoveryAttachments.RECOVERY);
         player.getFoodData().setFoodLevel(18);
         player.getFoodData().setSaturation(3);

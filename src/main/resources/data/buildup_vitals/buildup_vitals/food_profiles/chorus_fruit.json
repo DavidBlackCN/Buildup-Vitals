@@ -15,6 +15,6 @@
     "variety_group": "minecraft:chorus_fruit"
   },
   "recovery": {
-    "health": 0.5
+    "health": 0
   }
 }

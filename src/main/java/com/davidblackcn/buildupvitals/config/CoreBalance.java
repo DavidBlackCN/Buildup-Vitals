@@ -12,7 +12,7 @@ public final class CoreBalance {
         public static final double MIN_RESERVE = 0.000001;
         public static final int FOOD_TICKS = 12;
         public static final int STABLE_TICKS = 80;
-        public static final int WELL_FED_TICKS = 12;
+        public static final int WELL_FED_TICKS = 11;
         public static final int STABLE_HUNGER = 18;
         public static final float STABLE_SATURATION = 0;
         public static final int WELL_FED_HUNGER = 20;

@@ -34,6 +34,9 @@ public class VanillaPackGameTests {
             helper.assertTrue(match.definition().orElseThrow().source().id().getNamespace().equals("buildup_vitals"),
                     "Test fixture must not replace official food: " + id);
             var profile = match.profile();
+            helper.assertTrue(profile.recoveryHealth() == 0 || (profile.recoveryHealth() >= 1
+                    && profile.recoveryHealth() == Math.rint(profile.recoveryHealth())),
+                    "Official base recovery is zero or integer HP of at least one: " + id);
             helper.assertTrue(profile.recoveryHealth() <= 4 && profile.quality() != FoodQuality.FEAST,
                     "Vanilla prototype uses modest recovery and no artificial Feast: " + id);
             helper.assertTrue(profile.overrides().hunger().isEmpty() && profile.overrides().saturation().isEmpty(),
@@ -59,7 +62,7 @@ public class VanillaPackGameTests {
                         "Repeated staples retain nutrition");
                 helper.assertTrue(Math.abs(player.getFoodData().getSaturationLevel() - food.saturation()) < 0.0001,
                         "Repeated staples retain saturation");
-                double base = item == Items.BREAD ? 0.5 : 1;
+                double base = 1;
                 helper.assertTrue(PlayerRecovery.state(player).reserve() == Math.min(20, base * (meal + 1)) && PlayerMealBenefits.state(player).type().isEmpty(),
                         "Basic staples grant modest v2 recovery without buffs");
             }
@@ -125,7 +128,7 @@ public class VanillaPackGameTests {
                 var fed = player(helper);
                 fed.getFoodData().setFoodLevel(20);
                 fed.getFoodData().setSaturation(10);
-                ticks(fed, 11);
+                ticks(fed, 10);
                 helper.assertTrue(fed.getHealth() == 10, "No vanilla fast food heal: " + difficulty);
                 ticks(fed, 1);
                 helper.assertTrue(fed.getHealth() == 11, "Background recovery works: " + difficulty);

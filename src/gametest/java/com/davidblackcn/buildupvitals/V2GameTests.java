@@ -133,8 +133,8 @@ public class V2GameTests {
 
     @GameTest public void recoveryMathAndLegacyProgress(GameTestHelper helper) {
         var p=player(helper);p.getFoodData().setFoodLevel(20);p.getFoodData().setSaturation(3);
-        ticks(p,11);helper.assertTrue(p.getHealth()==10,"No early heal");ticks(p,1);
-        helper.assertTrue(p.getHealth()==10.5,"Continuous saturation heal after 12 ticks");
+        ticks(p,10);helper.assertTrue(p.getHealth()==10,"No early heal");ticks(p,1);
+        helper.assertTrue(p.getHealth()==10.5,"Continuous saturation heal after 11 ticks");
         var old=RecoveryAttachments.CODEC.parse(JsonOps.INSTANCE,JsonParser.parseString("{\"reserve\":3,\"progress\":119,\"mode\":\"stable\"}")).getOrThrow();
         helper.assertTrue(old.reserve()==3 && old.progress()==79,"Legacy progress safely clamped");helper.succeed();
     }

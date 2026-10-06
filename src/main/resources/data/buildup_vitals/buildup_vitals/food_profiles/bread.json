@@ -10,7 +10,7 @@
     ]
   },
   "recovery": {
-    "health": 0.5
+    "health": 1
   },
   "hydration": {
     "thirst": 1,

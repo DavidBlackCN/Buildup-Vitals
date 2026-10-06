@@ -11,7 +11,7 @@
     "variety_group": "minecraft:fish"
   },
   "recovery": {
-    "health": 0.5
+    "health": 0
   },
   "hydration": {
     "thirst": 2,

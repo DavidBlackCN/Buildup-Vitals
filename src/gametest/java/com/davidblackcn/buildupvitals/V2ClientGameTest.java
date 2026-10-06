@@ -62,7 +62,7 @@ public class V2ClientGameTest implements FabricClientGameTest {
         context.runOnClient(client -> { client.options.keyUse.setDown(false); client.gameMode.releaseUsingItem(client.player); });
         server.runOnServer(instance -> {
             var player = connection.getServerPlayer();
-            check(PlayerOvereat.state(player).load() == 2 && PlayerRecovery.state(player).reserve() == .5, "Completed animation consumes once at full hunger");
+            check(PlayerOvereat.state(player).load() == 2 && PlayerRecovery.state(player).reserve() == 0, "Dry cookie completes once without recovery at full hunger");
             player.addEffect(new MobEffectInstance(BuildupEffects.RESTORATIVE, 1200, 0, false, false, true));
             player.addEffect(new MobEffectInstance(BuildupEffects.OVERFULL, 1200, 0, false, false, true));
         });

@@ -93,7 +93,7 @@ public class DietGameTests {
         player.getFoodData().setSaturation(10);
         if (com.davidblackcn.buildupvitals.hydration.HydrationAdapter.enabled()) ThirstTestSupport.prepareRecoveryFixture(player);
         int interval = PlayerDiet.state(player).variety().wellFedInterval();
-        helper.assertTrue(interval <= 12 && interval >= 11, "Diverse diet has bounded Well-fed speed bonus");
+        helper.assertTrue(interval == 11, "Sub-tick variety bonus retains an 11 tick first pulse");
         ticks(player, interval - 1);
         helper.assertTrue(player.getHealth() == 10, "No early healing");
         ticks(player, 1);
@@ -117,7 +117,7 @@ public class DietGameTests {
         }
         var memory = PlayerDiet.state(player);
         helper.assertTrue(memory.variety().foodMultiplier() == 1 && memory.variety().benefitMultiplier() == 1
-                && memory.variety().wellFedInterval() == 12, "Repeated basic diet returns to full baseline");
+                && memory.variety().wellFedInterval() == 11, "Repeated basic diet returns to full baseline");
         helper.assertTrue(PlayerDiet.state(player(helper)).equals(DietMemory.EMPTY), "No history leaks to other players");
         for (var mode : new GameType[]{GameType.CREATIVE, GameType.SPECTATOR}) {
             var inactive = player(helper, mode);

@@ -117,7 +117,7 @@ public class MealBenefitGameTests {
         grant(natural, MealBenefitType.INVIGORATED, 1200);
         natural.getFoodData().setFoodLevel(20);
         natural.getFoodData().setSaturation(10);
-        ticks(natural, 12);
+        ticks(natural, 11);
         helper.assertTrue(natural.getHealth() == 11, "Natural healing timing remains unchanged");
         near(helper, exhaustion(natural), 6, "Natural recovery pays its full exhaustion cost");
         helper.succeed();

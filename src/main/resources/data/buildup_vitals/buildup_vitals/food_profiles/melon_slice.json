@@ -15,7 +15,7 @@
     "variety_group": "minecraft:melon_slice"
   },
   "recovery": {
-    "health": 0.5
+    "health": 1
   },
   "consumption": {
     "speed": "fast"

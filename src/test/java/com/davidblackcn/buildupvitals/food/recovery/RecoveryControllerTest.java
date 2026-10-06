@@ -15,7 +15,7 @@ class RecoveryControllerTest {
     @ParameterizedTest
     @CsvSource({"1,0.16666667", "2,0.33333333", "3,0.5", "6,1", "12,1"})
     void continuousSaturation(float saturation, float expected) {
-        var step = RecoveryController.tick(new RecoveryState(0, 11, Mode.WELL_FED), c(20, saturation, true));
+        var step = RecoveryController.tick(new RecoveryState(0, 10, Mode.WELL_FED), c(20, saturation, true));
         assertEquals(expected, step.healing(), 1e-6);
         assertEquals(expected * 6, step.exhaustion(step.healing()), 1e-5);
         assertEquals(0, step.exhaustion(0));
@@ -62,11 +62,11 @@ class RecoveryControllerTest {
             var step = RecoveryController.tick(state, c(20, 6, true), 12, 1.075, true);
             total += step.healing(); state = step.state();
         }
-        assertEquals(107, total);
+        assertEquals(117, total);
     }
     @Test
     void foodAddedBeforeNaturalPulseDoesNotRestartClock() {
-        var state = new RecoveryState(0, 11, Mode.WELL_FED).addFood(3);
+        var state = new RecoveryState(0, 10, Mode.WELL_FED).addFood(3);
         var step = RecoveryController.tick(state, c(20, 6, true));
         assertEquals(1, step.healing());
         assertEquals(2, step.settle(1).reserve());
@@ -111,6 +111,9 @@ class RecoveryControllerTest {
         var old = RecoveryState.CODEC.parse(JsonOps.INSTANCE, JsonParser.parseString(
                 "{\"reserve\":3,\"progress\":119,\"mode\":\"stable\"}")).getOrThrow();
         assertEquals(3, old.reserve()); assertEquals(79, old.progress());
+        var wellFed = RecoveryState.CODEC.parse(JsonOps.INSTANCE, JsonParser.parseString(
+                "{\"reserve\":0,\"progress\":11,\"mode\":\"well_fed\"}")).getOrThrow();
+        assertEquals(10, wellFed.progress()); // The prior 12-tick clock remains loadable after tuning.
         var state = new RecoveryState(1.5, 11.75, Mode.FOOD);
         assertEquals(state, RecoveryState.CODEC.parse(JsonOps.INSTANCE,
                 RecoveryState.CODEC.encodeStart(JsonOps.INSTANCE, state).getOrThrow()).getOrThrow());

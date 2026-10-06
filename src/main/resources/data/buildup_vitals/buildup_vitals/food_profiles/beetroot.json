@@ -11,7 +11,7 @@
     "variety_group": "minecraft:beetroot"
   },
   "recovery": {
-    "health": 0.5
+    "health": 1
   },
   "hydration": {
     "thirst": 3,

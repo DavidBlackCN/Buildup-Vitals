@@ -95,10 +95,10 @@ final class ThirstTestSupport {
             for (int i = 0; i < 40; i++) ThirstManager.tickPlayer(player);
             check(player.getHealth() == 10, "No independent quenched healing");
             check(com.davidblackcn.buildupvitals.food.recovery.PlayerRecovery.naturalSpeed(player) == 1.15, "Full thirst grants natural speed");
-            for (int i = 0; i < 10; i++) com.davidblackcn.buildupvitals.food.recovery.PlayerRecovery.tick(player);
+            for (int i = 0; i < 9; i++) com.davidblackcn.buildupvitals.food.recovery.PlayerRecovery.tick(player);
             check(player.getHealth() == 10, "Fractional interval never heals early");
             com.davidblackcn.buildupvitals.food.recovery.PlayerRecovery.tick(player);
-            check(player.getHealth() == 11, "Single Buildup heal on tick 11");
+            check(player.getHealth() == 11, "Single Buildup heal at the 10 tick cap");
             ThirstManager.set(player, new ThirstData(19, 6, 0, true));
             check(com.davidblackcn.buildupvitals.food.recovery.PlayerRecovery.naturalSpeed(player) == 1, "Requires full thirst");
         } finally { config.foods = foods; config.itemBlacklist = blacklist; ThirstApi.clearCache(); }
@@ -108,6 +108,12 @@ final class ThirstTestSupport {
         // tests that measure only Buildup's recovery clock. Stew leaves thirst below full.
         ThirstManager.set(player, new ThirstData(10, 0, 0, true));
     }
+
+    static void prepareBalanceFixture(ServerPlayer player, boolean quenched) {
+        ThirstManager.set(player, new ThirstData(quenched ? 20 : 10, quenched ? 20 : 0, 0, true));
+    }
+
+    static void tickBalanceFixture(ServerPlayer player) { ThirstManager.tickPlayer(player); }
 
     static void exercise(ServerPlayer player) {
         if (!listenerRegistered) {
