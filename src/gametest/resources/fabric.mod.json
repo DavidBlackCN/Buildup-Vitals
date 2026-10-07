@@ -11,6 +11,7 @@
     ],
     "fabric-gametest": [
       "com.davidblackcn.buildupvitals.CookeryGameTests",
+      "com.davidblackcn.buildupvitals.TavernGameTests",
       "com.davidblackcn.buildupvitals.RecoveryGameTests",
       "com.davidblackcn.buildupvitals.MealBenefitGameTests",
       "com.davidblackcn.buildupvitals.DietGameTests",
@@ -29,7 +30,8 @@
       "com.davidblackcn.buildupvitals.HydrationClientGameTest",
       "com.davidblackcn.buildupvitals.FarmersDelightClientGameTest",
       "com.davidblackcn.buildupvitals.MoreDelightClientGameTest",
-      "com.davidblackcn.buildupvitals.KaleidoscopeClientGameTest"
+      "com.davidblackcn.buildupvitals.KaleidoscopeClientGameTest",
+      "com.davidblackcn.buildupvitals.TavernClientGameTest"
     ]
   }
 }

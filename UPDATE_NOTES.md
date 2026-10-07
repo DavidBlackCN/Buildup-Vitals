@@ -23,3 +23,4 @@
 - ✨ feat(compat): 可选支持 More Delight 26.09.16-26.3-fabric 的全部31种食品，补齐恢复、补水、质量、进食速度与饮食分组；沿用FD滋养的互斥和积食约束，保留原生时长、沙拉再生及容器，支持数据包覆盖并验证TWT2、AppleSkin与Iris组合。
 
 - ✨ feat(compat): add optional Kaleidoscope Cookery profiles, Vigor semantics, budgeted Satiated Shield and controller-based Warmth; integrate tea and portioned block-food consumption.
+- ✨ feat(compat): integrate Kaleidoscope Tavern drink profiles and bounded cuisine effects

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_tavern:glowflower_brew"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 3,
+    "quenched": 3
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [],
+    "variety_group": "buildup_vitals:wine"
+  },
+  "traits": [
+    "drink"
+  ]
+}

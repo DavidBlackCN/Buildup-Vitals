@@ -15,14 +15,16 @@ public final class KaleidoscopeTooltips {
     public static boolean hasProfile(ItemStack stack) {
         var id = BuiltInRegistries.ITEM.getKey(stack.getItem());
         return KaleidoscopeVersion.TESTED.keySet().stream().anyMatch(module -> id.getNamespace().equals("kaleidoscope_" + module))
-                && !id.getPath().equals("transmutation_lunch_bag")
+                && !id.getPath().equals("transmutation_lunch_bag") && !id.getPath().equals("empty_glassware")
                 && ClientFoodProfiles.find(id).filter(profile -> profile.profileId().isPresent()).isPresent();
     }
     public static boolean suppress(ItemStack stack, Component line) {
-        if (!hasProfile(stack) || !KaleidoscopeVersion.supported("cookery")
-                || !BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace().equals("kaleidoscope_cookery")) return false;
+        String namespace = BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace();
+        boolean cookery = namespace.equals("kaleidoscope_cookery") && KaleidoscopeVersion.supported("cookery");
+        boolean tavern = namespace.equals("kaleidoscope_tavern") && KaleidoscopeVersion.supported("tavern");
+        if (!hasProfile(stack) || (!cookery && !tavern)) return false;
         if (!(line.getContents() instanceof TranslatableContents text)) return false;
-        if (text.getKey().equals("effect.kaleidoscope_cookery.vigor") || text.getKey().equals("effect.minecraft.regeneration")) return true;
+        if (cookery && text.getKey().equals("effect.kaleidoscope_cookery.vigor") || text.getKey().equals("effect.minecraft.regeneration") || tavern && text.getKey().equals("effect.minecraft.instant_health")) return true;
         if (text.getKey().equals("potion.withDuration") || text.getKey().equals("potion.withAmplifier")) {
             for (var arg : text.getArgs()) if (arg instanceof Component component && suppress(stack, component)) return true;
         }

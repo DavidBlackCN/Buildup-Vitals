@@ -42,7 +42,8 @@ public final class PlayerRecovery {
         if (com.davidblackcn.buildupvitals.food.overeating.PlayerOvereat.overfull(player)) return;
         RecoveryState before = state(player);
         // Clamp before multiplication so even a finite Double.MAX_VALUE profile cannot overflow.
-        double recovery = Math.min(RecoveryBalance.MAX_RESERVE, profile.recoveryHealth()) * portion * variety.foodMultiplier();
+        double recovery = Math.min(RecoveryBalance.MAX_RESERVE, Math.min(RecoveryBalance.MAX_RESERVE, profile.recoveryHealth())
+                + com.davidblackcn.buildupvitals.compat.kaleidoscope.common.CuisineEffectAdapter.recovery(stack)) * portion * variety.foodMultiplier();
         store(player, before, before.addFood(recovery));
         PlayerMealBenefits.foodConsumed(player, profile, variety.benefitMultiplier(), stack, portion);
     }
@@ -67,6 +68,15 @@ public final class PlayerRecovery {
             food.addExhaustion(exhaustion);
         }
         store(player, before, step.settle(gained));
+    }
+
+    /** A reviewed cuisine effect supplies reserve, never a second healing clock or diet event. */
+    public static void addReserve(ServerPlayer player, double amount) {
+        if (!Double.isFinite(amount) || amount < 0) throw new IllegalArgumentException("Invalid cuisine reserve");
+        if (!com.davidblackcn.buildupvitals.food.overeating.PlayerOvereat.active(player)
+                || com.davidblackcn.buildupvitals.food.overeating.PlayerOvereat.overfull(player)) return;
+        var before = state(player);
+        store(player, before, before.addFood(Math.min(RecoveryBalance.MAX_RESERVE, amount)));
     }
 
     public static double naturalSpeed(ServerPlayer player) {

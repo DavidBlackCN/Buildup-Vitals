@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_tavern:glow_berries_bucket"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 8,
+    "quenched": 8
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [],
+    "variety_group": "buildup_vitals:berry_juice"
+  },
+  "traits": [
+    "drink"
+  ]
+}

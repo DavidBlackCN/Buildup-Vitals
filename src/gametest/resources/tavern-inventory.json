@@ -1,0 +1,202 @@
+[
+  {
+    "id": "empty_glassware",
+    "class": "GlasswareBlockItem"
+  },
+  {
+    "id": "signature_cocktail",
+    "class": "SignatureCocktailBlockItem"
+  },
+  {
+    "id": "mystery_cocktail",
+    "class": "CocktailBlockItem"
+  },
+  {
+    "id": "white_lady",
+    "class": "CocktailBlockItem"
+  },
+  {
+    "id": "emerald",
+    "class": "CocktailBlockItem"
+  },
+  {
+    "id": "brass_heart",
+    "class": "CocktailBlockItem"
+  },
+  {
+    "id": "godfather",
+    "class": "CocktailBlockItem"
+  },
+  {
+    "id": "grasshopper",
+    "class": "CocktailBlockItem"
+  },
+  {
+    "id": "screwdriver",
+    "class": "CocktailBlockItem"
+  },
+  {
+    "id": "mojito",
+    "class": "CocktailBlockItem"
+  },
+  {
+    "id": "allium_garden",
+    "class": "CocktailBlockItem"
+  },
+  {
+    "id": "depth_charge",
+    "class": "CocktailBlockItem"
+  },
+  {
+    "id": "nether_special",
+    "class": "CocktailBlockItem"
+  },
+  {
+    "id": "bloody_mary",
+    "class": "CocktailBlockItem"
+  },
+  {
+    "id": "sculk_special",
+    "class": "CocktailBlockItem"
+  },
+  {
+    "id": "grape",
+    "class": "TooltipItem"
+  },
+  {
+    "id": "ice_grape",
+    "class": "TooltipItem"
+  },
+  {
+    "id": "gold_grape",
+    "class": "TooltipItem"
+  },
+  {
+    "id": "green_grape",
+    "class": "TooltipItem"
+  },
+  {
+    "id": "wine",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "champagne",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "vodka",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "brandy",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "carignan",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "sakura_wine",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "plum_wine",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "whiskey",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "ice_wine",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "vinegar",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "polaris_sweet_white",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "honey_wine",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "red_queen",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "miners_star",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "rum",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "riesling_dry_white",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "sunset_glow",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "madame_shexiang",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "sweet_berry_wine",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "sherry",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "mother_snow",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "luminous_bride",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "glowflower_brew",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "sauvignon_blanc_dry_white",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "watermelon_juice",
+    "class": "DrinkBlockItem"
+  },
+  {
+    "id": "grape_bucket",
+    "class": "JuiceBucketItem"
+  },
+  {
+    "id": "ice_grape_bucket",
+    "class": "JuiceBucketItem"
+  },
+  {
+    "id": "gold_grape_bucket",
+    "class": "JuiceBucketItem"
+  },
+  {
+    "id": "green_grape_bucket",
+    "class": "JuiceBucketItem"
+  },
+  {
+    "id": "sweet_berries_bucket",
+    "class": "JuiceBucketItem"
+  },
+  {
+    "id": "glow_berries_bucket",
+    "class": "JuiceBucketItem"
+  }
+]

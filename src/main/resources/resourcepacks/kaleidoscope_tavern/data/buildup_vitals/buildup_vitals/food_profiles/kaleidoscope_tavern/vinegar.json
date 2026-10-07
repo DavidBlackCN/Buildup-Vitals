@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_tavern:vinegar"
+  },
+  "quality": "basic",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 0,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [],
+    "variety_group": "buildup_vitals:wine"
+  },
+  "traits": [
+    "drink"
+  ]
+}

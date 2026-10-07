@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_tavern:green_grape"
+  },
+  "quality": "basic",
+  "recovery": {
+    "health": 1
+  },
+  "hydration": {
+    "thirst": 4,
+    "quenched": 2
+  },
+  "consumption": {
+    "speed": "quick"
+  },
+  "diet": {
+    "categories": [
+      "fruit"
+    ],
+    "variety_group": "buildup_vitals:grape"
+  },
+  "traits": []
+}

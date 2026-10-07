@@ -27,11 +27,11 @@ public final class FoodTooltips {
             if (!KaleidoscopeTooltips.hasProfile(stack) && ((!stack.has(DataComponents.FOOD)
                     && !com.davidblackcn.buildupvitals.compat.farmersdelight.FarmersDelightCompatibility.beverage(stack)) || !stack.has(DataComponents.CONSUMABLE))) return;
             var item = BuiltInRegistries.ITEM.getKey(stack.getItem());
-            ClientFoodProfiles.find(item).ifPresent(profile -> append(profile, flag.isAdvanced(), lines));
+            ClientFoodProfiles.find(item).ifPresent(profile -> append(profile, com.davidblackcn.buildupvitals.compat.kaleidoscope.common.CuisineEffectAdapter.recovery(stack), flag.isAdvanced(), lines));
         });
     }
 
-    private static void append(TooltipProfile profile, boolean advanced, List<Component> lines) {
+    private static void append(TooltipProfile profile, double cuisineRecovery, boolean advanced, List<Component> lines) {
         ChatFormatting qualityColor = switch (profile.quality()) {
             case BASIC -> ChatFormatting.GRAY;
             case PREPARED -> ChatFormatting.GREEN;
@@ -39,8 +39,8 @@ public final class FoodTooltips {
             case FEAST -> ChatFormatting.LIGHT_PURPLE;
         };
         lines.add(Component.translatable(PREFIX + "quality." + profile.quality().id()).withStyle(qualityColor));
-        if (profile.recovery() >= RecoveryBalance.MIN_RESERVE) {
-            String amount = BigDecimal.valueOf(Math.min(RecoveryBalance.MAX_RESERVE, profile.recovery()))
+        if (profile.recovery() + cuisineRecovery >= RecoveryBalance.MIN_RESERVE) {
+            String amount = BigDecimal.valueOf(Math.min(RecoveryBalance.MAX_RESERVE, profile.recovery() + cuisineRecovery))
                     .setScale(6, RoundingMode.HALF_UP).stripTrailingZeros().toPlainString();
             lines.add(Component.translatable(PREFIX + "recovery", icon("minecraft:hud/heart/full"), amount).withStyle(ChatFormatting.DARK_GREEN));
         }

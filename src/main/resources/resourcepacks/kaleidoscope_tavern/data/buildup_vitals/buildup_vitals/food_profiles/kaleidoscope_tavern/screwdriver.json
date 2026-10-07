@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_tavern:screwdriver"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 5,
+    "quenched": 4
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [],
+    "variety_group": "buildup_vitals:cocktail"
+  },
+  "traits": [
+    "drink"
+  ]
+}

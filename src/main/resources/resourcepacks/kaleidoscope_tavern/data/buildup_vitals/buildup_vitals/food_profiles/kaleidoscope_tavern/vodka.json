@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_tavern:vodka"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 2,
+    "quenched": 1
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [],
+    "variety_group": "buildup_vitals:spirits"
+  },
+  "traits": [
+    "drink"
+  ]
+}

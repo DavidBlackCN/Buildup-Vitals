@@ -24,4 +24,13 @@ class CuisineEffectBudgetTest {
             assertEquals(total,sum);
         }
     }
+    @Test void tavernBudgetsRemainFiniteAndDiminishing() {
+        assertEquals(250, CuisineEffectBudget.mergedDuration(java.util.List.of(200,100)));
+        assertEquals(200, CuisineEffectBudget.mergedDuration(java.util.List.of(200)));
+        assertEquals(3221225470L, CuisineEffectBudget.mergedDuration(java.util.List.of(Integer.MAX_VALUE,Integer.MAX_VALUE)));
+        for(int level=0;level<=6;level++) assertEquals(Math.max(0,level-1),CuisineEffectBudget.brewRecovery(level));
+        assertEquals(.4,CuisineEffectBudget.killRecovery(4)); assertEquals(2,CuisineEffectBudget.killRecovery(500));
+        assertEquals(new CuisineEffectBudget.Limit(0,300),CuisineEffectBudget.tavern("minecraft:resistance",99));
+        assertEquals(new CuisineEffectBudget.Limit(1,60),CuisineEffectBudget.tavern("minecraft:strength",99));
+    }
 }

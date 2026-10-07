@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_tavern:grape_bucket"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 8,
+    "quenched": 8
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [],
+    "variety_group": "buildup_vitals:grape"
+  },
+  "traits": [
+    "drink"
+  ]
+}
