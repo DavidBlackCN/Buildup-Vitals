@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public final class KaleidoscopeMixinPlugin implements IMixinConfigPlugin {
     @Override public boolean shouldApplyMixin(String target, String mixin) {
+        if (target.startsWith("com.github.ysbbbbbb.kaleidoscopecookery.") && !KaleidoscopeVersion.supported("cookery")) return false;
         if (!mixin.contains(".kaleidoscope.")) return false;
         String module = mixin.substring(mixin.indexOf(".kaleidoscope.") + ".kaleidoscope.".length()).split("\\.")[0];
         return module.equals("common") ? KaleidoscopeVersion.TESTED.keySet().stream().anyMatch(KaleidoscopeVersion::supported)

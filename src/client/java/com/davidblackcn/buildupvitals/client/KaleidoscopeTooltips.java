@@ -21,11 +21,12 @@ public final class KaleidoscopeTooltips {
     public static boolean suppress(ItemStack stack, Component line) {
         String namespace = BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace();
         boolean cookery = namespace.equals("kaleidoscope_cookery") && KaleidoscopeVersion.supported("cookery");
+        boolean end = namespace.equals("kaleidoscope_end") && KaleidoscopeVersion.supported("end");
         boolean nether = namespace.equals("kaleidoscope_nether") && KaleidoscopeVersion.supported("nether");
         boolean tavern = namespace.equals("kaleidoscope_tavern") && KaleidoscopeVersion.supported("tavern");
-        if (!hasProfile(stack) || (!cookery && !tavern && !nether)) return false;
+        if (!hasProfile(stack) || (!cookery && !tavern && !nether && !end)) return false;
         if (!(line.getContents() instanceof TranslatableContents text)) return false;
-        if ((cookery || nether) && text.getKey().equals("effect.kaleidoscope_cookery.vigor") || text.getKey().equals("effect.minecraft.regeneration") || tavern && text.getKey().equals("effect.minecraft.instant_health")) return true;
+        if ((cookery || nether || end) && text.getKey().equals("effect.kaleidoscope_cookery.vigor") || text.getKey().equals("effect.minecraft.regeneration") || tavern && text.getKey().equals("effect.minecraft.instant_health")) return true;
         if (text.getKey().equals("potion.withDuration") || text.getKey().equals("potion.withAmplifier")) {
             for (var arg : text.getArgs()) if (arg instanceof Component component && suppress(stack, component)) return true;
         }

@@ -1,0 +1,266 @@
+[
+  {
+    "id": "dragon_breath_popping_candy",
+    "class": "Item",
+    "nutrition": 1,
+    "bites": 0
+  },
+  {
+    "id": "dragon_breath_chorus_soup",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 16,
+    "bites": 0
+  },
+  {
+    "id": "stuffed_shulker",
+    "class": "ShulkerShellFoodItem",
+    "nutrition": 13,
+    "bites": 0
+  },
+  {
+    "id": "chorus_pasta",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "raw_ender_dragon_meat",
+    "class": "Item",
+    "nutrition": 8,
+    "bites": 0
+  },
+  {
+    "id": "cooked_ender_dragon_meat",
+    "class": "Item",
+    "nutrition": 16,
+    "bites": 0
+  },
+  {
+    "id": "dream_berry",
+    "class": "KEBlockItem",
+    "nutrition": 2,
+    "bites": 0
+  },
+  {
+    "id": "mint_chorus_mousse",
+    "class": "FoodWithEffectsItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "optic_nerve",
+    "class": "Item",
+    "nutrition": 4,
+    "bites": 0
+  },
+  {
+    "id": "shulker_shell_meat",
+    "class": "Item",
+    "nutrition": 3,
+    "bites": 0
+  },
+  {
+    "id": "shulker_shell_stew",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "shulker_ice_cream",
+    "class": "ShulkerShellFoodItem",
+    "nutrition": 6,
+    "bites": 0
+  },
+  {
+    "id": "void_conch_noodle_soup",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 14,
+    "bites": 0
+  },
+  {
+    "id": "stir_fried_endermite_meat",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "stir_fried_endermite_meat_rice_bowl",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 14,
+    "bites": 0
+  },
+  {
+    "id": "raw_endermite_meat",
+    "class": "Item",
+    "nutrition": 2,
+    "bites": 0
+  },
+  {
+    "id": "roasted_endermite_meat",
+    "class": "Item",
+    "nutrition": 6,
+    "bites": 0
+  },
+  {
+    "id": "end_caterpillar",
+    "class": "Item",
+    "nutrition": 18,
+    "bites": 0
+  },
+  {
+    "id": "dragon_breath_mixed_stew",
+    "class": "ShulkerShellFoodItem",
+    "nutrition": 20,
+    "bites": 0
+  },
+  {
+    "id": "mint_noodle_soup",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 14,
+    "bites": 0
+  },
+  {
+    "id": "mint_sauce_shulker_meat",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "mint_sauce_shulker_meat_rice_bowl",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 14,
+    "bites": 0
+  },
+  {
+    "id": "ender_mint_candy",
+    "class": "FoodWithEffectsItem",
+    "nutrition": 2,
+    "bites": 0
+  },
+  {
+    "id": "dragon_souffle",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "dragon_egg_liquid",
+    "class": "Item",
+    "nutrition": 3,
+    "bites": 0
+  },
+  {
+    "id": "chorus_seed",
+    "class": "Item",
+    "nutrition": 1,
+    "bites": 0
+  },
+  {
+    "id": "fried_dragon_egg",
+    "class": "FoodWithEffectsItem",
+    "nutrition": 18,
+    "bites": 0
+  },
+  {
+    "id": "chorus_flower_soup",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 6,
+    "bites": 0
+  },
+  {
+    "id": "chorus_flower_cake",
+    "class": "FoodWithEffectsItem",
+    "nutrition": 8,
+    "bites": 0
+  },
+  {
+    "id": "chorus_seed_cookie",
+    "class": "FoodWithEffectsItem",
+    "nutrition": 4,
+    "bites": 0
+  },
+  {
+    "id": "stuffed_void_conch",
+    "class": "FoodWithEffectsItem",
+    "nutrition": 12,
+    "bites": 0
+  },
+  {
+    "id": "chorus_flower_tea",
+    "class": "TeacupItem",
+    "nutrition": 0,
+    "bites": 0
+  },
+  {
+    "id": "ender_dragon_tea",
+    "class": "TeacupItem",
+    "nutrition": 0,
+    "bites": 0
+  },
+  {
+    "id": "void_tea",
+    "class": "TeacupItem",
+    "nutrition": 0,
+    "bites": 0
+  },
+  {
+    "id": "ender_mint_tea",
+    "class": "TeacupItem",
+    "nutrition": 0,
+    "bites": 0
+  },
+  {
+    "id": "optic_nerve_sweet_and_sour_pork",
+    "class": "KEBowlFoodBlockItem",
+    "nutrition": 14,
+    "bites": 3
+  },
+  {
+    "id": "dark_dragon_egg_stew",
+    "class": "KEBowlFoodBlockItem",
+    "nutrition": 16,
+    "bites": 4
+  },
+  {
+    "id": "end_salad",
+    "class": "KEBowlFoodBlockItem",
+    "nutrition": 10,
+    "bites": 3
+  },
+  {
+    "id": "dragon_head_with_sauce",
+    "class": "KEBowlFoodBlockItem",
+    "nutrition": 24,
+    "bites": 6
+  },
+  {
+    "id": "void_mutton_steak",
+    "class": "KEBowlFoodBlockItem",
+    "nutrition": 16,
+    "bites": 3
+  },
+  {
+    "id": "end_caterpillar_sashimi",
+    "class": "KEBowlFoodBlockItem",
+    "nutrition": 5,
+    "bites": 3
+  },
+  {
+    "id": "dragon_egg_ice_cream",
+    "class": "KEBowlFoodBlockItem",
+    "nutrition": 16,
+    "bites": 3
+  },
+  {
+    "id": "dragon_egg_custard",
+    "class": "KEBowlFoodBlockItem",
+    "nutrition": 20,
+    "bites": 4
+  },
+  {
+    "id": "dark_dragon_steak",
+    "class": "KEBowlFoodBlockItem",
+    "nutrition": 24,
+    "bites": 4
+  }
+]

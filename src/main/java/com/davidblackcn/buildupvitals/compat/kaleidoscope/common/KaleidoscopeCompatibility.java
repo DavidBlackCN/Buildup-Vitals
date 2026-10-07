@@ -23,6 +23,7 @@ public final class KaleidoscopeCompatibility {
                     "Unsupported {} version: profiles available, deep cuisine bridge DISABLED (tested {})", id, entry.getValue());
         }
         if (KaleidoscopeVersion.supported("cookery")) CookeryEffects.register();
+        if (KaleidoscopeVersion.supported("end")) com.davidblackcn.buildupvitals.compat.kaleidoscope.end.EndEffects.register();
         if (KaleidoscopeVersion.supported("nether")) com.davidblackcn.buildupvitals.compat.kaleidoscope.nether.NetherEffects.register();
         if (KaleidoscopeVersion.supported("tavern")) com.davidblackcn.buildupvitals.compat.kaleidoscope.tavern.TavernEffects.register();
     }

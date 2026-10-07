@@ -39,13 +39,16 @@ public abstract class FoodBiteMixin {
         if (!(user instanceof ServerPlayer player) || !cir.getReturnValue().consumesAction()) return;
         var stack = ((Block) (Object) this).asItem().getDefaultInstance();
         // Cookery's bite path applies only effects.getFirst(). Bridge a profile's main effect
-        // from later entries too; leave all unrelated secondary effects exactly as upstream.
+        // from later entries too. End also needs its reviewed secondary mythic slot applied.
         for (var action : consumable.onConsumeEffects()) {
             if (action instanceof net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect applied) {
-                for (var effect : applied.effects().stream().skip(1).toList()) {
+                for (var raw : applied.effects().stream().skip(1).toList()) {
+                    var effect = com.davidblackcn.buildupvitals.compat.kaleidoscope.common.CuisineEffectAdapter.review(stack, raw);
+                    if (effect == null) continue;
                     var id = net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.getKey(effect.getEffect().value());
-                    if (com.davidblackcn.buildupvitals.compat.kaleidoscope.common.CuisineEffectAdapter.isForeignCuisineEffect(id)
+                    if ((com.davidblackcn.buildupvitals.compat.kaleidoscope.common.CuisineEffectAdapter.isForeignCuisineEffect(id)
                             && com.davidblackcn.buildupvitals.food.benefit.ForeignMealBenefits.registered(id)
+                            || com.davidblackcn.buildupvitals.compat.kaleidoscope.common.KaleidoscopeVersion.supported("end") && net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace().equals("kaleidoscope_end"))
                             && CuisineConsumption.allowEffect(player, stack, effect) && level.getRandom().nextFloat() < applied.probability()) {
                         player.addEffect(new MobEffectInstance(effect));
                     }
@@ -72,6 +75,8 @@ public abstract class FoodBiteMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;addEffect(Lnet/minecraft/world/effect/MobEffectInstance;)Z"))
     private boolean buildupVitals$mainBenefit(Player user, MobEffectInstance effect, Operation<Boolean> original,
                                              Level level, BlockPos pos, BlockState state, Player player) {
+        effect = com.davidblackcn.buildupvitals.compat.kaleidoscope.common.CuisineEffectAdapter.review(((Block) (Object) this).asItem().getDefaultInstance(), effect);
+        if (effect == null) return false;
         if (user instanceof ServerPlayer server && !CuisineConsumption.allowEffect(server,
                 ((Block) (Object) this).asItem().getDefaultInstance(), effect)) return false;
         return original.call(user, effect);

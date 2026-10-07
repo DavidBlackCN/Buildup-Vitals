@@ -36,6 +36,7 @@ dependencies {
     compileOnly "maven.modrinth:thirst-was-taken-2:${project.thirst_version}"
     compileOnly "maven.modrinth:farmers-delight-refabricated:${project.farmers_delight_version}"
     compileOnly "maven.modrinth:kaleidoscope-cookery-refabricated:${project.kaleidoscope_cookery_version}"
+    compileOnly "maven.modrinth:kaleidoscope-end-refabricated:${project.kaleidoscope_end_version}"
     compileOnly "maven.modrinth:kaleidoscope-nether-refabricated:${project.kaleidoscope_nether_version}"
     compileOnly "maven.modrinth:kaleidoscope-tavern-refabricated:${project.kaleidoscope_tavern_version}"
 
@@ -62,6 +63,13 @@ fabricApi {
 dependencies {
     gametestCompileOnly "maven.modrinth:thirst-was-taken-2:${project.thirst_version}"
     gametestCompileOnly "maven.modrinth:kaleidoscope-cookery-refabricated:${project.kaleidoscope_cookery_version}"
+    gametestCompileOnly "maven.modrinth:kaleidoscope-end-refabricated:${project.kaleidoscope_end_version}"
+    if (providers.gradleProperty('withEnd').map { it.toBoolean() }.getOrElse(false)) {
+        localRuntime "maven.modrinth:kaleidoscope-end-refabricated:${project.kaleidoscope_end_version}"
+        gametestRuntimeOnly "maven.modrinth:kaleidoscope-end-refabricated:${project.kaleidoscope_end_version}"
+        localRuntime "maven.modrinth:forge-config-api-port:${project.forge_config_api_version}"
+        gametestRuntimeOnly "maven.modrinth:forge-config-api-port:${project.forge_config_api_version}"
+    }
     gametestCompileOnly "maven.modrinth:kaleidoscope-nether-refabricated:${project.kaleidoscope_nether_version}"
     if (providers.gradleProperty('withNether').map { it.toBoolean() }.getOrElse(false)) {
         // Required by the upstream Nether release but omitted from its fabric.mod.json.
@@ -75,7 +83,7 @@ dependencies {
         localRuntime "maven.modrinth:kaleidoscope-tavern-refabricated:${project.kaleidoscope_tavern_version}"
         gametestRuntimeOnly "maven.modrinth:kaleidoscope-tavern-refabricated:${project.kaleidoscope_tavern_version}"
     }
-    if (providers.gradleProperty('withCookery').map { it.toBoolean() }.getOrElse(false) || providers.gradleProperty('withNether').map { it.toBoolean() }.getOrElse(false)) {
+    if (providers.gradleProperty('withCookery').map { it.toBoolean() }.getOrElse(false) || providers.gradleProperty('withNether').map { it.toBoolean() }.getOrElse(false) || providers.gradleProperty('withEnd').map { it.toBoolean() }.getOrElse(false)) {
         localRuntime "maven.modrinth:kaleidoscope-cookery-refabricated:${project.kaleidoscope_cookery_version}"
         gametestRuntimeOnly "maven.modrinth:kaleidoscope-cookery-refabricated:${project.kaleidoscope_cookery_version}"
     }

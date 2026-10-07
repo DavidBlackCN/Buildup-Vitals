@@ -23,6 +23,7 @@
     "buildup_vitals.cookery.mixins.json",
     "buildup_vitals.tavern.mixins.json",
     "buildup_vitals.nether.mixins.json",
+    "buildup_vitals.end.mixins.json",
     "buildup_vitals.thirst.mixins.json",
     "buildup_vitals.farmersdelight.mixins.json",
     "buildup_vitals.mixins.json",

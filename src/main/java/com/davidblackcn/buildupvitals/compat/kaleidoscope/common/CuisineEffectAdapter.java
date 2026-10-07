@@ -15,6 +15,12 @@ public final class CuisineEffectAdapter {
     private static final Map<Identifier, Semantics> EFFECTS = new LinkedHashMap<>();
     private static final Map<Identifier, ToDoubleFunction<ServerPlayer>> STABLE_SPEEDS = new LinkedHashMap<>();
     private static final Map<String, ToDoubleFunction<net.minecraft.world.item.ItemStack>> RECOVERY = new LinkedHashMap<>();
+    private static final Map<String, java.util.function.BiFunction<net.minecraft.world.item.ItemStack, net.minecraft.world.effect.MobEffectInstance, net.minecraft.world.effect.MobEffectInstance>> REVIEWS = new LinkedHashMap<>();
+    public static void registerReview(String namespace, java.util.function.BiFunction<net.minecraft.world.item.ItemStack, net.minecraft.world.effect.MobEffectInstance, net.minecraft.world.effect.MobEffectInstance> review) { REVIEWS.put(namespace, review); }
+    public static net.minecraft.world.effect.MobEffectInstance review(net.minecraft.world.item.ItemStack stack, net.minecraft.world.effect.MobEffectInstance effect) {
+        var review=REVIEWS.get(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace());
+        return review==null?effect:review.apply(stack,effect);
+    }
     private CuisineEffectAdapter() { }
     public static void register(Identifier id, Semantics semantics) {
         if (EFFECTS.putIfAbsent(id, semantics) != null) throw new IllegalStateException("Duplicate cuisine effect " + id);

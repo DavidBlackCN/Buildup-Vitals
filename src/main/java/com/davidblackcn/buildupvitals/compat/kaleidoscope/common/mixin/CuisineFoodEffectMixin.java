@@ -18,6 +18,8 @@ public abstract class CuisineFoodEffectMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;addEffect(Lnet/minecraft/world/effect/MobEffectInstance;)Z"))
     private boolean buildupVitals$profileOwnsGrant(LivingEntity entity, MobEffectInstance effect, Operation<Boolean> original,
                                                    Level level, ItemStack stack, LivingEntity user) {
+        effect = com.davidblackcn.buildupvitals.compat.kaleidoscope.common.CuisineEffectAdapter.review(stack, effect);
+        if (effect == null) return false;
         if (entity instanceof ServerPlayer player && !CuisineConsumption.allowEffect(player, stack, effect)) return false;
         return original.call(entity, effect);
     }

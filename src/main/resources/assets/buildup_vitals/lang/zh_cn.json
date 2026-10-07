@@ -36,5 +36,7 @@
   "effect.buildup_vitals.foreign.kaleidoscope_cookery.satiated_shield": "饥饿值 ≥18：减伤 20%，至多 4 HP；消耗饱和度",
   "effect.buildup_vitals.foreign.kaleidoscope_tavern.bloody_mary": "击杀：储备 +目标最大生命的 10%（上限 2 HP）",
   "effect.buildup_vitals.foreign.kaleidoscope_nether.star_blessing": "减伤 20% · 击退抗性 +50% · 获得时净化",
-  "effect.buildup_vitals.foreign.kaleidoscope_nether.crimson": "物理护甲穿透 25%"
+  "effect.buildup_vitals.foreign.kaleidoscope_nether.crimson": "物理护甲穿透 25%",
+  "effect.buildup_vitals.foreign.kaleidoscope_end.mint": "安抚末影人",
+  "effect.buildup_vitals.foreign.kaleidoscope_end.void_erosion": "目标护甲与魔法减伤效果 -15%"
 }
