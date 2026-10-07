@@ -20,7 +20,7 @@ public final class EndEffects {
         String name=item.getPath();
         if(!MYTHIC.contains(name))return effect;
         String id=BuiltInRegistries.MOB_EFFECT.getKey(effect.getEffect().value()).toString();
-        // Explicit major-effect slots per dish; component edits cannot add a third major combat effect.
+        // Explicit slots for the reviewed combat effects on each official mythic dish.
         if(effect.is(MobEffects.STRENGTH)) {
             if(name.equals("dragon_egg_custard"))return new MobEffectInstance(MobEffects.HEALTH_BOOST,300*20,1);
             return new MobEffectInstance(MobEffects.STRENGTH,(name.equals("dragon_souffle")?60:180)*20,name.equals("dragon_souffle")?1:0);
@@ -28,7 +28,7 @@ public final class EndEffects {
         if(effect.is(MobEffects.RESISTANCE))return name.equals("dragon_souffle")||name.equals("fried_dragon_egg")?new MobEffectInstance(MobEffects.RESISTANCE,120*20,0):null;
         if(effect.is(MobEffects.HEALTH_BOOST))return name.equals("dragon_egg_custard")?new MobEffectInstance(MobEffects.HEALTH_BOOST,300*20,1):null;
         if(id.equals("kaleidoscope_end:void_erosion"))return name.equals("dragon_souffle")||name.equals("fried_dragon_egg")||name.equals("dragon_egg_custard")?null:new MobEffectInstance(effect.getEffect(),45*20,0);
-        // No unrelated major cuisine defense/attack effects can be smuggled into a mythic dish.
+        // Exclude other registered cuisine defenses and Crimson from these reviewed dishes.
         var semantics=CuisineEffectAdapter.semantics(BuiltInRegistries.MOB_EFFECT.getKey(effect.getEffect().value()));
         if(semantics!=null && (semantics.damageReduction()||id.endsWith(":crimson")))return null;
         return effect;

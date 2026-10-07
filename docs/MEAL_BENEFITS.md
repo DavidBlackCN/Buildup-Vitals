@@ -1,4 +1,4 @@
-# Meal Benefit v2 与 Foreign Main Meal Benefit
+# Meal Benefit v2 与 Foreign Cuisine Effect
 
 主要饮食增益正式注册为原版 MobEffect，由原版负责保存、同步和倒计时。HUD、背包效果卡显示图标与时间；食物授予默认无粒子。不注册 Potion 或酿造配方。
 
@@ -45,3 +45,13 @@ FD Refabricated `26.3-3.6.27+refabricated` 的 `farmersdelight:nourishment` 注�
 FD 给原版蘑菇煲、甜菜汤和兔肉煲追加的 Nourishment 服从它们最终的 Buildup Profile，保留原有调养/振奋选择。FD 食物也可通过数据包改成原生主增益或无主增益。只拦截已桥接的 Nourishment 消费授予；其他独立效果保留。详见 [FD 兼容与验收](FARMERS_DELIGHT_COMPAT.md)。
 
 [More Delight 26.09.16-26.3-fabric](MORE_DELIGHT_COMPAT.md) 的六种 Nourishment 料理复用该桥接，原生3600 tick不乘Variety。两种沙拉的Regeneration I / 100 tick保留为独立效果，额外Recovery为0，不占主增益槽。没有为附属重复注册效果或新增Mixin。
+
+## Foreign Cuisine Effect 与 Vigor
+
+Foreign Cuisine Effect 是独立于主槽的语义登记层，不创建替身MobEffect或第二份计时状态。标为Main的效果复用既有Foreign Main注册；Special Cuisine Effect可与主增益共存。Nourishment原桥接不变。
+
+Cookery `kaleidoscope_cookery:vigor` 是Foreign Main，仅提供Invigorated的指定活动耗竭×0.9，不提供Restorative。保留原ID、图标、消费概率与持续时间，不额外显示振奋；与Nourishment及三个Buildup主增益双向互斥。同类刷新不累加，Overfull阻止首次授予及刷新，最终Profile可改成原生增益或无增益。无原生来源的显式Vigor引用才走Quality默认授予。
+
+Warmth、Satiated Shield、Star Blessing、Crimson、Ghost、Warped、Tropical Strider、Mint、Dream、Void Erosion以及Tavern特殊效果不占主槽。它们按已审核预算生效；积食不统一删除这些能力，但阻止其新增食物储备，Shield另有积食禁用条件。
+
+Effect Review Gate 是适配时的审核要求：核对目标版本的真实效果来源、总治疗量、防御倍率、持续时间及互相叠加；明确保留/桥接/替换结论，再运行模块与联合测试。并非允许玩家通过未经验证的通用配置任意转换第三方效果。深度行为只在精确支持版本启用；全部预算、版本和验收见 [Kaleidoscope Series](KALEIDOSCOPE_COMPAT.md)。

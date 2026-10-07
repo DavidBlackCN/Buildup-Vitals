@@ -28,6 +28,14 @@ FD Refabricated 26.3-3.6.27 的全部80个 Food/Consumable 也经同一显式覆
 
 [More Delight](MORE_DELIGHT_COMPAT.md) 的31份显式 Profile 也使用同一入口，胡萝卜汤6/4、普通饭菜2/1～3/2、干吐司0/0；无额外饮料结算器。黑名单、配置冲突、实际一次消费及积食下补水均纳入附属兼容验证。
 
+## Kaleidoscope 独立饮用与方块食品
+
+四个独立Profile包覆盖Cookery120、Tavern50、Nether85、End44项（含两个中性容器），统一沿上述优先级。茶8/6、汤通常6/4、葡萄酒3/3、烈酒2/1、鸡尾酒5/4、果汁桶8/8、醋及空杯0/0；完整表见 [Kaleidoscope Series](KALEIDOSCOPE_COMPAT.md)。
+
+Tavern DrinkBlockItem / CocktailBlockItem / JuiceBucketItem与Cookery茶杯的实际ItemStack消费已经进入TWT2，因此兼容只补接Recovery/Diet，不再次补水。摆放饮品后取回不构成饮用，空杯与餐袋不发放额外收益。
+
+Cookery及附属FoodBiteBlock没有ItemStack消费回调，由版本门控适配在真实吃下一口时查询同一个ThirstApi，并使用 `floor(total*(i+1)/N)-floor(total*i/N)` 分配Thirst/Quenched。完整吃完等于整盘Profile量，部分食用只得已吃份额；blacklist优先、0/0不回退、TWT2事件及状态上限继续生效。Overfull不阻止补水，Variety不放大水分。
+
 ## Quenched 恢复协调
 
 已启用口渴、Thirst=20 且 Quenched>0 时，Buildup 自然恢复速度 ×1.15，与 Well-fed Variety 相乘，最终周期至少 10 tick。它不自行产生治疗，也不绕过 Hunger 或自然恢复游戏规则。储备存在时仍按 [统一恢复时钟](RECOVERY.md) 调度。

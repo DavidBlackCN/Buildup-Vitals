@@ -20,6 +20,8 @@ Restorative、Invigorated、Steady、Overfull 都有正式图标、中英文名�
 
 Restorative 中文固定为「调养」，Steady 为「安适」。FD Nourishment 保留原名「滋养」、原图标和原倒计时，内部桥接不会额外显示两个原生图标。其悬停说明为10 tick/HP食物恢复、活动耗竭-10%。Profile 已同步时，FD 原生 Nourishment 食品 tooltip 行由 Buildup 唯一主增益行替代；数据包改为无增益或原生增益后不残留失效的 Nourishment 行。其他 FD 独立效果说明保留；未同步时保留原生提示，不编造服务器玩法。
 
+Kaleidoscope的独立茶/饮品和方块食品也显示显式Profile；Vigor保留原图标，去掉重复主增益行。Cookery失效的料理再生提示移除，Tavern治疗酒的心形数值为直接Profile加受限效果储备，原生酒等级保留。End在原生效果与属性格式化之前应用预算，因此龙料理不再显示旧无限再生、超预算时长或错误Strength属性。效果卡使用对应重平衡后的短说明；特殊玩法效果不挤入主增益行。详见 [Kaleidoscope](KALEIDOSCOPE_COMPAT.md)。
+
 负荷首次达到48由服务器发送一次 actionbar 轻提示，低于32后重置提示锁存；不每 tick 提醒，不新增负荷条，也不在普通食物 Tooltip 显示负荷数。已有积食通过原版负面状态图标表达。
 
 ## 高级提示与同步

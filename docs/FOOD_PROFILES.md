@@ -64,7 +64,7 @@ Tag 选择器使用 `"selector": { "tag": "my_pack:meals" }`，不带 `#`。Tag 
 | `diet.categories` | `protein`、`grain`、`vegetable`、`fruit`、`dairy`、`sweet` 的不重复数组；默认空 |
 | `diet.variety_group` | 可选 namespaced ID；缺省时使用被查询物品自己的 ID，Tag 内物品不会自动被归为同组 |
 | `traits` | 不重复的字符串数组，各项匹配 `[a-z0-9_]+`；默认空。`soup`、`drink`、`warm` 属于 Trait |
-| `meal_benefit` | 可选 namespaced ID；原生 `buildup_vitals:restorative`、`buildup_vitals:invigorated`；受支持 FD 存在时还支持 `farmersdelight:nourishment`；`buildup_vitals:steady` 保留为实验类型 |
+| `meal_benefit` | 可选 namespaced ID；原生 `buildup_vitals:restorative`、`buildup_vitals:invigorated`；受支持 FD / Cookery 存在时还支持 `farmersdelight:nourishment` / `kaleidoscope_cookery:vigor`；`buildup_vitals:steady` 保留为实验类型 |
 | `overrides.hunger` | 可选非负 32 位整数，绝对食物点数；缺省表示保留原版 |
 | `overrides.saturation` | 可选有限非负数，绝对饱和点数，非原版 saturation modifier；缺省表示保留原版 |
 
@@ -90,6 +90,10 @@ Tag 选择器使用 `"selector": { "tag": "my_pack:meals" }`，不带 `#`。Tag 
 FD 存在时内置兼容包提供 80 份显式数据，路径为 `data/buildup_vitals/buildup_vitals/food_profiles/farmersdelight/<item>.json`，Profile ID 为 `buildup_vitals:farmersdelight/<item>`。不需更改 Schema；最终 Profile 决定主增益，FD 后续原生 Nourishment 授予不能覆盖数据包改为原生增益/无增益的选择。原生 Nourishment 时长不乘 Variety；无原生消费来源时才回退 Quality 默认时长。全表与例外见 [FARMERS_DELIGHT_COMPAT](FARMERS_DELIGHT_COMPAT.md)。
 
 More Delight 存在时另启用 `buildup_vitals:more_delight` 内置包，为目标 `26.09.16-26.3-fabric` 的31种食品提供数据。路径为 `data/buildup_vitals/buildup_vitals/food_profiles/moredelight/<item>.json`，Profile ID 为 `buildup_vitals:moredelight/<item>`。沿用相同 Schema、覆盖与 Nourishment 语义，无需添加新机制；全表和例外见 [MORE_DELIGHT_COMPAT](MORE_DELIGHT_COMPAT.md)。
+
+Kaleidoscope 四个独立内置包为 `buildup_vitals:kaleidoscope_cookery` / `kaleidoscope_tavern` / `kaleidoscope_nether` / `kaleidoscope_end`，分别提供120 / 50 / 85 / 44份Profile。各模块安装时自动启用，未安装不加载；未知版本保留数据但关闭深度行为并警告。资源路径为 `resourcepacks/kaleidoscope_<module>/data/buildup_vitals/buildup_vitals/food_profiles/kaleidoscope_<module>/<item>.json`，Profile ID 为 `buildup_vitals:kaleidoscope_<module>/<item>`。数据包仍按相同Item/Tag规则覆盖。
+
+这些Profile表示完整物品或整盘，不是单口；方块实际每口按份额结算Recovery，Hydration使用整数余数分配。官方最小1 HP不限制每口小数。Tavern的效果恢复预算独立于直接 `recovery.health`，与之合并后只计算一次Variety；将直接Recovery设0不会删除原生治疗酒语义。最终Profile决定Vigor授予，其他特殊料理效果按模块预算处理，不填入 `meal_benefit` 字段。完整清单及消费入口见 [Kaleidoscope Series](KALEIDOSCOPE_COMPAT.md)。
 
 ## 重载与错误处理
 

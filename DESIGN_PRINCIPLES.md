@@ -197,6 +197,24 @@ Buildup 自己更适合关注 Recovery Reserve、Vitals 稳定性、活动消耗
 
 适配器保持可选依赖、服务端权威和精确版本边界；缺少 FD 时不加载 FD 类或注册 Foreign 语义，未知版本关闭行为桥接并警告。官方兼容包使用现有 Food Profile Schema，整合包仍可覆盖恢复、补水、类别、速度与主增益，最终 Profile 决定食物授予，不能被第三方后续消费回调覆盖。
 
+## 14.1 Foreign Cuisine Effect 与 Effect Review Gate
+
+Foreign Cuisine Effect 是第三方料理效果的语义层，保留原 ID、图标和原版效果存储；只有明确标为 Main Meal Benefit 的效果才进入互斥主槽。当前 Cookery Vigor 只提供 Invigorated 的活动耗竭 ×0.9，不提供 Restorative，不额外显示振奋图标。既有 FD Nourishment 桥接保持不变。
+
+特殊料理效果可以与主增益共存。Ghost 攀墙、Warped 安抚、Tropical Strider 环境通行、Dream 移动/落地保护、Mint 末影人安抚等应保留身份；不因为它们来自食物就强行塞入主槽。可共存不等于可以无限叠加恢复或战斗收益。
+
+所有官方强料理适配必须先经过 **Effect Review Gate**：核对目标发布 JAR / 源码的真实消费、周期、属性和事件入口；逐项分类为保留、语义桥接或预算重平衡；计算整次治疗、减伤、穿甲和持续时间；验证组合、死亡、积食及客户端显示。深度 Mixin 精确版本门控，未知版本只保留数据包并警告，不猜测新签名。不修改第三方配置，不 patch JAR，不包装全局 heal / hurt。
+
+长时间料理 Regeneration 优先转换为有限 Food Recovery；转换量和直接食物恢复共同进入一个 Controller、一次 Variety 奖励和 20 HP 储备上限，不能重复治疗。Cookery / End 的转换已经包含在 Profile 内；Tavern 治疗酒按 Brew Level 提供 0～5 HP、治疗鸡尾酒合计 3 HP，作为受限效果预算加入同一储备。Bloody Mary 仅真实击杀后加入目标最大生命 10%、至多 2 HP，受积食和储备上限限制。普通 Potion、Beacon、Golden Apple，以及已审核保留的 FD / More Delight 独立短治疗不受全局接管。
+
+强战斗料理按等级、时长、总收益和叠加路径共同预算。当前 Satiated Shield 在常规防御后抵消 20%、单次最多 4 HP，每抵消 1 HP 消耗 1 Saturation，不借用 Hunger；Star Blessing 为 20% 减伤、一次净化和固定 +0.5 击退抗性，无周期治疗或持续负面免疫。Crimson 只削减 25% 有效护甲；Void Erosion 只削减 15% 有效护甲及 Resistance / Protection 的减伤量，继续经过原版防御公式。Mint 不再提供 80% 通用减伤。
+
+Tavern 的 Effect Budget 限制增益等级与时长，鸡尾酒合并采用最长时间加其余时间的一半，再裁剪到预算。Mythic Cuisine 每道最多两项主要战斗/特殊效果，完整 Recovery 为 5～6 HP；Strength II 至多 60 秒，通常 Strength I 180 秒、Resistance I 120 秒或 Void Erosion 45 秒，龙蛋羹为 Health Boost II 300 秒。禁止官方龙料理提供无限 Strength / Resistance / Regeneration。具体逐项预算见当前版本兼容文档。
+
+Warmth 不独立治疗：只对 Stable Recovery 提供热源旁 64 tick、下界 72 tick 的环境周期，二者取较强者；普通 80 tick、高饱和 10 tick 和自然最快 10 tick 均保留。料理环境加速之间取最大值，不连乘；TWT2 Quenched 仍遵循既定规则。
+
+方块、多口和可重复食物以实际消费为结算点。整盘 Recovery / Hydration 按真实口数分摊，整数补水余数累计分配；每口实际营养进入 Overeating。放置、取回和空容器不发放消费收益。Tavern 独立 Drink 路径同样只结算一次，原生品质、容器和独特玩法保留。
+
 ## 15. Meal Benefit 的堆叠原则
 
 Buildup 原生主增益与已注册 Foreign Main Meal Benefit 共用一个主槽：
@@ -205,7 +223,7 @@ Buildup 原生主增益与已注册 Foreign Main Meal Benefit 共用一个主槽
 - 不同类型 Benefit：新的主要 Benefit 替换旧的；
 - Feast 当前也只有一个主增益，没有正式 Secondary Modifier 槽位。
 
-未注册桥接的第三方效果与独立药水效果不占主槽。Nourishment 与 Restorative / Invigorated / Steady 双向互斥，后授予的异类生效，直接命令授予也遵守互斥。Overfull 独立共存，阻止 Nourishment 首次授予与刷新，也阻止新增 Food Reserve；不移除已经生效的 Nourishment，不抹掉营养、Hydration 或饮食记录。FD Comfort 不作为当前正式玩法恢复。
+未注册桥接的第三方效果、Special Cuisine Effect 与独立药水效果不占主槽。Nourishment、Vigor 与 Restorative / Invigorated / Steady 双向互斥，后授予的异类生效，直接命令授予也遵守互斥。Overfull 独立共存，阻止 Foreign Main 首次授予与刷新，也阻止新增 Food Reserve；不移除已经生效的主增益，不抹掉营养、Hydration 或饮食记录。FD Comfort 不作为当前正式玩法恢复。
 
 ## 16. 负面 Meal Benefit
 
@@ -413,7 +431,7 @@ Food Profile 的可选 `consumption.speed` 分 normal / quick / fast 三档，�
 
 ## 33. 后续阶段
 
-Core 已冻结，当前有 FD 本体的 80 份 Food / Consumable Profile 与 Nourishment 语义桥接；独立授权后加入 More Delight 26.09.16-26.3-fabric 的31份Profile，复用现有桥接而不新增机制。其六种Nourishment料理保留3600 tick，两种独立再生沙拉不附加Recovery；同配方家族共用Variety Group。其他FD Addon、Kaleidoscope Cookery、Oxygen / Air、Mana / Stamina 仍需后续独立授权与版本验证。
+Core 已冻结，当前有 FD 本体的 80 份 Food / Consumable Profile 与 Nourishment 语义桥接，以及 More Delight 26.09.16-26.3-fabric 的31份Profile。其六种Nourishment料理保留3600 tick，两种独立再生沙拉不附加Recovery；同配方家族共用Variety Group。Kaleidoscope Cookery / Tavern / Nether / End 已按顺序加入 Foreign Cuisine Effect 和独立内置包，共299份Profile（含2个中性容器），目标版本与预算见 `docs/KALEIDOSCOPE_COMPAT.md`。其他Addon、Oxygen / Air、Mana / Stamina 仍需后续独立授权与版本验证。
 
 ## 34. Non-Goals
 

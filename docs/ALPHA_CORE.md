@@ -1,6 +1,6 @@
 # Alpha Core Freeze
 
-冻结版本：**0.1.0-alpha.1**，Minecraft26.3 / Fabric。Stage 7.5与10 tick热修复已经人工验收；Stage 8冻结Core。之后经独立授权加入 [FD Compatibility](FARMERS_DELIGHT_COMPAT.md)，沿用本页的Core参数和数据契约。
+冻结版本：**0.1.0-alpha.1**，Minecraft26.3 / Fabric。Stage 7.5与10 tick热修复已经人工验收；Stage 8冻结Core。之后经独立授权加入FD、More Delight及 [Kaleidoscope Series](KALEIDOSCOPE_COMPAT.md)，沿用本页的Core参数和数据契约。
 
 ## 对外契约
 
@@ -13,11 +13,11 @@
 | 玩家数据 | `buildup_vitals:recovery`、`diet_memory`、`overeat`附件；料理与积食效果使用原版MobEffect存储与同步；旧meal_benefit附件继续可迁移 |
 | 生命周期 | 死亡清短期状态，存档/重连/存活换维度保留；成功reload替换完整Profile快照，失败保留旧快照，不追溯重算已有储备或效果 |
 | 管理查询 | `/buildupvitals food profile <item>`、`recovery [player]`、`diet [player]`；保持管理员权限与服务端权威 |
-| 可选兼容 | TWT2 Fabric1.6.2+26.3、FD Refabricated26.3-3.6.27、More Delight26.09.16-26.3-fabric，无硬前置；未知版本关闭相应行为适配，纯数据包保留并提示；AppleSkin不作为运行依赖 |
+| 可选兼容 | TWT2 Fabric1.6.2+26.3、FD Refabricated26.3-3.6.27、More Delight26.09.16-26.3-fabric及精确版本的Kaleidoscope四模块，无硬前置；未知版本关闭相应行为适配，纯数据包保留并提示；AppleSkin不作为运行依赖 |
 
 Schema是兼容包的首选稳定入口。当前没有独立发布、承诺二进制兼容的Java扩展API；内部public类、Mixin注入点和网络 `food_profiles_v3` 不是给其他Mod直接调用的通用API。客户端/服务端应使用同一Buildup版本，不承诺跨版本联机协议兼容。未来必要的Schema或持久化变更需明确版本化和迁移，不能悄悄改变旧字段含义。
 
-Traits、营养overrides及实验Steady仅保留数据语义，不视为已实现效果。当前FD本体兼容提供Foreign主增益桥接和80份Profile；独立授权后加入 [More Delight](MORE_DELIGHT_COMPAT.md) 的31份Profile，沿用Core契约和FD桥接。其他FD Addon、Kaleidoscope Cookery、Oxygen、Mana或Stamina未加入。
+Traits、营养overrides及实验Steady仅保留数据语义，不视为已实现效果。当前FD本体兼容提供Foreign主增益桥接和80份Profile；[More Delight](MORE_DELIGHT_COMPAT.md) 的31份Profile沿用Core契约和FD桥接。Kaleidoscope四模块加入299份Profile及Foreign Cuisine Effect，保留Foreign Main边界和统一恢复时钟；其他Addon、Oxygen、Mana或Stamina未加入。
 
 ## 工程边界
 
@@ -29,7 +29,7 @@ Traits、营养overrides及实验Steady仅保留数据语义，不视为已实�
 
 ## 验证范围与复用规则
 
-下表记录 Stage 8 冻结时的基线。随后 FD 兼容已执行五组组合的完整构建，达到109项JVM（含启动门控回归）、47项服务端GameTest（40项Core+7项FD条件测试）和5个客户端入口；新增Profile全覆盖、补水优先级、Foreign互斥/生命周期、重载与成就验证，详见 [FD兼容矩阵](FARMERS_DELIGHT_COMPAT.md)。More Delight 后再新增3项服务端条件测试与1个客户端入口，当前共109项JVM、50项服务端GameTest和6个客户端入口，附属未安装时仅验证缺省路径，组合证据见 [More Delight](MORE_DELIGHT_COMPAT.md)。
+下表记录 Stage 8 冻结时的基线。随后 FD 兼容已执行五组组合的完整构建，达到109项JVM（含启动门控回归）、47项服务端GameTest（40项Core+7项FD条件测试）和5个客户端入口；新增Profile全覆盖、补水优先级、Foreign互斥/生命周期、重载与成就验证，详见 [FD兼容矩阵](FARMERS_DELIGHT_COMPAT.md)。More Delight 后再新增3项服务端条件测试与1个客户端入口，该阶段共109项JVM、50项服务端GameTest和6个客户端入口，附属未安装时仅验证缺省路径，组合证据见 [More Delight](MORE_DELIGHT_COMPAT.md)。
 
 | 检查 | 证据范围 |
 |---|---|
@@ -38,6 +38,8 @@ Traits、营养overrides及实验Steady仅保留数据语义，不视为已实�
 | 客户端连接 | 4个入口；本轮扩展负恢复值/截断JSON隔离与修复重载，检查服务端与客户端一致；复用已有集成/同JVM专服TCP、重连、死亡和换维度场景 |
 | HUD兼容 | 复用已通过的TWT2+AppleSkin3.0.10组合；本轮未改渲染、消费、补水或恢复生产逻辑，仅推进版本号 |
 | 产物与文档 | 核对正式JAR元数据、资源和测试排除，校验当前文档本地链接和官方Profile最小单位 |
+
+Kaleidoscope兼容后为114项JVM、75项注册服务端GameTest、10个客户端入口；模块缺席的条件场景只检查缺省行为。最新矩阵见 [Kaleidoscope Series](KALEIDOSCOPE_COMPAT.md)。
 
 这是自动化机制验证，**多人GameTest使用模拟连接，单客户端专服连接测试使用同JVM DedicatedServer**；不是两台真人客户端或长时间独立进程联机压测。GitHub托管runner最终结果需下次push确认，本地检查不冒充远端CI成功。
 

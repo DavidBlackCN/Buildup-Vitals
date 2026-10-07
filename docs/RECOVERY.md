@@ -21,13 +21,23 @@ Variety保留仅作用于满Hunger且Saturation>0的最高+7.5%速度参数；�
 
 官方基础数据使用0或至少1 HP（半颗心），优先整数1～6；该限制不改变第三方 Profile Schema 和运行时小数精度。18份旧小数 Profile 已按食物定位分别调整为0或1，详见 [VANILLA_BALANCE](VANILLA_BALANCE.md)。
 
-服务端仅在真实 Food + Consumable 消费完成后读取 Profile，记录饮食，按当次 Variety 加入储备。总上限 20 HP；小于 `0.000001 HP` 的尾数归零。治疗后按实际成功治疗扣储备，不扣被其他机制阻止的治疗。满血保留储备并归零时钟，不预充治疗；再次受伤重新开始正常周期。受击不清零、不暂停、不延迟已有进度。创造/旁观不授予或兑现储备。
+服务端在真实 Food + Consumable 消费完成后读取 Profile；已适配的独立饮品和方块食物从各自真实消费入口接入。记录饮食，按当次 Variety 加入储备。总上限 20 HP；小于 `0.000001 HP` 的尾数归零。治疗后按实际成功治疗扣储备，不扣被其他机制阻止的治疗。满血保留储备并归零时钟，不预充治疗；再次受伤重新开始正常周期。受击不清零、不暂停、不延迟已有进度。创造/旁观不授予或兑现储备。
 
 药水、信标、金苹果和未桥接的第三方独立治疗照常运行；没有包装 `LivingEntity.heal` 或全局伤害入口。Invigorated 不减免自然恢复耗竭。AppleSkin 的原版回血预测不是 Buildup 储备预测。
 
 受支持 FD 的 Nourishment 是 Foreign Main Meal Benefit，行为等效调养 + 振奋；10 tick/HP 食物兑现仍经过同一 Controller。目标 FD 版本没有独立 heal，兼容仅中和其每 tick 耗竭返还，避免规避自然恢复营养成本。FD 西瓜汁等独立治疗保持原生，官方 Profile 不额外叠高恢复。详见 [FD 兼容](FARMERS_DELIGHT_COMPAT.md)。高饱和 5 HP 宴席 + Variety + 有/无 Quenched 从半血回满仍为100 tick；无自然恢复的3 HP FD 牛肉炖菜为30 tick。本次不修改任何 Recovery 基准数值。
 
 More Delight 的31份Profile按同一恢复时钟兑现，不改上述参数；胡萝卜汤3 HP在无自然恢复条件下为30 tick。两种自带100 tick Regeneration I的沙拉不给额外储备，保留独立效果。数值全表见 [MORE_DELIGHT_COMPAT](MORE_DELIGHT_COMPAT.md)。
+
+## Kaleidoscope 的有限恢复来源
+
+[四模块兼容](KALEIDOSCOPE_COMPAT.md) 不修改上表基准。Cookery / End 的料理再生已折入各自显式 Profile，不重复加入额外恢复；Tavern 治疗酒按 Brew Level 增加0～5 HP，治疗鸡尾酒合计3 HP，与 Profile 恢复合并后只接受一次 Variety 奖励。普通 Potion、Beacon、Golden Apple 以及此前保留的 FD / More Delight 短治疗不受影响。
+
+Warmth 取消独立治疗，只将 Stable 周期在热源旁改为64 tick、下界改为72 tick；二者取64，普通主世界仍80。环境料理加速取最大值，不连乘；TWT2 Quenched 可继续作用，最终自然周期至少10 tick。Hunger19、足够饱和且条件持续时恢复10 HP：普通800 tick、下界Warmth720、热源Warmth640；高饱和档位仍100 tick。
+
+Bloody Mary 在真实击杀后加入 `min(victim.maxHealth × 0.1, 2)` HP，不调用瞬间heal，不阻止目标死亡，不刷新Diet；Overfull阻止收益，仍受储备20 HP上限限制。无自然恢复、无Variety时，5 HP酒/3 HP鸡尾酒分别以12 tick周期兑现60/36 tick；有Restorative则50/30 tick。
+
+方块食品的Profile表示整份：每口恢复为整份/N，再乘当次Variety；每口实际营养参与Overeating。半颗心是官方整份数据的最小非零单位，不要求每口或加成后的余额取整。放置/取回不结算；永恒牛排每次1 HP，保留冷却并受积食约束。独立饮品和茶只结算一次Food Recovery，TWT2仍负责单次物品补水。
 
 ## 满饱食与积食
 

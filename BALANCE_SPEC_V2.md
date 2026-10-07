@@ -1506,10 +1506,54 @@ Stage 7.5 完成后必须同步修改 `DESIGN_PRINCIPLES.md`，至少修正以�
 - Diet根据目标版本配方定义；可变配方不强加未必存在的类别，原版同类肉与FD切片共用组，避免刷Variety。恢复量奖励只一次，Hydration不放大。
 - 高饱和 + 5 HP宴席 + Variety + 有/无Quenched从半血恢复仍为100 tick；无自然恢复的3 HP Nourishment料理为30 tick。Passive以原版为baseline、主动收益允许有限正反馈的目标不变。
 
-Restorative中文为「调养」，与FD Nourishment「滋养」区分；Steady中文为「安适」，仍只注册占位。Comfort、FD Addon、Kaleidoscope Cookery、Oxygen和Mana不属于本轮实现。
+Restorative中文为「调养」，与FD Nourishment「滋养」区分；Steady中文为「安适」，仍只注册占位。Comfort 不作为当前正式玩法；More Delight 与 Kaleidoscope 的后续适配见以下补充，Oxygen 和 Mana 未实现。
 
 ## 44.1 More Delight 附属兼容补充
 
 后续独立授权适配 More Delight `26.09.16-26.3-fabric`（Delight Lib 同版本），完整31份Profile见版本目录 `docs/MORE_DELIGHT_COMPAT.md`。不改Core数值和FD桥接：六种Nourishment料理保留3600 tick；两种100 tick Regeneration I沙拉保留独立效果，额外Recovery为0。
 
 普通单品1 HP、干吐司0、Prepared 1～2、Meal 3～4，不强设Feast。胡萝卜汤6/4补水，普通饭菜2/1～3/2，干吐司0/0；面包片、马铃薯丁、冰棍及吐司fast，其余normal。按配方设置类别，同家族肉饭、意面、土豆拼盘、配料吐司分别共组，汉堡等复用FD对应组。原生营养、配方和容器不变，TWT2显式优先级与Overfull约束继续生效；其他Addon未适配。
+
+# 45. Kaleidoscope Series 正式兼容补充
+
+支持 Cookery `1.6.0.3-fabric+mc26.3`、Tavern `1.2.0.11-fabric+mc26.3`、Nether `1.1.13-fabric+mc26.3`、End `1.0.16-fabric+mc26.3`。四个可选内置 Profile 包分别为120 / 50 / 85 / 44份，共299份（含餐袋、空杯两个中性条目）。完整清单、源码证据和人工验收见版本目录 `docs/KALEIDOSCOPE_COMPAT.md` 及四份模块文档。
+
+普通食物仍为0或整数1～6 HP，按料理定位而非稀有度定价。原生 Hunger / Saturation、配方、制作品质、酿造等级及容器不重写。所有补水遵循 TWT2 blacklist > Buildup explicit Profile（含0）> TWT2 default > fallback。茶8/6、汤通常6/4、果汁桶8/8、鸡尾酒5/4、葡萄酒3/3、烈酒2/1、醋0/0。
+
+## 45.1 语义与恢复预算
+
+Foreign Cuisine Effect 中只有 Vigor 进入 Foreign Main Meal Benefit，提供 Invigorated semantics，保留自身 ID / 图标 / 原生时长；与 Nourishment 和原生主增益互斥，Overfull 阻止刷新。其余 Special Cuisine Effect 可共存，不取代主槽。Effect Review Gate 要求先核对真实效果来源、总量、等级、时长和组合，再决定保留、桥接或重平衡。
+
+Natural 基准10/80、Food12、Restorative10、自然最快10 tick不变。Warmth 无独立 heal：热源旁 Stable64、下界72、其他80，取最强环境收益；TWT2 Quenched 可继续作用，最终自然周期至少10。高饱和从10/20 HP恢复仍约100 tick，不因料理另开治疗时钟。
+
+Cookery / End 的料理再生移除，恢复总预算已包含在 Profile。Tavern Wine / Sakura Wine 的 Brew Level 0～6分别增加0/0/1/2/3/4/5 HP储备；治疗鸡尾酒不论成分数量总共3 HP。与直接 Profile Recovery 合并后只乘一次Variety，储备上限20 HP；积食阻止新增和兑现。Bloody Mary 只在真实击杀后加入 `min(目标最大生命×0.1, 2)` HP，不再瞬间治疗或阻止目标死亡。无自然恢复且无主增益时，5 HP酒为60 tick，3 HP鸡尾酒为36 tick；Restorative下分别50/30 tick。
+
+方块料理按实际口数分摊整份恢复；整数补水使用相邻累计向下取整值之差，吃完整盘恰好等于整份。每口记录实际饮食与营养溢出，放置/取回不结算。永恒牛排每次1 HP，保留原冷却并受Overfull约束。独立Drink消费只桥接一次，不重复Food/TWT2结算。
+
+## 45.2 防御与战斗预算
+
+| 效果 | 当前预算 |
+|---|---|
+| Satiated Shield | Hunger≥18、未积食；常规防御后抵消20%、每击最多4 HP，1 Saturation支付1 HP，不借Hunger |
+| Star Blessing | 20%减伤、首次净化、固定+0.5击退抗性；无周期治疗、无持续负面免疫 |
+| Crimson | 有效护甲×0.75，保留原版防御公式；无额外伤害倍率或等级成长 |
+| Mint | 保留末影人安抚；移除80%通用减伤 |
+| Void Erosion | 有效护甲×0.85，Resistance / Protection的减伤量×0.85；无锁血或全穿透，不随等级成长 |
+
+Shield在足够Saturation时，对4/10/20/40 HP来袭伤害分别抵消0.8/2/4/4 HP；不足时以实际Saturation为限。Star对10 HP普通伤害由旧2 HP改为8 HP；20 HP玩家旧30秒理论24 HP独立治疗改为0。Crimson与Void联用时armor×0.75×0.85，仍保留韧性、护甲磨损与原版计算。只在已审核局部入口调整，不包装全局heal/hurt。
+
+Tavern Effect Budget：Resistance I≤300秒；Strength I≤300秒或II≤60秒；Haste I≤600秒或II≤120秒；Health Boost最高II≤300秒；Fire Resistance I≤480秒；Night Vision / Water Breathing等探索增益I≤900秒；Long Reach / Bloody Mary等强特效I≤300秒。鸡尾酒合并为最长时间加其余总时间的一半，再按预算裁剪，单成分不增加20%。微醺、反胃和独特能力的原代价保留。
+
+Mythic Cuisine 每道最多两项主要战斗/特殊效果：
+
+| 料理 | 完整Recovery | 主效果 |
+|---|---:|---|
+| Dragon Souffle | 6 HP | Strength II 60秒 + Resistance I 120秒 |
+| Fried Dragon Egg | 6 HP | Strength I 180秒 + Resistance I 120秒 |
+| Dark Dragon Steak | 5 HP | Strength I 180秒 + Void Erosion 45秒 |
+| Dragon Egg Custard | 6 HP | Health Boost II 300秒 |
+| Dragon Egg Ice Cream | 5 HP | Strength I 180秒 + Void Erosion 45秒 |
+| Dark Dragon Egg Stew | 6 HP | Strength I 180秒 + Void Erosion 45秒 |
+| Dragon Head with Sauce | 6 HP | Strength I 180秒 + Void Erosion 45秒 |
+
+龙料理无无限Strength/Resistance/Regeneration，无Resistance II。Ghost、Warped、Tropical Strider、Dream等特色玩法保留。原版Potion、Beacon、Golden Apple和此前明确保留的FD/More Delight短治疗不受影响。

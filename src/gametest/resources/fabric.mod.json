@@ -14,6 +14,7 @@
       "com.davidblackcn.buildupvitals.TavernGameTests",
       "com.davidblackcn.buildupvitals.NetherGameTests",
       "com.davidblackcn.buildupvitals.EndGameTests",
+      "com.davidblackcn.buildupvitals.KaleidoscopeJointGameTests",
       "com.davidblackcn.buildupvitals.RecoveryGameTests",
       "com.davidblackcn.buildupvitals.MealBenefitGameTests",
       "com.davidblackcn.buildupvitals.DietGameTests",
