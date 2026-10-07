@@ -30,5 +30,8 @@
   "message.buildup_vitals.overeat_warning": "吃得有点撑，让胃休息一会儿吧。",
   "tooltip.buildup_vitals.consumption.quick": "轻快进食",
   "tooltip.buildup_vitals.consumption.fast": "快速进食",
-  "effect.buildup_vitals.foreign_nourishment.description": "食物恢复：10 tick/HP；活动耗竭：-10%"
+  "effect.buildup_vitals.foreign_nourishment.description": "食物恢复：10 tick/HP；活动耗竭：-10%",
+  "effect.buildup_vitals.foreign.kaleidoscope_cookery.vigor": "活动消耗 -10%",
+  "effect.buildup_vitals.foreign.kaleidoscope_cookery.warmth": "稳定恢复：热源旁 64 tick / 下界 72 tick",
+  "effect.buildup_vitals.foreign.kaleidoscope_cookery.satiated_shield": "饥饿值 ≥18：减伤 20%，至多 4 HP；消耗饱和度"
 }

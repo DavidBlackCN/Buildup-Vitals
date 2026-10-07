@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_cookery:slime_ball_meal"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 0,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [],
+    "variety_group": "kaleidoscope_cookery:slime_ball_meal"
+  }
+}

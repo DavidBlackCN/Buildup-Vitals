@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_cookery:warped_fungus_pot_soup"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 3
+  },
+  "hydration": {
+    "thirst": 6,
+    "quenched": 4
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "vegetable"
+    ],
+    "variety_group": "kaleidoscope_cookery:warped_fungus_pot_soup"
+  },
+  "traits": [
+    "soup",
+    "warm"
+  ]
+}

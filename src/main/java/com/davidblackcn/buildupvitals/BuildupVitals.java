@@ -21,6 +21,7 @@ public final class BuildupVitals implements ModInitializer {
     public void onInitialize() {
         com.davidblackcn.buildupvitals.compat.farmersdelight.FarmersDelightCompatibility.register();
         com.davidblackcn.buildupvitals.compat.moredelight.MoreDelightCompatibility.register();
+        com.davidblackcn.buildupvitals.compat.kaleidoscope.common.KaleidoscopeCompatibility.register();
         FoodProfileLoader.register();
         HydrationAdapter.register();
         FoodProfileSync.register();

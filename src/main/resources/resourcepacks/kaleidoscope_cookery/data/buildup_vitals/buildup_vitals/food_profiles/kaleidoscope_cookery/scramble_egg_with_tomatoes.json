@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_cookery:scramble_egg_with_tomatoes"
+  },
+  "quality": "prepared",
+  "recovery": {
+    "health": 2
+  },
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "vegetable"
+    ],
+    "variety_group": "kaleidoscope_cookery:scramble_egg_with_tomatoes"
+  },
+  "meal_benefit": "kaleidoscope_cookery:vigor"
+}

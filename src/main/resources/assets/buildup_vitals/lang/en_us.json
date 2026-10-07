@@ -30,5 +30,8 @@
   "message.buildup_vitals.overeat_warning": "Feeling full. Give yourself time to digest.",
   "tooltip.buildup_vitals.consumption.quick": "Quick eating",
   "tooltip.buildup_vitals.consumption.fast": "Fast eating",
-  "effect.buildup_vitals.foreign_nourishment.description": "Food recovery: 10 ticks/HP; activity exhaustion: -10%"
+  "effect.buildup_vitals.foreign_nourishment.description": "Food recovery: 10 ticks/HP; activity exhaustion: -10%",
+  "effect.buildup_vitals.foreign.kaleidoscope_cookery.vigor": "Activity exhaustion -10%",
+  "effect.buildup_vitals.foreign.kaleidoscope_cookery.warmth": "Stable recovery: 64 ticks near heat / 72 in the Nether",
+  "effect.buildup_vitals.foreign.kaleidoscope_cookery.satiated_shield": "Hunger ≥18: -20% damage, up to 4 HP; costs Saturation"
 }

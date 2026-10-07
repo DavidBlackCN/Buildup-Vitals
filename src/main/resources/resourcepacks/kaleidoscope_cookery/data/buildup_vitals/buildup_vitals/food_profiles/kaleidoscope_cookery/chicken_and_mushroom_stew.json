@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_cookery:chicken_and_mushroom_stew"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 3
+  },
+  "hydration": {
+    "thirst": 6,
+    "quenched": 4
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "vegetable"
+    ],
+    "variety_group": "kaleidoscope_cookery:chicken_and_mushroom_stew"
+  },
+  "traits": [
+    "soup",
+    "warm"
+  ]
+}

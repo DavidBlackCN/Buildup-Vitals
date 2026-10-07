@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_cookery:cooked_donkey_meat"
+  },
+  "quality": "basic",
+  "recovery": {
+    "health": 1
+  },
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "quick"
+  },
+  "diet": {
+    "categories": [
+      "protein"
+    ],
+    "variety_group": "kaleidoscope_cookery:donkey_meat"
+  }
+}

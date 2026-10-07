@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_cookery:golden_salad"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 2
+  },
+  "hydration": {
+    "thirst": 5,
+    "quenched": 3
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "fruit",
+      "vegetable"
+    ],
+    "variety_group": "kaleidoscope_cookery:golden_salad"
+  }
+}

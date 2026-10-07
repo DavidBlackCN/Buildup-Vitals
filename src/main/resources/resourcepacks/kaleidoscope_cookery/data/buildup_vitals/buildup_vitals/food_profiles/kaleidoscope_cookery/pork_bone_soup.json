@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_cookery:pork_bone_soup"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 3
+  },
+  "hydration": {
+    "thirst": 6,
+    "quenched": 4
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein"
+    ],
+    "variety_group": "kaleidoscope_cookery:pork_bone_soup"
+  },
+  "meal_benefit": "kaleidoscope_cookery:vigor",
+  "traits": [
+    "soup",
+    "warm"
+  ]
+}

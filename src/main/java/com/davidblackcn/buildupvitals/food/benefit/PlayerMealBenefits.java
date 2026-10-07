@@ -50,6 +50,9 @@ public final class PlayerMealBenefits {
         foodConsumed(player, profile, durationMultiplier, net.minecraft.world.item.ItemStack.EMPTY);
     }
     public static void foodConsumed(ServerPlayer player, FoodProfile profile, double durationMultiplier, net.minecraft.world.item.ItemStack stack) {
+        foodConsumed(player, profile, durationMultiplier, stack, 1);
+    }
+    public static void foodConsumed(ServerPlayer player, FoodProfile profile, double durationMultiplier, net.minecraft.world.item.ItemStack stack, double portion) {
         migrate(player);
         if (!PlayerOvereat.active(player) || PlayerOvereat.overfull(player) || profile.mealBenefit().filter(MealBenefitRegistry::available).isEmpty()) return;
         var incoming = profile.mealBenefit().orElseThrow();
@@ -69,7 +72,8 @@ public final class PlayerMealBenefits {
         var current = player.getEffect(holder);
         // Food never shortens an operator-supplied longer/infinite effect of the same kind.
         if (current != null && current.isInfiniteDuration()) return;
-        int duration = current == null ? granted.remainingTicks() : Math.max(current.getDuration(), granted.remainingTicks());
+        int portionDuration = Math.max(1, (int) Math.floor(granted.remainingTicks() * portion));
+        int duration = current == null ? portionDuration : Math.max(current.getDuration(), portionDuration);
         for (var other : ForeignMealBenefits.mainEffects()) if (!other.equals(holder)) player.removeEffect(other);
         player.addEffect(new MobEffectInstance(holder, duration, 0, false, false, true));
     }

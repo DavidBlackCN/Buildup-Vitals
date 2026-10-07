@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_cookery:scramble_egg_with_tomatoes_rice_bowl"
+  },
+  "quality": "meal",
+  "recovery": {
+    "health": 3
+  },
+  "hydration": {
+    "thirst": 1,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein",
+      "vegetable",
+      "grain"
+    ],
+    "variety_group": "kaleidoscope_cookery:scramble_egg_with_tomatoes"
+  },
+  "meal_benefit": "kaleidoscope_cookery:vigor"
+}

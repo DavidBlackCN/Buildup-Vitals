@@ -19,11 +19,13 @@ public final class FoodTooltips {
 
     public static void register() {
         ItemTooltipCallback.EVENT.register((stack, context, flag, lines) -> {
+            lines.removeIf(line -> KaleidoscopeTooltips.suppress(stack, line));
             if (ClientFoodProfiles.available() && com.davidblackcn.buildupvitals.hydration.HydrationAdapter.enabled()
                     && !net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("appleskin")) {
                 com.davidblackcn.buildupvitals.compat.thirst.ThirstBridge.appendHydration(stack, lines);
             }
-            if ((!stack.has(DataComponents.FOOD) && !com.davidblackcn.buildupvitals.compat.farmersdelight.FarmersDelightCompatibility.beverage(stack)) || !stack.has(DataComponents.CONSUMABLE)) return;
+            if (!KaleidoscopeTooltips.hasProfile(stack) && ((!stack.has(DataComponents.FOOD)
+                    && !com.davidblackcn.buildupvitals.compat.farmersdelight.FarmersDelightCompatibility.beverage(stack)) || !stack.has(DataComponents.CONSUMABLE))) return;
             var item = BuiltInRegistries.ITEM.getKey(stack.getItem());
             ClientFoodProfiles.find(item).ifPresent(profile -> append(profile, flag.isAdvanced(), lines));
         });

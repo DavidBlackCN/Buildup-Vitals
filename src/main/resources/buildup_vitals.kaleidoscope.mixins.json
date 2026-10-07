@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.davidblackcn.buildupvitals.compat.kaleidoscope.common.mixin",
+  "plugin": "com.davidblackcn.buildupvitals.compat.kaleidoscope.common.KaleidoscopeMixinPlugin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "CuisineGrantMixin",
+    "CuisineFoodEffectMixin"
+  ],
+  "injectors": { "defaultRequire": 1 }
+}

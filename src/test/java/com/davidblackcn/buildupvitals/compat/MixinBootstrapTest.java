@@ -13,7 +13,8 @@ class MixinBootstrapTest {
         try (var isolated = new URLClassLoader(new java.net.URL[]{classes}, getClass().getClassLoader()) {
             @Override protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
                 if (name.startsWith("net.minecraft.") || name.startsWith("vectorwing.farmersdelight.")
-                        || name.startsWith("com.thirstwastaken2.")) {
+                        || name.startsWith("com.thirstwastaken2.") || name.startsWith("com.github.ysbbbbbb.kaleidoscopecookery.")
+                        || name.startsWith("com.bmt.kaleidoscope_")) {
                     throw new ClassNotFoundException("Game/optional classes must not load during Mixin selection: " + name);
                 }
                 if (name.startsWith("com.davidblackcn.buildupvitals.")) {
@@ -25,7 +26,7 @@ class MixinBootstrapTest {
                 return super.loadClass(name, resolve);
             }
         }) {
-            for (String plugin : new String[]{"farmersdelight.FarmersDelightMixinPlugin", "thirst.ThirstMixinPlugin"}) {
+            for (String plugin : new String[]{"farmersdelight.FarmersDelightMixinPlugin", "thirst.ThirstMixinPlugin", "kaleidoscope.common.KaleidoscopeMixinPlugin"}) {
                 var instance = (IMixinConfigPlugin) isolated.loadClass("com.davidblackcn.buildupvitals.compat." + plugin)
                         .getConstructor().newInstance();
                 // Unit tests have no installed mods; selection still must not initialize game classes.

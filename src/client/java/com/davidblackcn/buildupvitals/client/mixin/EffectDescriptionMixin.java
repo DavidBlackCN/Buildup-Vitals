@@ -22,9 +22,11 @@ public abstract class EffectDescriptionMixin {
             int x, int y, int width, int step, int mouseX, int mouseY, CallbackInfo ci) {
         if (mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + step
                 && name.getContents() instanceof TranslatableContents text && (text.getKey().startsWith("effect.buildup_vitals.")
-                || (com.davidblackcn.buildupvitals.compat.farmersdelight.FarmersDelightCompatibility.supported() && text.getKey().equals("effect.farmersdelight.nourishment")))) {
+                || (com.davidblackcn.buildupvitals.compat.farmersdelight.FarmersDelightCompatibility.supported() && text.getKey().equals("effect.farmersdelight.nourishment"))
+                || com.davidblackcn.buildupvitals.client.KaleidoscopeTooltips.description(text.getKey()).isPresent())) {
             graphics.setTooltipForNextFrame(font, List.of(name, duration,
-                    Component.translatable(text.getKey().equals("effect.farmersdelight.nourishment") ? "effect.buildup_vitals.foreign_nourishment.description" : text.getKey() + ".description").withStyle(ChatFormatting.GRAY)), Optional.empty(), mouseX, mouseY);
+                    Component.translatable(com.davidblackcn.buildupvitals.client.KaleidoscopeTooltips.description(text.getKey()).orElse(
+                            text.getKey().equals("effect.farmersdelight.nourishment") ? "effect.buildup_vitals.foreign_nourishment.description" : text.getKey() + ".description")).withStyle(ChatFormatting.GRAY)), Optional.empty(), mouseX, mouseY);
         }
     }
 }

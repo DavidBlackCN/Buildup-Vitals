@@ -9,15 +9,16 @@ import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
 @Mixin(ApplyStatusEffectsConsumeEffect.class)
 public abstract class NourishmentFoodMixin {
-    @Redirect(method = "apply(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;)Z",
+    @WrapOperation(method = "apply(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;)Z",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;addEffect(Lnet/minecraft/world/effect/MobEffectInstance;)Z"), require = 1, allow = 1)
-    private boolean buildupVitals$profileOwnsGrant(LivingEntity entity, MobEffectInstance effect, Level level, ItemStack stack, LivingEntity user) {
+    private boolean buildupVitals$profileOwnsGrant(LivingEntity entity, MobEffectInstance effect, Operation<Boolean> original, Level level, ItemStack stack, LivingEntity user) {
         if (entity instanceof ServerPlayer player && FarmersDelightCompatibility.nourishment(effect)
                 && !FarmersDelightCompatibility.allowFoodEffect(player, stack)) return false;
-        return entity.addEffect(effect);
+        return original.call(entity, effect);
     }
 }

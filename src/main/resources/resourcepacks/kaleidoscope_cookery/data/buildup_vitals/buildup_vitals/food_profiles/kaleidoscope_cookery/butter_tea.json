@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_cookery:butter_tea"
+  },
+  "quality": "basic",
+  "recovery": {
+    "health": 0
+  },
+  "hydration": {
+    "thirst": 8,
+    "quenched": 6
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "dairy"
+    ],
+    "variety_group": "buildup_vitals:tea"
+  },
+  "traits": [
+    "drink"
+  ]
+}

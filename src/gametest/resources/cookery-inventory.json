@@ -1,0 +1,1684 @@
+[
+  {
+    "id": "clay_pot_milk_tea",
+    "class": "ClayPotMilkTeaItem",
+    "bites": 0,
+    "nutrition": 0,
+    "saturation": 0.0,
+    "effects": []
+  },
+  {
+    "id": "cold_cut_ham_slices",
+    "class": "LiftBlockItem",
+    "bites": 8,
+    "nutrition": 0,
+    "saturation": 0.0,
+    "effects": []
+  },
+  {
+    "id": "transmutation_lunch_bag",
+    "class": "TransmutationLunchBagItem",
+    "bites": 0,
+    "nutrition": 0,
+    "saturation": 0.0,
+    "effects": []
+  },
+  {
+    "id": "tomato",
+    "class": "Item",
+    "bites": 0,
+    "nutrition": 2,
+    "saturation": 2.0,
+    "effects": []
+  },
+  {
+    "id": "red_chili",
+    "class": "RedChiliItem",
+    "bites": 0,
+    "nutrition": 1,
+    "saturation": 0.0,
+    "effects": []
+  },
+  {
+    "id": "green_chili",
+    "class": "GreenChiliItem",
+    "bites": 0,
+    "nutrition": 1,
+    "saturation": 0.0,
+    "effects": []
+  },
+  {
+    "id": "lettuce",
+    "class": "Item",
+    "bites": 0,
+    "nutrition": 2,
+    "saturation": 0.0,
+    "effects": []
+  },
+  {
+    "id": "caterpillar",
+    "class": "WithTooltipsItem",
+    "bites": 0,
+    "nutrition": 18,
+    "saturation": 7.2000003,
+    "effects": [
+      {
+        "id": "minecraft:nausea",
+        "ticks": 200,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "fried_egg",
+    "class": "Item",
+    "bites": 0,
+    "nutrition": 4,
+    "saturation": 4.0,
+    "effects": []
+  },
+  {
+    "id": "tea_egg",
+    "class": "FoodWithEffectsItem",
+    "bites": 0,
+    "nutrition": 4,
+    "saturation": 4.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:sulfur",
+        "ticks": 1200,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "donkey_burger",
+    "class": "FoodWithEffectsItem",
+    "bites": 0,
+    "nutrition": 12,
+    "saturation": 19.2,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:satiated_shield",
+        "ticks": 900,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "mantou",
+    "class": "FoodWithEffectsItem",
+    "bites": 0,
+    "nutrition": 6,
+    "saturation": 10.799999,
+    "effects": []
+  },
+  {
+    "id": "baozi",
+    "class": "FoodWithEffectsItem",
+    "bites": 0,
+    "nutrition": 8,
+    "saturation": 16.0,
+    "effects": [
+      {
+        "id": "minecraft:absorption",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "shengjian_mantou",
+    "class": "FoodWithEffectsItem",
+    "bites": 0,
+    "nutrition": 8,
+    "saturation": 16.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "qingtuan",
+    "class": "FoodWithEffectsItem",
+    "bites": 0,
+    "nutrition": 5,
+    "saturation": 6.0,
+    "effects": []
+  },
+  {
+    "id": "sticky_candy",
+    "class": "FoodWithEffectsItem",
+    "bites": 0,
+    "nutrition": 6,
+    "saturation": 12.0,
+    "effects": []
+  },
+  {
+    "id": "sticky_rice_cake",
+    "class": "FoodWithEffectsItem",
+    "bites": 0,
+    "nutrition": 8,
+    "saturation": 14.0,
+    "effects": []
+  },
+  {
+    "id": "zongzi",
+    "class": "FoodWithEffectsItem",
+    "bites": 0,
+    "nutrition": 8,
+    "saturation": 10.0,
+    "effects": [
+      {
+        "id": "minecraft:regeneration",
+        "ticks": 400,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "bamboo_tube_rice",
+    "class": "BambooTubeRiceBlockItem",
+    "bites": 0,
+    "nutrition": 10,
+    "saturation": 10.0,
+    "effects": []
+  },
+  {
+    "id": "samsa",
+    "class": "FoodWithEffectsItem",
+    "bites": 0,
+    "nutrition": 8,
+    "saturation": 16.0,
+    "effects": [
+      {
+        "id": "minecraft:haste",
+        "ticks": 2000,
+        "amplifier": 1
+      }
+    ]
+  },
+  {
+    "id": "meat_pie",
+    "class": "FoodWithEffectsItem",
+    "bites": 0,
+    "nutrition": 8,
+    "saturation": 16.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "dumpling",
+    "class": "Item",
+    "bites": 0,
+    "nutrition": 8,
+    "saturation": 16.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "cooked_rice",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 6,
+    "saturation": 3.6000001,
+    "effects": []
+  },
+  {
+    "id": "scramble_egg_with_tomatoes",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 6,
+    "saturation": 3.6000001,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:vigor",
+        "ticks": 1400,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 900,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "scramble_egg_with_tomatoes_rice_bowl",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 12,
+    "saturation": 12.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:vigor",
+        "ticks": 1400,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 900,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "stir_fried_beef_offal",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 7,
+    "saturation": 4.2000003,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:flatulence",
+        "ticks": 600,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 1200,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "stir_fried_beef_offal_rice_bowl",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 14,
+    "saturation": 11.2,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:flatulence",
+        "ticks": 600,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 1200,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "braised_beef",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 8,
+    "saturation": 4.8,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:flatulence",
+        "ticks": 1000,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:satiated_shield",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "braised_beef_rice_bowl",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 16,
+    "saturation": 12.8,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:flatulence",
+        "ticks": 1000,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:satiated_shield",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "stir_fried_pork_with_peppers",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 7,
+    "saturation": 5.6,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:mustard",
+        "ticks": 2400,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:resistance",
+        "ticks": 2000,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "stir_fried_pork_with_peppers_rice_bowl",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 15,
+    "saturation": 12.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:mustard",
+        "ticks": 2400,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:resistance",
+        "ticks": 2000,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "sweet_and_sour_pork",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 6,
+    "saturation": 3.6000001,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:satiated_shield",
+        "ticks": 1600,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:luck",
+        "ticks": 4200,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "sweet_and_sour_pork_rice_bowl",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 14,
+    "saturation": 11.2,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:satiated_shield",
+        "ticks": 1600,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:luck",
+        "ticks": 4200,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "country_style_mixed_vegetables",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 4,
+    "saturation": 3.2,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:preservation",
+        "ticks": 4400,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:vigor",
+        "ticks": 900,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "fish_flavored_shredded_pork",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 7,
+    "saturation": 2.8,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:satiated_shield",
+        "ticks": 2400,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 900,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "fish_flavored_shredded_pork_rice_bowl",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 14,
+    "saturation": 11.2,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:satiated_shield",
+        "ticks": 2400,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 900,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "braised_fish_rice_bowl",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 14,
+    "saturation": 11.2,
+    "effects": [
+      {
+        "id": "minecraft:water_breathing",
+        "ticks": 3600,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:satiated_shield",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "spicy_chicken_rice_bowl",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 14,
+    "saturation": 11.2,
+    "effects": [
+      {
+        "id": "minecraft:fire_resistance",
+        "ticks": 1600,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:resistance",
+        "ticks": 2000,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "suspicious_stir_fry_rice_bowl",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 8,
+    "saturation": 6.4,
+    "effects": [
+      {
+        "id": "minecraft:speed",
+        "ticks": 1200,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:haste",
+        "ticks": 1200,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:luck",
+        "ticks": 1200,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:mining_fatigue",
+        "ticks": 1200,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:nausea",
+        "ticks": 1200,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:jump_boost",
+        "ticks": 1200,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "egg_fried_rice",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 9,
+    "saturation": 5.4,
+    "effects": []
+  },
+  {
+    "id": "delicious_egg_fried_rice",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 12,
+    "saturation": 9.6,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 900,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "pork_bone_soup",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 2,
+    "saturation": 2.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:vigor",
+        "ticks": 3600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "seafood_miso_soup",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 4,
+    "saturation": 2.4,
+    "effects": [
+      {
+        "id": "minecraft:water_breathing",
+        "ticks": 3600,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:dolphins_grace",
+        "ticks": 800,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "fearsome_thick_soup",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 2,
+    "saturation": 2.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:sulfur",
+        "ticks": 9600,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:mustard",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "lamb_and_radish_soup",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 4,
+    "saturation": 3.2,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:tundra_strider",
+        "ticks": 3200,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "braised_beef_with_potatoes",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 5,
+    "saturation": 4.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 5400,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "wild_mushroom_rabbit_soup",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 4,
+    "saturation": 3.2,
+    "effects": [
+      {
+        "id": "minecraft:speed",
+        "ticks": 600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "tomato_beef_brisket_soup",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 5,
+    "saturation": 4.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:satiated_shield",
+        "ticks": 3600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "pufferfish_soup",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 2,
+    "saturation": 3.2,
+    "effects": [
+      {
+        "id": "minecraft:poison",
+        "ticks": 300,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:mustard",
+        "ticks": 3600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "borscht",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 4,
+    "saturation": 3.2,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:flatulence",
+        "ticks": 3000,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "beef_meatball_soup",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 5,
+    "saturation": 4.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:preservation",
+        "ticks": 3600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "chicken_and_mushroom_stew",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 4,
+    "saturation": 3.2,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 5400,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "donkey_soup",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 6,
+    "saturation": 8.004,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 9600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "laba_congee",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 12,
+    "saturation": 12.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 6000,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "beef_noodle",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 14,
+    "saturation": 18.004,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:vitality",
+        "ticks": 9600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "hui_noodle",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 14,
+    "saturation": 18.004,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:vitality",
+        "ticks": 9600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "udon_noodle",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 14,
+    "saturation": 18.004,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:vitality",
+        "ticks": 9600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "hot_dry_noodles",
+    "class": "BowlFoodOnlyItem",
+    "bites": 0,
+    "nutrition": 14,
+    "saturation": 18.004,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:vitality",
+        "ticks": 9600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "sashimi",
+    "class": "Item",
+    "bites": 0,
+    "nutrition": 1,
+    "saturation": 1.0,
+    "effects": []
+  },
+  {
+    "id": "raw_lamb_chops",
+    "class": "Item",
+    "bites": 0,
+    "nutrition": 1,
+    "saturation": 1.0,
+    "effects": []
+  },
+  {
+    "id": "raw_cow_offal",
+    "class": "Item",
+    "bites": 0,
+    "nutrition": 2,
+    "saturation": 1.2,
+    "effects": []
+  },
+  {
+    "id": "raw_pork_belly",
+    "class": "Item",
+    "bites": 0,
+    "nutrition": 2,
+    "saturation": 1.2,
+    "effects": []
+  },
+  {
+    "id": "raw_donkey_meat",
+    "class": "Item",
+    "bites": 0,
+    "nutrition": 2,
+    "saturation": 1.2,
+    "effects": []
+  },
+  {
+    "id": "raw_cut_small_meats",
+    "class": "Item",
+    "bites": 0,
+    "nutrition": 2,
+    "saturation": 1.2,
+    "effects": []
+  },
+  {
+    "id": "raw_meatball",
+    "class": "Item",
+    "bites": 0,
+    "nutrition": 4,
+    "saturation": 2.4,
+    "effects": []
+  },
+  {
+    "id": "cooked_lamb_chops",
+    "class": "Item",
+    "bites": 0,
+    "nutrition": 3,
+    "saturation": 4.8,
+    "effects": []
+  },
+  {
+    "id": "cooked_cow_offal",
+    "class": "Item",
+    "bites": 0,
+    "nutrition": 4,
+    "saturation": 6.4,
+    "effects": []
+  },
+  {
+    "id": "cooked_pork_belly",
+    "class": "Item",
+    "bites": 0,
+    "nutrition": 4,
+    "saturation": 6.4,
+    "effects": []
+  },
+  {
+    "id": "cooked_donkey_meat",
+    "class": "Item",
+    "bites": 0,
+    "nutrition": 6,
+    "saturation": 9.6,
+    "effects": []
+  },
+  {
+    "id": "cooked_cut_small_meats",
+    "class": "Item",
+    "bites": 0,
+    "nutrition": 4,
+    "saturation": 6.4,
+    "effects": []
+  },
+  {
+    "id": "cooked_meatball",
+    "class": "Item",
+    "bites": 0,
+    "nutrition": 8,
+    "saturation": 12.8,
+    "effects": []
+  },
+  {
+    "id": "mystery_tea",
+    "class": "TeacupItem",
+    "bites": 0,
+    "nutrition": 0,
+    "saturation": 0.0,
+    "effects": []
+  },
+  {
+    "id": "butter_tea",
+    "class": "TeacupItem",
+    "bites": 0,
+    "nutrition": 0,
+    "saturation": 0.0,
+    "effects": []
+  },
+  {
+    "id": "barley_tea",
+    "class": "TeacupItem",
+    "bites": 0,
+    "nutrition": 0,
+    "saturation": 0.0,
+    "effects": []
+  },
+  {
+    "id": "tieguanyin",
+    "class": "TeacupItem",
+    "bites": 0,
+    "nutrition": 0,
+    "saturation": 0.0,
+    "effects": []
+  },
+  {
+    "id": "biluochun",
+    "class": "TeacupItem",
+    "bites": 0,
+    "nutrition": 0,
+    "saturation": 0.0,
+    "effects": []
+  },
+  {
+    "id": "oolong",
+    "class": "TeacupItem",
+    "bites": 0,
+    "nutrition": 0,
+    "saturation": 0.0,
+    "effects": []
+  },
+  {
+    "id": "sakura_fubuki",
+    "class": "TeacupItem",
+    "bites": 0,
+    "nutrition": 0,
+    "saturation": 0.0,
+    "effects": []
+  },
+  {
+    "id": "flower_tea",
+    "class": "TeacupItem",
+    "bites": 0,
+    "nutrition": 0,
+    "saturation": 0.0,
+    "effects": []
+  },
+  {
+    "id": "dark_cuisine",
+    "class": "BowlFoodBlockItem",
+    "bites": 3,
+    "nutrition": 2,
+    "saturation": 0.0,
+    "effects": [
+      {
+        "id": "minecraft:blindness",
+        "ticks": 300,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:poison",
+        "ticks": 100,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "suspicious_stir_fry",
+    "class": "BowlFoodBlockItem",
+    "bites": 1,
+    "nutrition": 4,
+    "saturation": 3.2,
+    "effects": [
+      {
+        "id": "minecraft:speed",
+        "ticks": 1200,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:jump_boost",
+        "ticks": 1200,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:haste",
+        "ticks": 1200,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:luck",
+        "ticks": 1200,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:mining_fatigue",
+        "ticks": 1200,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:nausea",
+        "ticks": 400,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "slime_ball_meal",
+    "class": "BowlFoodBlockItem",
+    "bites": 3,
+    "nutrition": 4,
+    "saturation": 0.0,
+    "effects": [
+      {
+        "id": "minecraft:jump_boost",
+        "ticks": 1000,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "fondant_pie",
+    "class": "BowlFoodBlockItem",
+    "bites": 4,
+    "nutrition": 9,
+    "saturation": 9.0,
+    "effects": [
+      {
+        "id": "minecraft:luck",
+        "ticks": 2800,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:regeneration",
+        "ticks": 200,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "dongpo_pork",
+    "class": "BowlFoodBlockItem",
+    "bites": 3,
+    "nutrition": 15,
+    "saturation": 12.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:satiated_shield",
+        "ticks": 1600,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 800,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "fondant_spider_eye",
+    "class": "BowlFoodBlockItem",
+    "bites": 4,
+    "nutrition": 6,
+    "saturation": 6.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:sulfur",
+        "ticks": 1000,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "chorus_fried_egg",
+    "class": "BowlFoodBlockItem",
+    "bites": 3,
+    "nutrition": 9,
+    "saturation": 12.599999,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:flatulence",
+        "ticks": 400,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:resistance",
+        "ticks": 2000,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "braised_fish",
+    "class": "BowlFoodBlockItem",
+    "bites": 4,
+    "nutrition": 8,
+    "saturation": 12.8,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:satiated_shield",
+        "ticks": 1600,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:water_breathing",
+        "ticks": 3600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "spicy_chicken",
+    "class": "BowlFoodBlockItem",
+    "bites": 4,
+    "nutrition": 8,
+    "saturation": 12.8,
+    "effects": [
+      {
+        "id": "minecraft:fire_resistance",
+        "ticks": 1600,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:regeneration",
+        "ticks": 2000,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "yakitori",
+    "class": "BowlFoodBlockItem",
+    "bites": 4,
+    "nutrition": 10,
+    "saturation": 12.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:satiated_shield",
+        "ticks": 1600,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 800,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "pan_seared_knight_steak",
+    "class": "BowlFoodBlockItem",
+    "bites": 4,
+    "nutrition": 10,
+    "saturation": 8.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:satiated_shield",
+        "ticks": 1600,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 800,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "stargazy_pie",
+    "class": "BowlFoodBlockItem",
+    "bites": 4,
+    "nutrition": 6,
+    "saturation": 8.4,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:flatulence",
+        "ticks": 600,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:unluck",
+        "ticks": 3600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "sweet_and_sour_ender_pearls",
+    "class": "BowlFoodBlockItem",
+    "bites": 3,
+    "nutrition": 3,
+    "saturation": 3.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:flatulence",
+        "ticks": 400,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:slow_falling",
+        "ticks": 600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "crystal_lamb_chop",
+    "class": "BowlFoodBlockItem",
+    "bites": 3,
+    "nutrition": 10,
+    "saturation": 8.0,
+    "effects": [
+      {
+        "id": "minecraft:haste",
+        "ticks": 1200,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "blaze_lamb_chop",
+    "class": "BowlFoodBlockItem",
+    "bites": 3,
+    "nutrition": 10,
+    "saturation": 8.0,
+    "effects": [
+      {
+        "id": "minecraft:fire_resistance",
+        "ticks": 1600,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:resistance",
+        "ticks": 2000,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "frost_lamb_chop",
+    "class": "BowlFoodBlockItem",
+    "bites": 3,
+    "nutrition": 10,
+    "saturation": 8.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:tundra_strider",
+        "ticks": 900,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:resistance",
+        "ticks": 2000,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "nether_style_sashimi",
+    "class": "BowlFoodBlockItem",
+    "bites": 4,
+    "nutrition": 12,
+    "saturation": 9.6,
+    "effects": [
+      {
+        "id": "minecraft:fire_resistance",
+        "ticks": 1600,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:resistance",
+        "ticks": 2000,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "end_style_sashimi",
+    "class": "BowlFoodBlockItem",
+    "bites": 4,
+    "nutrition": 12,
+    "saturation": 9.6,
+    "effects": [
+      {
+        "id": "minecraft:slow_falling",
+        "ticks": 600,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:absorption",
+        "ticks": 800,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "desert_style_sashimi",
+    "class": "BowlFoodBlockItem",
+    "bites": 4,
+    "nutrition": 12,
+    "saturation": 9.6,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 800,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:mustard",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "tundra_style_sashimi",
+    "class": "BowlFoodBlockItem",
+    "bites": 4,
+    "nutrition": 12,
+    "saturation": 9.6,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:vigor",
+        "ticks": 900,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:preservation",
+        "ticks": 2400,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "cold_style_sashimi",
+    "class": "BowlFoodBlockItem",
+    "bites": 4,
+    "nutrition": 12,
+    "saturation": 9.6,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:tundra_strider",
+        "ticks": 900,
+        "amplifier": 0
+      },
+      {
+        "id": "kaleidoscope_cookery:vigor",
+        "ticks": 900,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "candied_potato",
+    "class": "BowlFoodBlockItem",
+    "bites": 3,
+    "nutrition": 20,
+    "saturation": 22.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "stuffed_tiger_skin_pepper",
+    "class": "BowlFoodBlockItem",
+    "bites": 5,
+    "nutrition": 13,
+    "saturation": 15.99,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "spicy_rabbit_head",
+    "class": "BowlFoodBlockItem",
+    "bites": 3,
+    "nutrition": 13,
+    "saturation": 15.99,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "fried_caterpillar",
+    "class": "BowlFoodBlockItem",
+    "bites": 3,
+    "nutrition": 12,
+    "saturation": 19.2,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:flatulence",
+        "ticks": 200,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "fried_spring_roll",
+    "class": "BowlFoodBlockItem",
+    "bites": 3,
+    "nutrition": 13,
+    "saturation": 15.99,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "fruit_platter",
+    "class": "BowlFoodBlockItem",
+    "bites": 4,
+    "nutrition": 13,
+    "saturation": 15.99,
+    "effects": []
+  },
+  {
+    "id": "braised_pork_ribs",
+    "class": "BowlFoodBlockItem",
+    "bites": 4,
+    "nutrition": 16,
+    "saturation": 25.6,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "cold_roasted_meat",
+    "class": "BowlFoodBlockItem",
+    "bites": 3,
+    "nutrition": 16,
+    "saturation": 25.6,
+    "effects": []
+  },
+  {
+    "id": "oil_splashed_fish",
+    "class": "BowlFoodBlockItem",
+    "bites": 5,
+    "nutrition": 13,
+    "saturation": 15.99,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "dough_drop_soup",
+    "class": "BowlFoodBlockItem",
+    "bites": 3,
+    "nutrition": 8,
+    "saturation": 16.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "four_joy_meatball_soup",
+    "class": "BowlFoodBlockItem",
+    "bites": 4,
+    "nutrition": 13,
+    "saturation": 15.99,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "numbing_spicy_chicken",
+    "class": "BowlFoodBlockItem",
+    "bites": 3,
+    "nutrition": 13,
+    "saturation": 15.99,
+    "effects": [
+      {
+        "id": "minecraft:fire_resistance",
+        "ticks": 2400,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "spicy_blood_stew",
+    "class": "BowlFoodBlockItem",
+    "bites": 3,
+    "nutrition": 13,
+    "saturation": 15.99,
+    "effects": [
+      {
+        "id": "minecraft:fire_resistance",
+        "ticks": 1600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "brown_mushroom_pot_soup",
+    "class": "BowlFoodBlockItem",
+    "bites": 2,
+    "nutrition": 18,
+    "saturation": 24.012,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 6000,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "red_mushroom_pot_soup",
+    "class": "BowlFoodBlockItem",
+    "bites": 2,
+    "nutrition": 18,
+    "saturation": 24.012,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 6000,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "warped_fungus_pot_soup",
+    "class": "BowlFoodBlockItem",
+    "bites": 2,
+    "nutrition": 18,
+    "saturation": 24.012,
+    "effects": [
+      {
+        "id": "minecraft:fire_resistance",
+        "ticks": 2400,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "crimson_fungus_pot_soup",
+    "class": "BowlFoodBlockItem",
+    "bites": 2,
+    "nutrition": 18,
+    "saturation": 24.012,
+    "effects": [
+      {
+        "id": "minecraft:fire_resistance",
+        "ticks": 2400,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "buddha_jumps_over_the_wall",
+    "class": "BowlFoodBlockItem",
+    "bites": 2,
+    "nutrition": 20,
+    "saturation": 22.0,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:satiated_shield",
+        "ticks": 3600,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "shelf_mushroom_pot_soup",
+    "class": "BowlFoodBlockItem",
+    "bites": 2,
+    "nutrition": 13,
+    "saturation": 17.342,
+    "effects": [
+      {
+        "id": "kaleidoscope_cookery:warmth",
+        "ticks": 6000,
+        "amplifier": 0
+      }
+    ]
+  },
+  {
+    "id": "golden_salad",
+    "class": "BowlFoodBlockItem",
+    "bites": 6,
+    "nutrition": 12,
+    "saturation": 16.8,
+    "effects": [
+      {
+        "id": "minecraft:resistance",
+        "ticks": 2000,
+        "amplifier": 0
+      },
+      {
+        "id": "minecraft:regeneration",
+        "ticks": 200,
+        "amplifier": 0
+      }
+    ]
+  }
+]

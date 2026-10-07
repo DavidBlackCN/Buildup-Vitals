@@ -21,3 +21,5 @@
 - 🐛 fix(ui): 区分调养与 FD 滋养名称，移除失效或重复的 Nourishment 食物提示，保留原生效果图标与短说明；恢复查询显示外来主增益的真实剩余时间。
 - 🐛 fix(compat): 将 FD Mixin 版本检查与运行时兼容类分离，避免准备阶段提前加载 Minecraft Identifier，修复与 Iris 同时安装时的启动崩溃，并增加启动类加载回归测试。
 - ✨ feat(compat): 可选支持 More Delight 26.09.16-26.3-fabric 的全部31种食品，补齐恢复、补水、质量、进食速度与饮食分组；沿用FD滋养的互斥和积食约束，保留原生时长、沙拉再生及容器，支持数据包覆盖并验证TWT2、AppleSkin与Iris组合。
+
+- ✨ feat(compat): add optional Kaleidoscope Cookery profiles, Vigor semantics, budgeted Satiated Shield and controller-based Warmth; integrate tea and portioned block-food consumption.

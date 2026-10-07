@@ -7,6 +7,12 @@ public final class ThirstBridge {
     private ThirstBridge() { }
 
     public static void invalidate() { ThirstApi.clearCache(); }
+    public static void drinkPortion(net.minecraft.server.level.ServerPlayer player, net.minecraft.world.item.ItemStack stack, int bite, int count) {
+        int[] values = ThirstApi.thirstValues(stack); // Includes blacklist and explicit-profile priority.
+        if (values != null && ThirstApi.isEnabled(player)) ThirstApi.drink(player,
+                com.davidblackcn.buildupvitals.compat.kaleidoscope.common.CuisineEffectBudget.portion(values[0], bite, count),
+                com.davidblackcn.buildupvitals.compat.kaleidoscope.common.CuisineEffectBudget.portion(values[1], bite, count));
+    }
     public static boolean quenchedRecovery(net.minecraft.world.entity.player.Player player) {
         return ThirstApi.isEnabled(player) && ThirstApi.thirst(player) == ThirstApi.maxThirst() && ThirstApi.quenched(player) > 0;
     }
