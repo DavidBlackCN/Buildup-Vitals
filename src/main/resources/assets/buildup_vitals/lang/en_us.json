@@ -34,5 +34,7 @@
   "effect.buildup_vitals.foreign.kaleidoscope_cookery.vigor": "Activity exhaustion -10%",
   "effect.buildup_vitals.foreign.kaleidoscope_cookery.warmth": "Stable recovery: 64 ticks near heat / 72 in the Nether",
   "effect.buildup_vitals.foreign.kaleidoscope_cookery.satiated_shield": "Hunger ≥18: -20% damage, up to 4 HP; costs Saturation",
-  "effect.buildup_vitals.foreign.kaleidoscope_tavern.bloody_mary": "Kills: reserve +10% of target max health (up to 2 HP)"
+  "effect.buildup_vitals.foreign.kaleidoscope_tavern.bloody_mary": "Kills: reserve +10% of target max health (up to 2 HP)",
+  "effect.buildup_vitals.foreign.kaleidoscope_nether.star_blessing": "Damage -20% · knockback resistance +50% · cleanse on gain",
+  "effect.buildup_vitals.foreign.kaleidoscope_nether.crimson": "Physical armor penetration 25%"
 }

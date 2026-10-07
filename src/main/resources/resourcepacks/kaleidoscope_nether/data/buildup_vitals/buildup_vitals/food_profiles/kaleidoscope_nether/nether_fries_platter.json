@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_nether:nether_fries_platter"
+  },
+  "quality": "feast",
+  "recovery": {
+    "health": 5
+  },
+  "hydration": {
+    "thirst": 0,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "vegetable"
+    ],
+    "variety_group": "buildup_vitals:nether_fries_platter"
+  }
+}

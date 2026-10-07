@@ -24,3 +24,4 @@
 
 - ✨ feat(compat): add optional Kaleidoscope Cookery profiles, Vigor semantics, budgeted Satiated Shield and controller-based Warmth; integrate tea and portioned block-food consumption.
 - ✨ feat(compat): integrate Kaleidoscope Tavern drink profiles and bounded cuisine effects
+- ✨ feat(compat): balance Kaleidoscope Nether effects and complete food profiles

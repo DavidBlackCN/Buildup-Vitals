@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_nether:gilded_barbaric_roast"
+  },
+  "quality": "feast",
+  "recovery": {
+    "health": 5
+  },
+  "hydration": {
+    "thirst": 0,
+    "quenched": 0
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein"
+    ],
+    "variety_group": "buildup_vitals:gilded_barbaric_roast"
+  }
+}

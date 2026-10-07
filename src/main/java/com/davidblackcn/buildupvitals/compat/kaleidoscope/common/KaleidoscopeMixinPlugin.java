@@ -13,7 +13,13 @@ public final class KaleidoscopeMixinPlugin implements IMixinConfigPlugin {
         return module.equals("common") ? KaleidoscopeVersion.TESTED.keySet().stream().anyMatch(KaleidoscopeVersion::supported)
                 : KaleidoscopeVersion.supported(module);
     }
-    @Override public void onLoad(String mixinPackage) { }
+    private static boolean selectorRegistered;
+    @Override public void onLoad(String mixinPackage) {
+        if (!selectorRegistered) {
+            org.spongepowered.asm.mixin.injection.selectors.TargetSelector.register(MergedCuisineHandler.class, "buildup");
+            selectorRegistered = true;
+        }
+    }
     @Override public String getRefMapperConfig() { return null; }
     @Override public void acceptTargets(Set<String> mine, Set<String> others) { }
     @Override public List<String> getMixins() { return null; }

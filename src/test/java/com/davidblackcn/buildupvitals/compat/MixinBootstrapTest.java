@@ -14,7 +14,7 @@ class MixinBootstrapTest {
             @Override protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
                 if (name.startsWith("net.minecraft.") || name.startsWith("vectorwing.farmersdelight.")
                         || name.startsWith("com.thirstwastaken2.") || name.startsWith("com.github.ysbbbbbb.kaleidoscopecookery.")
-                        || name.startsWith("com.bmt.kaleidoscope_")) {
+                        || name.startsWith("com.github.ysbbbbbb.kaleidoscopetavern.") || name.startsWith("com.bmt.kaleidoscope_")) {
                     throw new ClassNotFoundException("Game/optional classes must not load during Mixin selection: " + name);
                 }
                 if (name.startsWith("com.davidblackcn.buildupvitals.")) {

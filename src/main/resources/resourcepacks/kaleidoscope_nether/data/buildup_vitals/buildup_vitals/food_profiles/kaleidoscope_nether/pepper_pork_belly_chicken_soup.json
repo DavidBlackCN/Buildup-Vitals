@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "selector": {
+    "item": "kaleidoscope_nether:pepper_pork_belly_chicken_soup"
+  },
+  "quality": "feast",
+  "recovery": {
+    "health": 5
+  },
+  "hydration": {
+    "thirst": 6,
+    "quenched": 4
+  },
+  "consumption": {
+    "speed": "normal"
+  },
+  "diet": {
+    "categories": [
+      "protein"
+    ],
+    "variety_group": "buildup_vitals:pepper_pork_belly_chicken_soup"
+  }
+}

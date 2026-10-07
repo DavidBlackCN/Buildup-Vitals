@@ -1,0 +1,512 @@
+[
+  {
+    "id": "giant_beast_croissant",
+    "class": "Item",
+    "nutrition": 2,
+    "bites": 0
+  },
+  {
+    "id": "magma_sweet_and_sour_pork",
+    "class": "Item",
+    "nutrition": 2,
+    "bites": 0
+  },
+  {
+    "id": "everlasting_flame_steak",
+    "class": "EverlastingFoodItem",
+    "nutrition": 8,
+    "bites": 0
+  },
+  {
+    "id": "crimson_fruit",
+    "class": "SpecialFruitBlockItem",
+    "nutrition": 2,
+    "bites": 0
+  },
+  {
+    "id": "warped_fruit",
+    "class": "SpecialFruitBlockItem",
+    "nutrition": 2,
+    "bites": 0
+  },
+  {
+    "id": "nether_caterpillar",
+    "class": "NetherCaterpillarItem",
+    "nutrition": 18,
+    "bites": 0
+  },
+  {
+    "id": "soul_return_rice",
+    "class": "SoulReturnRiceItem",
+    "nutrition": 16,
+    "bites": 0
+  },
+  {
+    "id": "lava_roasted_chicken",
+    "class": "LavaRoastedChickenItem",
+    "nutrition": 13,
+    "bites": 0
+  },
+  {
+    "id": "star_stew",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 16,
+    "bites": 0
+  },
+  {
+    "id": "soul_pepper",
+    "class": "KNChiliItem",
+    "nutrition": 1,
+    "bites": 0
+  },
+  {
+    "id": "soul_soup",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 6,
+    "bites": 0
+  },
+  {
+    "id": "raw_strider_meat",
+    "class": "Item",
+    "nutrition": 2,
+    "bites": 0
+  },
+  {
+    "id": "cooked_strider_meat",
+    "class": "Item",
+    "nutrition": 6,
+    "bites": 0
+  },
+  {
+    "id": "ham",
+    "class": "Item",
+    "nutrition": 6,
+    "bites": 0
+  },
+  {
+    "id": "ham_slice",
+    "class": "Item",
+    "nutrition": 2,
+    "bites": 0
+  },
+  {
+    "id": "roasted_ham",
+    "class": "Item",
+    "nutrition": 10,
+    "bites": 0
+  },
+  {
+    "id": "roujiamo",
+    "class": "FoodWithEffectsItem",
+    "nutrition": 8,
+    "bites": 0
+  },
+  {
+    "id": "braised_strider",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "wither_bone_soup",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "strider_nether_wart_stew",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 13,
+    "bites": 0
+  },
+  {
+    "id": "ghast_kabob",
+    "class": "StickReturnFoodItem",
+    "nutrition": 8,
+    "bites": 0
+  },
+  {
+    "id": "ghast_tentacle",
+    "class": "Item",
+    "nutrition": 2,
+    "bites": 0
+  },
+  {
+    "id": "roasted_ghast_tentacle",
+    "class": "Item",
+    "nutrition": 6,
+    "bites": 0
+  },
+  {
+    "id": "ghast_pasta",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "magma_cream_soup",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 6,
+    "bites": 0
+  },
+  {
+    "id": "magma_cream_pudding",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 8,
+    "bites": 0
+  },
+  {
+    "id": "poisonous_fruit",
+    "class": "MysteriousPoisonFoodBlockItem",
+    "nutrition": 2,
+    "bites": 0
+  },
+  {
+    "id": "poisonous_soup",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 6,
+    "bites": 0
+  },
+  {
+    "id": "soul_glazed_roast",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 13,
+    "bites": 0
+  },
+  {
+    "id": "ghast_pudding",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "gilded_barbaric_roast",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 24,
+    "bites": 0
+  },
+  {
+    "id": "nether_caterpillar_sashimi",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 19,
+    "bites": 0
+  },
+  {
+    "id": "golden_roast",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 20,
+    "bites": 0
+  },
+  {
+    "id": "nether_fries_platter",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 20,
+    "bites": 0
+  },
+  {
+    "id": "hoglin_tusk_braised_meat",
+    "class": "FoodWithEffectsItem",
+    "nutrition": 20,
+    "bites": 0
+  },
+  {
+    "id": "poisonous_ghast_roast",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "soul_pepper_stir_fry",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "strider_shell_stir_fry",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 13,
+    "bites": 0
+  },
+  {
+    "id": "fruit_platter",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 10,
+    "bites": 0
+  },
+  {
+    "id": "ham_yogurt",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 13,
+    "bites": 0
+  },
+  {
+    "id": "sauerkraut_fish",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 7,
+    "bites": 0
+  },
+  {
+    "id": "blaze_soup",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 6,
+    "bites": 0
+  },
+  {
+    "id": "lava_jelly",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 8,
+    "bites": 0
+  },
+  {
+    "id": "crimson_salad",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 6,
+    "bites": 0
+  },
+  {
+    "id": "crimson_magma_stew",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "warped_salad",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 6,
+    "bites": 0
+  },
+  {
+    "id": "soul_strider_kabob",
+    "class": "StickReturnFoodItem",
+    "nutrition": 8,
+    "bites": 0
+  },
+  {
+    "id": "golden_kabob",
+    "class": "StickReturnFoodItem",
+    "nutrition": 10,
+    "bites": 0
+  },
+  {
+    "id": "blazing_kabob",
+    "class": "StickReturnFoodItem",
+    "nutrition": 8,
+    "bites": 0
+  },
+  {
+    "id": "crimson_kabob",
+    "class": "StickReturnFoodItem",
+    "nutrition": 4,
+    "bites": 0
+  },
+  {
+    "id": "warped_kabob",
+    "class": "StickReturnFoodItem",
+    "nutrition": 4,
+    "bites": 0
+  },
+  {
+    "id": "star_ghast_pasta",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 16,
+    "bites": 0
+  },
+  {
+    "id": "star_stew_meat",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 16,
+    "bites": 0
+  },
+  {
+    "id": "glowing_soup",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 6,
+    "bites": 0
+  },
+  {
+    "id": "glowing_pudding",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 8,
+    "bites": 0
+  },
+  {
+    "id": "glowing_kabob",
+    "class": "StickReturnFoodItem",
+    "nutrition": 4,
+    "bites": 0
+  },
+  {
+    "id": "glowing_salad",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 6,
+    "bites": 0
+  },
+  {
+    "id": "black_apple_salad",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 6,
+    "bites": 0
+  },
+  {
+    "id": "ruby_steak",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 20,
+    "bites": 0
+  },
+  {
+    "id": "nether_reed_stew",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 6,
+    "bites": 0
+  },
+  {
+    "id": "magma_cream_stir_fry",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "magma_cream_stir_fry_rice",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 14,
+    "bites": 0
+  },
+  {
+    "id": "mapo_tofu",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "mapo_tofu_rice",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 14,
+    "bites": 0
+  },
+  {
+    "id": "warped_cake",
+    "class": "FoodWithEffectsItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "chongqing_noodles",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 14,
+    "bites": 0
+  },
+  {
+    "id": "luosifen",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 14,
+    "bites": 0
+  },
+  {
+    "id": "soul_stir_fry_meat",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "soul_stir_fry_meat_rice",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 14,
+    "bites": 0
+  },
+  {
+    "id": "caramel_nether_caterpillar",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 18,
+    "bites": 0
+  },
+  {
+    "id": "caramel_nether_caterpillar_rice",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 19,
+    "bites": 0
+  },
+  {
+    "id": "raw_piglin_meat",
+    "class": "Item",
+    "nutrition": 3,
+    "bites": 0
+  },
+  {
+    "id": "cooked_piglin_meat",
+    "class": "Item",
+    "nutrition": 8,
+    "bites": 0
+  },
+  {
+    "id": "warped_hoglin_tenderloin_stew",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 10,
+    "bites": 0
+  },
+  {
+    "id": "spicy_hoglin_ramen",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 14,
+    "bites": 0
+  },
+  {
+    "id": "spicy_pot",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 9,
+    "bites": 0
+  },
+  {
+    "id": "spicy_pot_rice",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 14,
+    "bites": 0
+  },
+  {
+    "id": "forgetfulness_soup",
+    "class": "ForgetfulnessSoupItem",
+    "nutrition": 8,
+    "bites": 0
+  },
+  {
+    "id": "garlic_oysters",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 13,
+    "bites": 0
+  },
+  {
+    "id": "couples_lung_slice",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 13,
+    "bites": 0
+  },
+  {
+    "id": "pepper_pork_belly_chicken_soup",
+    "class": "BowlFoodOnlyItem",
+    "nutrition": 20,
+    "bites": 0
+  },
+  {
+    "id": "soul_lamb_chop",
+    "class": "KNBowlFoodBlockItem",
+    "nutrition": 13,
+    "bites": 3
+  },
+  {
+    "id": "corn_carrot_pork_rib_soup",
+    "class": "KNBowlFoodBlockItem",
+    "nutrition": 20,
+    "bites": 3
+  },
+  {
+    "id": "braised_pork_rice",
+    "class": "KNBowlFoodBlockItem",
+    "nutrition": 13,
+    "bites": 4
+  },
+  {
+    "id": "braised_lion_head",
+    "class": "KNBowlFoodBlockItem",
+    "nutrition": 16,
+    "bites": 5
+  }
+]
